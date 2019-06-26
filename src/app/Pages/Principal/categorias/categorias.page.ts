@@ -19,11 +19,16 @@ Categorias:any=[];
   ) { }
 
   ngOnInit() {
-    this.Categorias = this.ApiPrincipal.getCategorias();
+    this.ApiPrincipal.getCategorias().subscribe(data=>{
+      this.Categorias = data
+    });
   }
 
   openFirst() {
-    console.log(this.configuracion.getRutaImagenes())
     this.menu.toggle('first')
+  }
+
+  rutaImagen(){
+    return this.configuracion.getRutaImagenes()
   }
 }

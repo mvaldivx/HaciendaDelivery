@@ -1,3 +1,35 @@
 .my-custom-menu {
     --width: 500px;
   }
+
+  .Texto span{
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 28px !important;
+}
+/*@font-face{
+    font-family: 'Montserrat-Thin';
+    src: url('../../../../assets/typo/Montserrat/Montserrat-Thin.ttf') format('truetype');
+}
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../../assets/typo/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}*/
+.cards{
+    margin-bottom:10px;
+}
+.Titulo{
+    background: #b3a295ad;
+    width: auto;
+    height: 100%;
+}
+.Texto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-weight: 400 !important;
+}
+
+.Card{
+    margin:0;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-principal'
@@ -16,7 +16,7 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit() {}
 
-  getCategorias(){
+  getCategorias(): Observable<any>{
     return this.config.claim('Principal','GetCategorias','')
   }
 }

@@ -10,19 +10,18 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ConfiguracionComponent } from './Configuracion/configuracion/configuracion.component'
 import { PrincipalComponent } from './Api/Principal/principal/principal.component'
-import { HTTP } from '@ionic-native/http/ngx';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ConfiguracionComponent,
-    PrincipalComponent,
-    HTTP
+    PrincipalComponent
   ],
   bootstrap: [AppComponent]
 })
