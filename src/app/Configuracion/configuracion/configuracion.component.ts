@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-configuracion'
@@ -31,7 +31,7 @@ export class ConfiguracionComponent implements OnInit {
 
 
   claim(padre,archivo,params): Observable<any> {
-    return this.httpClient.get(this.servidor +':'+ this.puerto +'/SAD/'+ padre + '/' + archivo + '.php',params)
+    return this.httpClient.get(this.servidor +':'+ this.puerto +'/SAD/'+ padre + '/' + archivo + '.php',{params:params})
   }
 
   ngOnInit() {}

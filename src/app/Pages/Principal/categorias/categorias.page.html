@@ -6,15 +6,33 @@
       </ion-menu-button>
     </ion-buttons>
     <ion-title>Categorias</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!searchbar" (click)="setsearch()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let cat of Categorias" class="Card">
-    
+  <ion-searchbar #searchb *ngIf="searchbar" animated [(ngModel)]='searchbarVal' autocomplete="true"
+    show-cancel-button="always" (ionChange)="getOptions()" (ionCancel)="setsearch()">
+  </ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let aut of autocomplete">
+      {{aut.Palabra}}
+    </ion-item>
+  </ion-list>
+  <div class="categorias">
+    <ion-card *ngFor="let cat of Categorias" class="Card">
       <div class="Titulo">
-        <span>{{cat.Categoria}}</span>
-        <ion-img [src]="rutaImagen() + cat.Imagen"></ion-img>
+        <div class="Texto">
+          <div class="span">{{cat.Categoria}}</div>
+        <ion-img class="image" [src]="rutaImagen() + cat.Imagen"></ion-img>
+        </div>
+        
       </div>
-  </ion-card>
+    </ion-card>
+  </div>
+
 </ion-content>

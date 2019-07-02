@@ -19,4 +19,8 @@ export class PrincipalComponent implements OnInit {
   getCategorias(): Observable<any>{
     return this.config.claim('Principal','GetCategorias','')
   }
+
+  getPrediccion(params): Observable<any>{
+    return this.config.claim('Principal','GetPrediccion',params)
+  }
 }

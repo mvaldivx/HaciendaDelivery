@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'menu', loadChildren: './Pages/menu/menu.module#MenuPageModule' },
   { path: 'carrito', loadChildren: './Pages/carrito/carrito.module#CarritoPageModule' },
 
+
 ];
 
 @NgModule({
