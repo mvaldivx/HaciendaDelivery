@@ -7,9 +7,12 @@
     </ion-buttons>
     <ion-title>Categorias</ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="!searchbar" (click)="setsearch()">
+      <ion-button shape="round" *ngIf="!searchbar" (click)="setsearch()">
         <ion-icon name="search"></ion-icon>
       </ion-button>
+      <ion-button shape="round" (click)="setsearch()">
+          <ion-icon name="cart"></ion-icon>
+        </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -25,10 +28,11 @@
   </ion-list>
   <div class="categorias">
     <ion-card *ngFor="let cat of Categorias" class="Card">
-      <div class="Titulo">
+      <div class="Titulo" (click)="ShowNegocios(cat.Id, cat.Categoria)">
         <div class="Texto">
+            {{cat.Categoria}}
           <div class="span">{{cat.Categoria}}</div>
-        <ion-img class="image" [src]="rutaImagen() + cat.Imagen"></ion-img>
+        <!--<ion-img class="image" [src]="cat.img"></ion-img>-->
         </div>
         
       </div>

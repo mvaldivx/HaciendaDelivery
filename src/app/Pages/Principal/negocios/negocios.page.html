@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Negocios</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title >{{Categoria}}</ion-title>
   </ion-toolbar>
+      
+
 </ion-header>
 
 <ion-content>
-
+  <div *ngFor="let neg of NegociosR" class="Negocios" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
+    <ion-card  class="Card">
+      <ion-card-title class="titleCard">
+        {{neg.Negocio}}
+        <div class="fabsGroup">
+            <div class="fabs"  *ngFor="let res of neg.Calificacion">
+              <ion-icon *ngIf="res.t == 1" name="star"></ion-icon>
+              <ion-icon *ngIf="res.t == 2" name="star-half"></ion-icon>
+              <ion-icon *ngIf="res.t == 3"  name="star-outline"></ion-icon>
+            </div>
+            <div class="fabs" *ngIf="neg.Calificacion.length == 0"><span>Sin reseñas</span></div>
+        </div>
+        <div class="descripcionNegocio">{{neg.Descripcion}}</div>
+      </ion-card-title>
+      <ion-card-content class="contentCard">
+        <div class="logo"><img [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="footerNegocios">
+      <ion-buttons slot="end">
+        <ion-button class="resenasbtn" slot="end">Reseñas</ion-button>
+      </ion-buttons>
+    </ion-card>
+  </div>
 </ion-content>

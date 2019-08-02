@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSearchbar } from '@ionic/angular';
+import { MenuController, IonSearchbar, NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component';
 import { PrincipalComponent } from '../../../Api/Principal/principal/principal.component';
 import { HttpParams } from '@angular/common/http'
+import { Categoria, CategoriasService } from '../../../Services/Categorias/categorias.service'
 
 
 @Component({
@@ -11,7 +13,7 @@ import { HttpParams } from '@angular/common/http'
   styleUrls: ['./categorias.page.scss'],
 })
 export class CategoriasPage implements OnInit {
-Categorias:any=[];
+Categorias:Categoria[];
 searchbar = false;
 searchbarVal:any='';
 autocomplete:any=[];
@@ -21,13 +23,29 @@ autocomplete:any=[];
   constructor(
     private menu: MenuController,
     private configuracion: ConfiguracionComponent,
-    private ApiPrincipal: PrincipalComponent
+    private ApiPrincipal: PrincipalComponent,
+    private categoriasService: CategoriasService,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
-    /*this.ApiPrincipal.getCategorias().subscribe(data=>{
+   /* this.ApiPrincipal.getCategorias().subscribe(data=>{
       this.Categorias = data
     });*/
+    this.categoriasService.getCategorias().subscribe(res=>{
+      this.Categorias = res;
+    })
+  }
+
+  ShowNegocios(id,categoria){
+    let navExtras: NavigationExtras={
+      queryParams:{
+        IdCategoria:id,
+        Categoria:categoria
+      }
+    }
+    
+    this.navCtrl.navigateForward(['negocios'], navExtras)
   }
 
   openFirst() {

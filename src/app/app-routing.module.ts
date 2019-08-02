@@ -6,8 +6,8 @@ const routes: Routes = [
   { path: 'categorias', loadChildren: './Pages/Principal/categorias/categorias.module#CategoriasPageModule' },
   { path: 'negocios', loadChildren: './Pages/Principal/negocios/negocios.module#NegociosPageModule' },
   { path: 'menu', loadChildren: './Pages/menu/menu.module#MenuPageModule' },
-  { path: 'carrito', loadChildren: './Pages/carrito/carrito.module#CarritoPageModule' },
-
+  { path: 'carrito', loadChildren: './Pages/carrito/carrito.module#CarritoPageModule' },  { path: 'productos', loadChildren: './Pages/Principal/productos/productos.module#ProductosPageModule' },
+  { path: 'descripcion-producto', loadChildren: './Pages/Principal/descripcion-producto/descripcion-producto.module#DescripcionProductoPageModule' },
 
 ];
 
