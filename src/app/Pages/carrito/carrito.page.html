@@ -1,9 +1,54 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Carrito</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="productos" *ngIf="!loading">
+      <ion-list>
+        <ion-item *ngFor="let prod of Productos">
+            <ion-thumbnail slot="start" class="imagen">
+                <img [src]="rutaImagenProducto + prod.Producto.IdNegocio + '/' + prod.Producto.IdProducto + '.jpg'">
+            </ion-thumbnail>
+            <ion-label class="NombreProducto">
+              {{prod.Producto.Producto}}
+              <div class="precio">
+                <span>
+                  $ {{prod.Producto.Precio}}
+                </span>
+              </div>
+            </ion-label>
+            <ion-buttons slot="end">
+                <ion-button color="success"><ion-icon name="add"></ion-icon></ion-button>
+                <ion-input type="number" disabled class="cantidad">{{prod.Cantidad}}</ion-input>
+                <ion-button color="danger"><ion-icon name="remove"></ion-icon></ion-button>
+            </ion-buttons>
+        </ion-item>
+      </ion-list>
+  </div>
 
+  <ion-list *ngIf="loading">
+      <ion-item *ngFor="let n of [1,2,3,4,5]">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      </ion-list>
 </ion-content>

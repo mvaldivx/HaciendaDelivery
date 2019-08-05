@@ -16,7 +16,9 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { IonicStorageModule } from '@ionic/storage';
 import { DescripcionProductoPageModule } from './Pages/Principal/descripcion-producto/descripcion-producto.module'
+import { CarritoPageModule } from './Pages/carrito/carrito.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +30,9 @@ import { DescripcionProductoPageModule } from './Pages/Principal/descripcion-pro
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    DescripcionProductoPageModule
+    DescripcionProductoPageModule,
+    CarritoPageModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,

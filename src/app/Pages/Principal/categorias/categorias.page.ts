@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSearchbar, NavController } from '@ionic/angular';
+import { MenuController, IonSearchbar, NavController, ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component';
 import { PrincipalComponent } from '../../../Api/Principal/principal/principal.component';
 import { HttpParams } from '@angular/common/http'
 import { Categoria, CategoriasService } from '../../../Services/Categorias/categorias.service'
-
+import { Storage } from '@ionic/storage';
+import { CarritoPage } from '../../carrito/carrito.page'
 
 @Component({
   selector: 'app-categorias',
@@ -17,6 +18,7 @@ Categorias:Categoria[];
 searchbar = false;
 searchbarVal:any='';
 autocomplete:any=[];
+numProductos= 0;
 
 @ViewChild('searchb') myInput: IonSearchbar;
 
@@ -25,7 +27,9 @@ autocomplete:any=[];
     private configuracion: ConfiguracionComponent,
     private ApiPrincipal: PrincipalComponent,
     private categoriasService: CategoriasService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private storage: Storage,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -35,6 +39,7 @@ autocomplete:any=[];
     this.categoriasService.getCategorias().subscribe(res=>{
       this.Categorias = res;
     })
+    this.getNumProductos()
   }
 
   ShowNegocios(id,categoria){
@@ -76,6 +81,29 @@ autocomplete:any=[];
     }else{
       this.autocomplete = []
     }
+  }
+
+  getNumProductos(){
+    let date = new Date()
+    const _MS_PER_DAY = 1000 * 60 * 60 ;
+    this.storage.get('carrito').then((carrito)=>{
+      if(carrito != null && carrito.Productos != null ){
+        let fa = new Date(carrito.Fecha)
+        let diff = (date.getTime()-fa.getTime())/_MS_PER_DAY
+        if(diff >= 2){
+          this.storage.remove('carrito')
+        }else{
+          this.numProductos = carrito.Productos.length
+        }
+      }
+    })
+  }
+
+  async irCarrito(){
+      const modal = await this.modalCtrl.create({
+        component:CarritoPage
+      })
+      await modal.present();
   }
 
 }

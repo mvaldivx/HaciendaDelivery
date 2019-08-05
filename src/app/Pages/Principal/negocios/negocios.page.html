@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let neg of NegociosR" class="Negocios" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
+  <div *ngIf="!loading">
+    <div *ngFor="let neg of NegociosR" class="Negocios" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
     <ion-card  class="Card">
       <ion-card-title class="titleCard">
         {{neg.Negocio}}
@@ -32,4 +33,29 @@
       </ion-buttons>
     </ion-card>
   </div>
+  </div>
+  
+
+  <div *ngIf="loading" >
+    <div *ngFor="let n of [1,2,3,4,5]" class="Negocios">
+      <ion-card  class="Card">
+        <ion-card-title class="titleCard">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          <div class="fabsGroup">
+              <div class="fabs" >
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+          </div>
+          <div class="descripcionNegocio"><ion-skeleton-text animated></ion-skeleton-text></div>
+        </ion-card-title>
+        <ion-card-content class="contentCard">
+          <div class="logo"><ion-skeleton-text animated></ion-skeleton-text></div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="footerNegocios">
+          <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
+      </ion-card>
+    </div>
+  </div>
+  
 </ion-content>

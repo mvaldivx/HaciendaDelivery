@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, ToastController  } from '@ionic/angular';
 import { Producto, ProductosService } from '../../../Services/Productos/productos.service'
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 import { DescripcionProductoPage } from '../descripcion-producto/descripcion-producto.page'
@@ -15,13 +15,15 @@ export class ProductosPage implements OnInit {
   IdNegocio=0;
   Productos: Producto[];
   rutaImagenProducto="";
+  loading=true;
 
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private productos: ProductosService,
     private configuracion: ConfiguracionComponent,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController
     ) { }
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class ProductosPage implements OnInit {
     if(this.IdNegocio != null){
       this.productos.getProductos(this.IdNegocio).subscribe(res=>{
         this.Productos = res
+        this.loading = false
       })
     }
     else{
@@ -48,7 +51,20 @@ export class ProductosPage implements OnInit {
         'IdProducto':idProducto
       }
     })
-    return await modal.present();
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    if(data.status == 2){
+      this.presentToast()
+    }   
+    
+  }
+
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Producto agregado correctamente.',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

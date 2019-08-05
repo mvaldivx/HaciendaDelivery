@@ -1,0 +1,93 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+
+ion-toolbar{
+    height:150px;
+    ion-title{
+        font-family: 'Montserrat';
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.cantidad{
+    padding:0;
+    margin:0;
+    width:50px;
+    max-width:50px;
+    text-align: center;
+
+}
+
+.descripcion{
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btns{
+    margin-top:20px;
+    display: flex;
+    ion-buttons{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+ion-footer{
+        ion-button{
+            width:100%;
+        }
+}
+
+.imagen{
+    width:  100vw;
+    margin-top: -4px !important;
+    margin-left: -4px !important;
+    margin:0;
+    padding:0;
+    img{
+        width:100%;
+        display: flex;
+        position: relative;
+    }
+    ion-buttons{
+        position:absolute;
+        margin-left:auto;
+        margin-right: 0;
+        right: 0;
+        color:black;
+    }
+    ion-title{
+        position:absolute;
+        z-index: 3;
+        margin-top: 19vh;
+        color: black;
+    }
+
+}
+
+ion-toolbar{
+    ion-buttons{
+        top:0!important;
+    }
+}
+
+.imagenToolbar{
+    background-color: #ffbbbb73;
+    width: 100%;
+    height:150px !important;
+    display: flex;
+    z-index: 1;
+    position: absolute;
+}
+
+.precio{
+    margin-top:10px;
+    span{
+        color:green;
+    }
+}

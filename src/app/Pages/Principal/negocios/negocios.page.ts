@@ -26,6 +26,7 @@ Negocios:Negocio[];
 NegociosR:NegocioR[];
 rutaImagenLogo:string="";
 calTmp=[];
+loading = true
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +56,7 @@ calTmp=[];
               Descripcion: n.Descripcion,
               Calificacion: this.calTmp
             })
+            this.loading= false
           })
           
         })
