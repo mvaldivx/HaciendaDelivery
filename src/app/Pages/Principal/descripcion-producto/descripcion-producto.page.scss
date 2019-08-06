@@ -53,19 +53,23 @@ ion-footer{
         width:100%;
         display: flex;
         position: relative;
+        max-height: 92vh;
     }
     ion-buttons{
         position:absolute;
         margin-left:auto;
         margin-right: 0;
         right: 0;
-        color:black;
+        color:white;
     }
     ion-title{
         position:absolute;
         z-index: 3;
-        margin-top: 19vh;
-        color: black;
+        margin-top: 15vh;
+        color: white;
+        h1{
+            margin-top: -20px;
+        }
     }
 
 }
@@ -77,12 +81,13 @@ ion-toolbar{
 }
 
 .imagenToolbar{
-    background-color: #ffbbbb73;
-    width: 100%;
+    background-color:#5656568a;
+    min-width: 101vw!important;
     height:150px !important;
     display: flex;
     z-index: 1;
     position: absolute;
+    min-height: 100vh!important;
 }
 
 .precio{
@@ -90,4 +95,39 @@ ion-toolbar{
     span{
         color:green;
     }
+}
+
+.descripcion{
+    position: absolute;
+    display: flex;
+    min-width: 100vw !important;
+    height: 63vh;
+    margin-top: 34vh;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 1px -1px 5px #0c0c0ca6;
+    z-index:3;
+}
+
+.fondo{
+    position:absolute;
+    text-align:center;
+}
+::-webkit-scrollbar, *::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+  }
+  
+  ion-content {
+    overflow: hidden;
+    --overflow: hidden;
+  }
+.scroll-content {
+    overflow: hidden;
+  }
+
+.contenido{
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
 }

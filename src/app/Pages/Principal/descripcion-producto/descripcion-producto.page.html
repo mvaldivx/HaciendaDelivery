@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
     <div class="imagen">
         <ion-title><span *ngIf="Producto != null">{{Producto.Producto}}</span></ion-title>
@@ -8,37 +8,56 @@
           </ion-button>
         </ion-buttons>
         <div class="imagenToolbar"></div>
-        <!--<img [src]="rutaImagenProducto + IdNegocio + '/' + IdProducto + '.jpg'"/>-->
+        <img [src]="rutaImagenProducto + IdNegocio + '/' + IdProducto + '.jpg'"/>
     </div>
   </ion-toolbar>
-</ion-header>
+
+</ion-header>-->
 
 <ion-content>
-  <div class="descripcion">
-    <h3>Descripción: </h3>
-    <span *ngIf="Producto != null">{{Producto.Descripcion}}</span>
-    <br>
-    <div class="precio" *ngIf="Producto != null">
-        <span>
-          $ {{Producto.Precio}}
-        </span>
-      </div>
-    <div class="btns">
-      <ion-buttons>
-        <ion-button (click)="editCantidad('+')">
-          <ion-icon name="add" color="success"></ion-icon>
-        </ion-button>
-        <ion-input type="number" [(ngModel)]="cantidad" class="cantidad"></ion-input>
-        <ion-button (click)="editCantidad('-')">
-          <ion-icon name="remove" color="danger" ></ion-icon>
-        </ion-button>
-      </ion-buttons>
+  <div class="page">
+    <div class="fondo">
+        <div class="imagen">
+            <ion-title><span *ngIf="Producto != null">{{Producto.Producto}}</span>
+              <h1 style="text-align:left;">______</h1></ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeDescripcion(1)">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <div class="imagenToolbar"></div>
+            <img [src]="rutaImagenProducto + IdNegocio + '/' + IdProducto + '.jpg'"/>
+        </div>
     </div>
-
-
-    <ion-textarea maxlength="200" [(ngModel)]="ComentsAdi" placeholder="Comentarios adicionales"></ion-textarea>
-
+    <div class="descripcion">
+      <div class="contenido">
+        <h3>Descripción: </h3>
+        <span *ngIf="Producto != null">{{Producto.Descripcion}}</span>
+        <br>
+        <div class="precio" *ngIf="Producto != null">
+            <span>
+              $ {{Producto.Precio}}
+            </span>
+          </div>
+        <div class="btns">
+          <ion-buttons>
+            <ion-button (click)="editCantidad('+')">
+              <ion-icon name="add" color="success"></ion-icon>
+            </ion-button>
+            <ion-input type="number" [(ngModel)]="cantidad" class="cantidad"></ion-input>
+            <ion-button (click)="editCantidad('-')">
+              <ion-icon name="remove" color="danger" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+    
+    
+        <ion-textarea maxlength="200" [(ngModel)]="ComentsAdi" placeholder="Comentarios adicionales"></ion-textarea>
+      </div>
+        
+      </div>
   </div>
+  
 </ion-content>
 
 <ion-footer>
