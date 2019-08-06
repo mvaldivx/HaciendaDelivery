@@ -30,7 +30,10 @@ numProductos= 0;
     private navCtrl: NavController,
     private storage: Storage,
     private modalCtrl: ModalController
-  ) { }
+  ) { 
+    
+    this.getNumProductos()
+  }
 
   ngOnInit() {
    /* this.ApiPrincipal.getCategorias().subscribe(data=>{
@@ -39,6 +42,9 @@ numProductos= 0;
     this.categoriasService.getCategorias().subscribe(res=>{
       this.Categorias = res;
     })
+  }
+
+  ionViewWillEnter() {
     this.getNumProductos()
   }
 
@@ -51,6 +57,7 @@ numProductos= 0;
     }
     
     this.navCtrl.navigateForward(['negocios'], navExtras)
+  
   }
 
   openFirst() {
@@ -104,6 +111,8 @@ numProductos= 0;
         component:CarritoPage
       })
       await modal.present();
+      const { data } = await modal.onWillDismiss();
+      this.getNumProductos()
   }
 
 }

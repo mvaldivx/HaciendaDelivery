@@ -18,7 +18,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { DescripcionProductoPageModule } from './Pages/Principal/descripcion-producto/descripcion-producto.module'
-import { CarritoPageModule } from './Pages/carrito/carrito.module'
+import { CarritoPageModule } from './Pages/carrito/carrito.module';
+import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { CarritoPageModule } from './Pages/carrito/carrito.module'
     AngularFirestoreModule,
     DescripcionProductoPageModule,
     CarritoPageModule,
+    ReseniasPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

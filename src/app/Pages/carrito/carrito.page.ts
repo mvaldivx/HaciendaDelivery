@@ -10,7 +10,7 @@ import { ConfiguracionComponent } from '../../Configuracion/configuracion/config
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  Productos: [];
+  Productos= [];
   loading= true;
   rutaImagenProducto = "";
 
@@ -37,6 +37,40 @@ export class CarritoPage implements OnInit {
       } 
     }).finally(()=>{
       this.loading= false
+    })
+  }
+
+  remove(IdProducto){
+    this.store.get('carrito').then(carrito=>{
+      if(carrito!= null && carrito.Productos != null){
+        let aux=[]
+        carrito.Productos.forEach(element => {
+          if(element.Producto.IdProducto != IdProducto)
+            aux.push(element)
+        });
+        this.Productos = aux
+        let date = new Date()
+        carrito.Productos = aux
+        carrito.Fecha = date.getTime()
+        this.store.set('carrito', carrito)
+      } 
+    })
+  }
+
+  edit(IdProducto,tipo){
+    this.store.get('carrito').then(carrito=>{
+      if(carrito!= null && carrito.Productos != null){
+        carrito.Productos.forEach(element => {
+          if(element.Producto.IdProducto === IdProducto)
+            if(tipo === '+'){
+              element.Cantidad+=1
+            }else if(element.Cantidad > 1){
+              element.Cantidad-=1
+            }
+        });
+        this.Productos = carrito.Productos
+        this.store.set('carrito', carrito)
+      }
     })
   }
 }

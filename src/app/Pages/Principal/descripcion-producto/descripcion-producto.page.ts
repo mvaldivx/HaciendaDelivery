@@ -66,12 +66,13 @@ export class DescripcionProductoPage implements OnInit {
     let date = new Date()
     const _MS_PER_DAY = 1000 * 60 * 60 ;
     this.storage.get('carrito').then((carrito)=>{
-      let fa = new Date(carrito.Fecha)
-      let diff = (date.getTime()-fa.getTime())/_MS_PER_DAY
+      let agregado = false
 
-      if(carrito != null && carrito.Productos != null && diff < 2){
-        
-        let exist = false
+      if(carrito != null && carrito.Productos != null && carrito.Fecha != null){
+        let fa = new Date(carrito.Fecha)
+        let diff = (date.getTime()-fa.getTime())/_MS_PER_DAY
+        if(diff < 2){
+          let exist = false
         carrito.Productos.forEach(prod=>{
           if(prod.Producto.IdProducto == this.IdProducto){
             prod.Cantidad = this.cantidad
@@ -84,7 +85,11 @@ export class DescripcionProductoPage implements OnInit {
         }
         carrito.Fecha = date.getTime()
         this.storage.set('carrito',carrito);
-      }else{
+        agregado = true
+        }
+        
+      }
+      if(!agregado){
         let carriton =
          {Productos:
           [

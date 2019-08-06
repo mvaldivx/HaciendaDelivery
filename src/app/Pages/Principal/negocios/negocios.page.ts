@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { Negocio, NegociosService } from '../../../Services/Negocios/negocios.service'
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 import { CalificacionesService } from '../../../Services/Calificaciones/calificaciones.service'
-
+import { ReseniasPage } from '../resenias/resenias.page'
 
 export interface NegocioR {
   IdCategoria: number;
@@ -33,7 +33,8 @@ loading = true
     private navCtrl: NavController,
     private negociosServ: NegociosService,
     private configuracion: ConfiguracionComponent,
-    private calificaciones: CalificacionesService
+    private calificaciones: CalificacionesService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -87,7 +88,7 @@ loading = true
       resolve(response)
     })
     })
-    
+ 
   }
 
 
@@ -101,4 +102,15 @@ loading = true
     
     this.navCtrl.navigateForward(['productos'], navExtras)
   }
+
+  async getResenias(IdNegocio){
+    const modal = await this.modalCtrl.create({
+      component:ReseniasPage,
+      componentProps:{
+        'IdNegocio':IdNegocio
+      }
+    })
+    await modal.present();
+  }
+
 }

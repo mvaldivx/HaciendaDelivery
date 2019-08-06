@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>RESEÑAS</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-list>
+    <ion-item-divider>
+
+   <div class="resenia">
+      <div class="descripcion">
+        aqui iria la reseña
+      </div>
+     <div class="avatar">
+       <div class="imgAvatar">
+          <ion-avatar>
+              <!--<img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">-->
+              <ion-icon name="contact"></ion-icon>
+          </ion-avatar>
+       </div>
+        
+          
+        <div class="info">
+          <span>Miguel plascencia</span><br>
+          <span>06 Marzo 2019 4:53 pm</span>
+        </div>
+        <div class="Calificacion" slot="end">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+         </div>
+     </div>
+
+    </div>
+    </ion-item-divider>
+ </ion-list>
+</ion-content>

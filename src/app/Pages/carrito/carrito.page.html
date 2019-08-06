@@ -12,7 +12,8 @@
 <ion-content>
   <div class="productos" *ngIf="!loading">
       <ion-list>
-        <ion-item *ngFor="let prod of Productos">
+        <ion-item-sliding *ngFor="let prod of Productos">
+          <ion-item>
             <ion-thumbnail slot="start" class="imagen">
                 <img [src]="rutaImagenProducto + prod.Producto.IdNegocio + '/' + prod.Producto.IdProducto + '.jpg'">
             </ion-thumbnail>
@@ -25,11 +26,15 @@
               </div>
             </ion-label>
             <ion-buttons slot="end">
-                <ion-button color="success"><ion-icon name="add"></ion-icon></ion-button>
-                <ion-input type="number" disabled class="cantidad">{{prod.Cantidad}}</ion-input>
-                <ion-button color="danger"><ion-icon name="remove"></ion-icon></ion-button>
+                <ion-button color="success" (click)="edit(prod.Producto.IdProducto,'+')"><ion-icon name="add"></ion-icon></ion-button>
+                <ion-input type="number" text-center disabled class="cantidad">{{prod.Cantidad}}</ion-input>
+                <ion-button color="danger" (click)="edit(prod.Producto.IdProducto,'-')"><ion-icon name="remove"></ion-icon></ion-button>
             </ion-buttons>
-        </ion-item>
+          </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option (click)="remove(prod.Producto.IdProducto)" color="danger"><ion-icon name="trash"></ion-icon></ion-item-option>
+              </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
   </div>
 
@@ -52,3 +57,9 @@
       </ion-item>
       </ion-list>
 </ion-content>
+
+<ion-footer *ngIf="Productos != null">
+    <ion-button (click)="agregarProducto()" color="success" [disabled]="Productos.length < 1">
+        Hacer pedido
+      </ion-button>
+</ion-footer>

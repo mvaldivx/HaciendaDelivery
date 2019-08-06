@@ -9,8 +9,8 @@
 
 <ion-content>
   <div *ngIf="!loading">
-    <div *ngFor="let neg of NegociosR" class="Negocios" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
-    <ion-card  class="Card">
+    <div *ngFor="let neg of NegociosR" class="Negocios" >
+    <ion-card  class="Card" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
       <ion-card-title class="titleCard">
         {{neg.Negocio}}
         <div class="fabsGroup">
@@ -29,7 +29,7 @@
     </ion-card>
     <ion-card class="footerNegocios">
       <ion-buttons slot="end">
-        <ion-button class="resenasbtn" slot="end">Reseñas</ion-button>
+        <ion-button (click)="getResenias(neg.IdNegocio)" class="resenasbtn" slot="end">Reseñas</ion-button>
       </ion-buttons>
     </ion-card>
   </div>
