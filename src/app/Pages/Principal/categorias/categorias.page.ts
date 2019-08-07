@@ -49,6 +49,7 @@ numProductos= 0;
   }
 
   ShowNegocios(id,categoria){
+    this.storage.set('categoria',categoria)
     let navExtras: NavigationExtras={
       queryParams:{
         IdCategoria:id,

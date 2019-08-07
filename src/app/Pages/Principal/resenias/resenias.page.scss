@@ -1,9 +1,12 @@
 .avatar{
     width:100%;
     margin-top:10px;
+    margin-bottom:10px;
     .imgAvatar{
         display: inline-block;
-        width: 15%;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
         max-width: 50px;
     }
     ion-avatar{
@@ -22,6 +25,8 @@
         display: inline-block;
         width: 40%;
         font-size: 11px;
+        vertical-align: top;
+        margin-top: 7px;
     }
     .Calificacion{
         display: inline-block;
@@ -34,5 +39,16 @@
     width:90%;
     margin-left:auto;
     margin-right:auto;
+    margin-top: 10px;
 }
 
+.fabs{
+    display: inline;
+    span{
+        font-size:10px;
+    }
+}
+
+.descripcion{
+    margin-left:20px;
+}

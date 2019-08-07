@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {Producto } from '../Productos/productos.service';
 
 export interface Calificacion {
   IdNegocio: number;
@@ -9,12 +10,24 @@ export interface Calificacion {
   Comentario: string;
   IdProducto: number;
   IdUsuario: number;
+  Fecha: Date;
+}
+
+export interface CalificacionProductos{
+  IdNegocio: number;
+  Calificacion: number;
+  Comentario: string;
+  IdProducto: number;
+  IdUsuario: number;
+  Producto: string;
+  Fecha:Date;
 }
 @Injectable({
   providedIn: 'root'
 })
 export class CalificacionesService {
   private Calificaciones:AngularFirestoreCollection<Calificacion>;
+  private CalificacionesProd:AngularFirestoreCollection<Calificacion>;
   private CalificacionesFB: Observable<Calificacion[]>;
 
   constructor(private db: AngularFirestore) {

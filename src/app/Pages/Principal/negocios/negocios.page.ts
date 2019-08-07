@@ -5,6 +5,7 @@ import { Negocio, NegociosService } from '../../../Services/Negocios/negocios.se
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 import { CalificacionesService } from '../../../Services/Calificaciones/calificaciones.service'
 import { ReseniasPage } from '../resenias/resenias.page'
+import { Storage } from '@ionic/storage';
 
 export interface NegocioR {
   IdCategoria: number;
@@ -34,14 +35,18 @@ loading = true
     private negociosServ: NegociosService,
     private configuracion: ConfiguracionComponent,
     private calificaciones: CalificacionesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storage : Storage
   ) { }
 
   ngOnInit() {
     this.rutaImagenLogo = this.configuracion.rutaImagenesLogos
+    this.storage.get('categoria').then(cat=>{
+      this.Categoria = cat
+    })
     this.route.queryParams.subscribe(params=>{
       this.IdCategoria = params["IdCategoria"]
-      this.Categoria = params["Categoria"]
+     // this.Categoria = params["Categoria"]
     })
     if(this.IdCategoria != null){
       this.negociosServ.getNegocios(this.IdCategoria).subscribe(res=>{

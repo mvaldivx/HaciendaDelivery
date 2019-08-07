@@ -9,11 +9,11 @@
 
 <ion-content>
  <ion-list>
-    <ion-item-divider>
+    <ion-item-divider *ngFor="let res of Resenias">
 
    <div class="resenia">
       <div class="descripcion">
-        aqui iria la reseña
+        {{res.Comentario}}
       </div>
      <div class="avatar">
        <div class="imgAvatar">
@@ -26,12 +26,14 @@
           
         <div class="info">
           <span>Miguel plascencia</span><br>
-          <span>06 Marzo 2019 4:53 pm</span>
+          <span>{{res.Fecha}}</span>
         </div>
         <div class="Calificacion" slot="end">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
+          <div class="fabs"  *ngFor="let res of res.Calificacion">
+            <ion-icon *ngIf="res.t == 1" name="star"></ion-icon>
+            <ion-icon *ngIf="res.t == 2" name="star-half"></ion-icon>
+            <ion-icon *ngIf="res.t == 3"  name="star-outline"></ion-icon>
+          </div>
          </div>
      </div>
 
