@@ -8,36 +8,64 @@
 </ion-header>
 
 <ion-content>
- <ion-list>
+  <ion-list *ngIf="!loading">
     <ion-item-divider *ngFor="let res of Resenias">
 
-   <div class="resenia">
-      <div class="descripcion">
-        {{res.Comentario}}
-      </div>
-     <div class="avatar">
-       <div class="imgAvatar">
-          <ion-avatar>
+      <div class="resenia">
+        <div class="descripcion">
+          {{res.Comentario}}
+        </div>
+        <div class="avatar">
+          <div class="imgAvatar">
+            <ion-avatar>
               <!--<img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">-->
               <ion-icon name="contact"></ion-icon>
-          </ion-avatar>
-       </div>
-        
-          
-        <div class="info">
-          <span>Miguel plascencia</span><br>
-          <span>{{res.Fecha}}</span>
-        </div>
-        <div class="Calificacion" slot="end">
-          <div class="fabs"  *ngFor="let res of res.Calificacion">
-            <ion-icon *ngIf="res.t == 1" name="star"></ion-icon>
-            <ion-icon *ngIf="res.t == 2" name="star-half"></ion-icon>
-            <ion-icon *ngIf="res.t == 3"  name="star-outline"></ion-icon>
+            </ion-avatar>
           </div>
-         </div>
-     </div>
 
-    </div>
+          <div class="info">
+            <span>Miguel plascencia</span><br>
+            <span>{{res.Fecha}}</span>
+          </div>
+          <div class="Calificacion" slot="end">
+            <div class="fabs" *ngFor="let res of res.Calificacion">
+              <ion-icon *ngIf="res.t == 1" name="star"></ion-icon>
+              <ion-icon *ngIf="res.t == 2" name="star-half"></ion-icon>
+              <ion-icon *ngIf="res.t == 3" name="star-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
     </ion-item-divider>
- </ion-list>
+  </ion-list>
+  <div *ngIf="Resenias.length < 1 && !loading">
+      <H3>Sin Reseñas</H3>
+    </div>
+
+    <div *ngIf="loading">
+        <ion-item-divider *ngFor="let res of [1,2,3,4,5]">
+
+            <div class="resenia">
+              <div class="descripcion">
+                {{res.Comentario}}
+              </div>
+              <div class="avatar">
+                <div class="imgAvatar">
+                  <ion-avatar>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                  </ion-avatar>
+                </div>
+      
+                <div class="info">
+                  <span><ion-skeleton-text animated></ion-skeleton-text></span><br>
+                  <span><ion-skeleton-text animated></ion-skeleton-text></span>
+                </div>
+                <div class="Calificacion" slot="end">
+                  <div class="fabs" >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ion-item-divider>
+    </div>
 </ion-content>
