@@ -4,15 +4,18 @@ import { ProductosService } from '../../Services/Productos/productos.service'
 import { Storage } from '@ionic/storage';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
 
+import * as anime from 'animejs';
+
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
-  styleUrls: ['./carrito.page.scss'],
+  styleUrls: ['./carrito.page.scss']
 })
 export class CarritoPage implements OnInit {
   Productos= [];
   loading= true;
   rutaImagenProducto = "";
+  Total= 0;
 
   constructor(
    private modalCtrl: ModalController,
@@ -34,6 +37,10 @@ export class CarritoPage implements OnInit {
     this.store.get('carrito').then(carrito=>{
       if(carrito!= null && carrito.Productos != null){
         this.Productos = carrito.Productos
+        this.Productos.forEach(p=>{
+          p.showDel = ''
+        })
+        this.getTotal()
       } 
     }).finally(()=>{
       this.loading= false
@@ -53,6 +60,7 @@ export class CarritoPage implements OnInit {
         carrito.Productos = aux
         carrito.Fecha = date.getTime()
         this.store.set('carrito', carrito)
+        this.getTotal()
       } 
     })
   }
@@ -64,13 +72,24 @@ export class CarritoPage implements OnInit {
           if(element.Producto.IdProducto === IdProducto)
             if(tipo === '+'){
               element.Cantidad+=1
+              element.showDel = ''
             }else if(element.Cantidad > 1){
               element.Cantidad-=1
+            }else if(element.showDel == ''){
+              element.showDel = 'sliding'
             }
         });
         this.Productos = carrito.Productos
+        this.getTotal()
         this.store.set('carrito', carrito)
       }
+    })
+  }
+
+  getTotal(){
+    this.Total = 0
+    this.Productos.forEach(p=>{
+      this.Total+= (p.Producto.Precio * p.Cantidad)
     })
   }
 }

@@ -1,9 +1,127 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
 .cantidad{
     width: 20px;
     .text-input{ text-align: center; }
 }
-ion-footer{
-    ion-button{
-        width: 100%;
+
+.subtotal{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    font-family: 'Montserrat';
+    .total{
+        width: 50%;
+        display: inline-block;
+    }
+    .precio{
+        width: 50%;
+        display: inline-block;
+        text-align: right;
+
     }
 }
+
+.fondo{
+    width: 100vw;
+    height: 103vh;
+    background-color: black;
+}
+.blur{
+    width: 100vw;
+    height: 103vh;
+    /* filter: blur(8px); */
+    /* -webkit-filter: blur(8px); */
+    background-color: #505050;
+}
+.blurfooter{
+    display: flex;
+    position: sticky;
+    top: 89vh;
+    width:95%;
+    .card{
+        background-color: white;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        ion-button{
+            width:99%;
+            margin-left: .5%;
+            margin-right:auto;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.productos{
+    width:95%;
+    margin-left:auto;
+    margin-right:auto;
+    min-height: 95vh;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 1px -1px 5px #0c0c0ca6;
+    ion-list{
+        border-radius: 15px;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        position:absolute;
+    }
+    .NombreProducto{
+        font-family: 'Montserrat';
+    }
+    .precio{
+        font-family: 'Montserrat';
+    }
+}
+
+.closebtn{
+    margin-left: 90vw;
+    color:white;
+}
+
+.btnsHead{
+    margin-bottom:10px;
+}
+
+.animate-me {
+    width: 50px;
+    height: 50px;
+    padding: 20px;
+    background: #0000ff;
+}
+
+.sliding{
+    ion-item{
+        -webkit-animation-name: animate;
+        -webkit-animation-duration: .8s;
+        animation-name: animate;
+        animation-duration: .8s;
+        z-index:5;
+    }
+    ion-item-options{
+        visibility: visible!important; 
+        display: flex;
+        z-index:0;
+    } 
+}   
+
+@-webkit-keyframes animate {
+    0% {transform: translate3d(0px, 0px, 0px); }
+    50% {transform: translate3d(-33px, 0px, 0px); }
+    100% {transform: translate3d(0px, 0px, 0px); }
+  }
+
+  @keyframes animate {
+    0% {transform: translate3d(0px, 0px, 0px); }
+    50% {transform: translate3d(-33px, 0px, 0px); }
+    100% {transform: translate3d(0px, 0px, 0px); }
+  }
+
+
+

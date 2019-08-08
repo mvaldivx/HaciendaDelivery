@@ -1,65 +1,85 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Carrito</ion-title>
-    <ion-buttons slot="end">
-        <ion-button (click)="close()">
+
+
+<ion-content>
+  <div class="fondo">
+    <div class="blur">
+      <ion-buttons slot="end" class="btnsHead">
+        <ion-button (click)="close()" class="closebtn">
           <ion-icon name="close"></ion-icon>
         </ion-button>
       </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <div class="productos" *ngIf="!loading">
-      <ion-list>
-        <ion-item-sliding *ngFor="let prod of Productos">
-          <ion-item>
-            <ion-thumbnail slot="start" class="imagen">
+      <div class="productos" *ngIf="!loading">
+        <ion-list>
+          <ion-item-sliding [ngClass]="prod.showDel"  *ngFor="let prod of Productos">
+            <ion-item>
+              <ion-thumbnail slot="start" class="imagen">
                 <img [src]="rutaImagenProducto + prod.Producto.IdNegocio + '/' + prod.Producto.IdProducto + '.jpg'">
-            </ion-thumbnail>
-            <ion-label class="NombreProducto">
-              {{prod.Producto.Producto}}
-              <div class="precio">
-                <span>
-                  $ {{prod.Producto.Precio}}
-                </span>
-              </div>
-            </ion-label>
-            <ion-buttons slot="end">
-                <ion-button color="success" (click)="edit(prod.Producto.IdProducto,'+')"><ion-icon name="add"></ion-icon></ion-button>
+              </ion-thumbnail>
+              <ion-label class="NombreProducto">
+                {{prod.Producto.Producto}}
+                <div class="precio">
+                  <span>
+                    $ {{prod.Producto.Precio}}
+                  </span>
+                </div>
+              </ion-label>
+              <ion-buttons slot="end">
+                <ion-button color="success" (click)="edit(prod.Producto.IdProducto,'+')">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
                 <ion-input type="number" text-center disabled class="cantidad">{{prod.Cantidad}}</ion-input>
-                <ion-button color="danger" (click)="edit(prod.Producto.IdProducto,'-')"><ion-icon name="remove"></ion-icon></ion-button>
-            </ion-buttons>
-          </ion-item>
-            <ion-item-options side="end">
-                <ion-item-option (click)="remove(prod.Producto.IdProducto)" color="danger"><ion-icon name="trash"></ion-icon></ion-item-option>
-              </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-  </div>
+                <ion-button color="danger" (click)="edit(prod.Producto.IdProducto,'-')">
+                  <ion-icon name="remove"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+            <ion-item-options class="slide" side="end" >
+              <ion-item-option (click)="remove(prod.Producto.IdProducto)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
 
-  <ion-list *ngIf="loading">
-      <ion-item *ngFor="let n of [1,2,3,4,5]">
+
+        <div class="blurfooter">
+            <div class="card">
+              <div class="subtotal" *ngIf="Productos.length >= 1">
+                <div class="total">
+                    Total
+                </div>
+                <div class="precio">MXN ${{Total}}</div>
+              </div>
+              <ion-button (click)="agregarProducto()" color="success" [disabled]="Productos.length < 1">
+                Hacer pedido
+              </ion-button>
+            </div>
+          </div>
+      </div>
+
+      <ion-list *ngIf="loading">
+        <ion-item *ngFor="let n of [1,2,3,4,5]">
           <ion-thumbnail slot="start">
             <ion-skeleton-text animated></ion-skeleton-text>
           </ion-thumbnail>
-        <ion-label>
-          <h3>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h3>
-          <p>
-            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          </p>
-          <p>
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-      </ion-item>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
       </ion-list>
-</ion-content>
 
-<ion-footer *ngIf="Productos != null">
-    <ion-button (click)="agregarProducto()" color="success" [disabled]="Productos.length < 1">
-        Hacer pedido
-      </ion-button>
-</ion-footer>
+
+
+    </div>
+  </div>
+
+</ion-content>
