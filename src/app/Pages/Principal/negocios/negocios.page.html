@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="!loading">
+  <div ng-show="!loading">
     <div *ngFor="let neg of NegociosR" class="Negocios" >
     <ion-card  class="Card" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
       <ion-card-title class="titleCard">
@@ -24,7 +24,7 @@
         <div class="descripcionNegocio">{{neg.Descripcion}}</div>
       </ion-card-title>
       <ion-card-content class="contentCard">
-        <div class="logo"><img [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></div>
+        <div class="logo"><ion-img (ionImgDidLoad)="imagenCargada(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img></div>
       </ion-card-content>
     </ion-card>
     <ion-card class="footerNegocios">

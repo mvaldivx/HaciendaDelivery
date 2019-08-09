@@ -43,6 +43,7 @@ export class CarritoPage implements OnInit {
         this.getTotal()
       } 
     }).finally(()=>{
+      console.log(this.Productos)
       this.loading= false
     })
   }
@@ -75,7 +76,8 @@ export class CarritoPage implements OnInit {
               element.showDel = ''
             }else if(element.Cantidad > 1){
               element.Cantidad-=1
-            }else if(element.showDel == ''){
+            }else if(element.showDel === '' || element.showDel == null){
+              console.log(element)
               element.showDel = 'sliding'
             }
         });

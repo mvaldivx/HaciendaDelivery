@@ -28,6 +28,7 @@ NegociosR:NegocioR[];
 rutaImagenLogo:string="";
 calTmp=[];
 loading = true
+imagenesCargadas= 0
 
   constructor(
     private route: ActivatedRoute,
@@ -62,10 +63,12 @@ loading = true
               Descripcion: n.Descripcion,
               Calificacion: this.calTmp
             })
-            this.loading= false
           })
           
         })
+        if(this.Negocios.length== 0){
+          this.loading= false
+        }
       })
     }else{
       this.navCtrl.navigateRoot('categorias')
@@ -116,6 +119,13 @@ loading = true
       }
     })
     await modal.present();
+  }
+
+  imagenCargada(IdNegocio){
+    this.imagenesCargadas +=1
+    if(this.imagenesCargadas == this.NegociosR.length){
+      this.loading = false
+    }
   }
 
 }
