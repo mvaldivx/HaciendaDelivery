@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'carrito', loadChildren: './Pages/carrito/carrito.module#CarritoPageModule' },  { path: 'productos', loadChildren: './Pages/Principal/productos/productos.module#ProductosPageModule' },
   { path: 'descripcion-producto', loadChildren: './Pages/Principal/descripcion-producto/descripcion-producto.module#DescripcionProductoPageModule' },
   { path: 'resenias', loadChildren: './Pages/Principal/resenias/resenias.module#ReseniasPageModule' },
+  { path: 'ubicacion', loadChildren: './Pages/ubicacion/ubicacion.module#UbicacionPageModule' },
 
 ];
 

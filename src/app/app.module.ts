@@ -16,10 +16,13 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { DescripcionProductoPageModule } from './Pages/Principal/descripcion-producto/descripcion-producto.module'
 import { CarritoPageModule } from './Pages/carrito/carrito.module';
 import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
+import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +37,7 @@ import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
     DescripcionProductoPageModule,
     CarritoPageModule,
     ReseniasPageModule,
+    UbicacionPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [
@@ -41,7 +45,8 @@ import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ConfiguracionComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    NativeGeocoder,
   ],
   bootstrap: [AppComponent]
 })

@@ -3,8 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { ProductosService } from '../../Services/Productos/productos.service'
 import { Storage } from '@ionic/storage';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
+import { UbicacionPage } from '../ubicacion/ubicacion.page';
 
-import * as anime from 'animejs';
 
 @Component({
   selector: 'app-carrito',
@@ -43,7 +43,6 @@ export class CarritoPage implements OnInit {
         this.getTotal()
       } 
     }).finally(()=>{
-      console.log(this.Productos)
       this.loading= false
     })
   }
@@ -94,4 +93,12 @@ export class CarritoPage implements OnInit {
       this.Total+= (p.Producto.Precio * p.Cantidad)
     })
   }
+
+
+  async IrUbicacion(){
+    const modal = await this.modalCtrl.create({
+      component:UbicacionPage
+    })
+    await modal.present();
+}
 }
