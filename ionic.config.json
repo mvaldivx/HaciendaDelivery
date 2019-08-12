@@ -1,5 +1,7 @@
 {
   "name": "HaciendaDelivery",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title >{{Categoria}}</ion-title>
+  </ion-toolbar>
+      
+
+</ion-header>
+
+<ion-content>
+  <div ng-show="!loading">
+    <div *ngFor="let neg of NegociosR" class="Negocios" >
+    <ion-card  class="Card" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
+      <ion-card-title class="titleCard">
+        {{neg.Negocio}}
+        <div class="fabsGroup">
+            <div class="fabs"  *ngFor="let res of neg.Calificacion">
+              <ion-icon *ngIf="res.t == 1" name="star"></ion-icon>
+              <ion-icon *ngIf="res.t == 2" name="star-half"></ion-icon>
+              <ion-icon *ngIf="res.t == 3"  name="star-outline"></ion-icon>
+            </div>
+            <div class="fabs" *ngIf="neg.Calificacion.length == 0"><span>Sin reseñas</span></div>
+        </div>
+        <div class="descripcionNegocio">{{neg.Descripcion}}</div>
+      </ion-card-title>
+      <ion-card-content class="contentCard">
+        <div class="logo"><ion-img (ionImgDidLoad)="imagenCargada(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img></div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="footerNegocios">
+      <ion-buttons slot="end">
+        <ion-button (click)="getResenias(neg.IdNegocio)" class="resenasbtn" slot="end">Reseñas</ion-button>
+      </ion-buttons>
+    </ion-card>
+  </div>
+  </div>
+  
+
+  <div *ngIf="loading" >
+    <div *ngFor="let n of [1,2,3,4,5]" class="Negocios">
+      <ion-card  class="Card">
+        <ion-card-title class="titleCard">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          <div class="fabsGroup">
+              <div class="fabs" >
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+          </div>
+          <div class="descripcionNegocio"><ion-skeleton-text animated></ion-skeleton-text></div>
+        </ion-card-title>
+        <ion-card-content class="contentCard">
+          <div class="logo"><ion-skeleton-text animated></ion-skeleton-text></div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="footerNegocios">
+          <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
+      </ion-card>
+    </div>
+  </div>
+  
+</ion-content>

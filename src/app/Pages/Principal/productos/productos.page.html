@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>{{Negocio}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!loading">
+    <ion-item *ngFor="let prod of Productos">
+      <ion-thumbnail slot="start" class="imagen">
+          <img [src]="rutaImagenProducto + IdNegocio + '/' + prod.IdProducto + '.jpg'">
+      </ion-thumbnail>
+      <ion-label class="NombreProducto">
+        {{prod.Producto}}
+        <div class="descripcion">
+            <span style="width: 80%;
+            max-height:30px;
+            height:30px;
+            display: block;
+            display: -webkit-box;
+           
+            line-height: 1.4;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal;
+            text-overflow: ellipsis;">
+              {{prod.Descripcion}}
+            </span>
+        </div>
+        <div class="precio">
+          <span>
+            $ {{prod.Precio}}
+          </span>
+        </div>
+      </ion-label>
+      <ion-buttons slot="end">
+          <ion-button slot="end" (click)="DescripcionProducto(prod.IdNegocio,prod.IdProducto)"><ion-icon name="cart"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="loading">
+      <ion-list-header>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item *ngFor="let n of [1,2,3,4,5]">
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+  </ion-list>
+</ion-content>
