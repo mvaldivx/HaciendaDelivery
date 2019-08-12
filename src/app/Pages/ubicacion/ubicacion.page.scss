@@ -1,0 +1,30 @@
+.map{
+    height: 100vh;
+    position:relative;
+    display:flex;
+    z-index:0;
+}
+
+.direccion{
+    top: 80vh;
+    position: absolute;
+    display: flex;
+    z-index: 11;
+    height: 20vh;
+    background: white;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    border-top-left-radius:15%;
+    border-top-right-radius: 15%;
+}
+
+.content{
+    overflow:hidden;
+}
+
+.btnClose{
+    position: absolute;
+    display: flex;
+    margin-left: 90%;
+}

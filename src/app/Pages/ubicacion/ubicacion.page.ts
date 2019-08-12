@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import leaflet from 'leaflet';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
@@ -17,8 +18,13 @@ export class UbicacionPage implements OnInit {
     useLocale: true,
     maxResults:5
   }
+  calle="";
+  numero="";
 
-  constructor(private nativeGeocoder: NativeGeocoder) { 
+  constructor(
+    private nativeGeocoder: NativeGeocoder,
+    private modalCtrl: ModalController
+    ) { 
   }
 
   ngOnInit() {
@@ -40,34 +46,55 @@ export class UbicacionPage implements OnInit {
       setView: true,
       maxZoom: 10
     }).on('locationfound', (e) => {
-      console.log(e)
       this.markerGroup = leaflet.featureGroup();
-      this.marker = leaflet.marker([e.latitude, e.longitude],{draggable:true}).on('click', () => {
-        alert('Marker clicked');
+      this.marker = leaflet.marker([e.latitude, e.longitude],{draggable:true}).on('click',  ()=>{
+        this.mapClicked()
       })
+      this.marker.on('move',this.dragend, this)
       this.markerGroup.addLayer(this.marker);
       this.map.addLayer(this.markerGroup);
       }).on('locationerror', (err) => {
         alert(err.message);
       }).on('click',this.onMapClick,this)
       
+      
+  }
+
+  markerMoved(){
+    leaflet.DomEvent.stopPropagation
   }
 
   onMapClick(e){
-    console.log(e)
     this.getReverseGeocode(e.latlng.lat,  e.latlng.lng)
     this.markerGroup.removeLayer(this.marker)
-    this.marker = leaflet.marker([e.latlng.lat,  e.latlng.lng],{draggable:true}).on('click', () => {
-      alert('Marker clicked');
+    this.marker = leaflet.marker([e.latlng.lat,  e.latlng.lng],{draggable:true}).on('click',  ()=>{
+      this.mapClicked()
     })
+    this.marker.on('move',this.dragend, this)
+    //this.marker.on('dragend',this.dragend, this)
     this.markerGroup.addLayer(this.marker);
     this.map.addLayer(this.markerGroup);
   }
 
+  mapClicked(){
+    leaflet.DomEvent.stopPropagation
+  }
+
   getReverseGeocode(lat, lng){
     this.nativeGeocoder.reverseGeocode(lat,lng,this.options).then((result:NativeGeocoderResult[])=>{
-      console.log(JSON.stringify(result[0]))
+      this.calle = result[0].thoroughfare
+      this.numero = result[0].subThoroughfare
     })
+  }
+
+  dragend(e){
+    leaflet.DomEvent.stopPropagation
+    var chagedPos = e.target.getLatLng();
+    this.getReverseGeocode(chagedPos.lat, chagedPos.lng)
+  }
+
+  Close(){
+    this.modalCtrl.dismiss()
   }
 
 }
