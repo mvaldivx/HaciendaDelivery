@@ -13,6 +13,7 @@ export class ConfiguracionComponent implements OnInit {
   rutaImagenesNegocios: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Negocios/';
   rutaImagenesLogos: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Logos/';
   rutaImagenesProductos: string='http://mauvalsa.com/HaciendaDelivery/resources/Images/Productos/'
+  rutaNoImage: string = "assets/images/no-image.jpg"
 
   puerto: string = '5357';
   servidor: string = 'http://'+this.ip;

@@ -28,14 +28,16 @@
     </ion-item>
   </ion-list>
   <div class="categorias">
-    <ion-card *ngFor="let cat of Categorias" class="Card">
-      <div class="Titulo" (click)="ShowNegocios(cat.Id, cat.Categoria)">
+    <ion-card *ngFor="let cat of Categorias" class="Card" (click)="ShowNegocios(cat.Id, cat.Categoria)">
+      <div class="Titulo">
         <div class="Texto">
-          <div class="span">{{cat.Categoria}}</div>
-          <ion-img class="image" [src]="rutaimagenes + cat.img + '.jpg'"></ion-img>
+          <img class="image" [src]="rutaimagenes + cat.img + '.jpg'"/>
         </div>
-        
       </div>
+      
+      <div class="blur">
+          <div class="span">{{cat.Categoria}}</div>
+        </div>
     </ion-card>
   </div>
 

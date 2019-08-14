@@ -2,7 +2,11 @@
     --width: 500px;
   }
 
-  .Texto .span{
+.Texto {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 28px !important;
+}
+.span{
     font-family: 'Montserrat', sans-serif !important;
     font-size: 28px !important;
 }
@@ -21,39 +25,58 @@
     width: auto;
     height: 100%;
     display:flex;
-    .image{
-        width: 100%;
-    }
+    display: inline-block;
+    position:absolute;
 }
 
-.Titulo .Texto .span{
+.Titulo .span{
     display: block;
     position: absolute;
     width: 100%;
-    height: 100% !important;
     color: black;
     font-family: 'Montserrat';
-    background-color: #b3a295ad;
     text-align: center;
-    padding-top:35%;
-
 }
-.Texto{
+.span{
+    display: block;
+    position: absolute;
+    width: 100%;
+    color: black;
+    font-family: 'Montserrat';
+    text-align: center;
+}
+.blur{
     display: flex;
     width: 100%;
     height: 100% !important;
     color: black;
     font-family: 'Montserrat';
-    background-color: #b3a2953b;
+    background-color: #b3a2955e;
+    position: absolute;
+    display: flex;
 }
 
 .Card{
-    margin:0;
+    min-height: 20vh;
+    max-height: 20vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top:10px;
+    height: 100%;
 }
 
 .categorias{
-    max-width: 900px;
-    width:80%;
+    max-width: 400px;
+    width: 80vw;
+    max-height: 50vh;
+    height:32vw;
     margin-left:auto;
     margin-right: auto;
+}
+
+.image{
+    width: 100%;
+    height: auto;
+    object-fit: inherit;
+    object-position: inherit;
+    display: block;
 }

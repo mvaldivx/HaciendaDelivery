@@ -8,7 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <div ng-show="!loading">
+    
+
+
+  <div ng-show="loading">
     <div *ngFor="let neg of NegociosR" class="Negocios" >
     <ion-card  class="Card" (click)="ShowProductos(neg.IdNegocio,neg.Negocio)">
       <ion-card-title class="titleCard">
@@ -24,8 +27,12 @@
         <div class="descripcionNegocio">{{neg.Descripcion}}</div>
       </ion-card-title>
       <ion-card-content class="contentCard">
-        <div class="logo"><ion-img (ionImgDidLoad)="imagenCargada(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img></div>
-      </ion-card-content>
+        <div class="logo">
+          <ion-skeleton-text animated *ngIf="loading" style="height: 50px;"></ion-skeleton-text>
+          <ion-img *ngIf="!neg.imgError" (ionImgDidLoad)="imagenCargada(neg.IdNegocio)" (ionError)="errorImage(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img>
+          <ion-img *ngIf="neg.imgError && !loading" [src]="rutaNoImage"></ion-img>
+        </div>
+        </ion-card-content>
     </ion-card>
     <ion-card class="footerNegocios">
       <ion-buttons slot="end">
@@ -35,27 +42,27 @@
   </div>
   </div>
   
-
   <div *ngIf="loading" >
-    <div *ngFor="let n of [1,2,3,4,5]" class="Negocios">
-      <ion-card  class="Card">
-        <ion-card-title class="titleCard">
-            <ion-skeleton-text animated></ion-skeleton-text>
-          <div class="fabsGroup">
-              <div class="fabs" >
-                  <ion-skeleton-text animated></ion-skeleton-text>
-              </div>
-          </div>
-          <div class="descripcionNegocio"><ion-skeleton-text animated></ion-skeleton-text></div>
-        </ion-card-title>
-        <ion-card-content class="contentCard">
-          <div class="logo"><ion-skeleton-text animated></ion-skeleton-text></div>
-        </ion-card-content>
-      </ion-card>
-      <ion-card class="footerNegocios">
-          <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
-      </ion-card>
+      <div *ngFor="let n of [1,2,3,4,5]" class="Negocios">
+        <ion-card  class="Card">
+          <ion-card-title class="titleCard">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            <div class="fabsGroup">
+                <div class="fabs" >
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </div>
+            </div>
+            <div class="descripcionNegocio"><ion-skeleton-text animated></ion-skeleton-text></div>
+          </ion-card-title>
+          <ion-card-content class="contentCard">
+            <div class="logo"><ion-skeleton-text animated></ion-skeleton-text></div>
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="footerNegocios">
+            <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
+        </ion-card>
+      </div>
     </div>
-  </div>
+  
   
 </ion-content>

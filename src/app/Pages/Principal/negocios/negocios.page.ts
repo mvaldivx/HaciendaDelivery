@@ -14,6 +14,7 @@ export interface NegocioR {
   Estatus: boolean;
   Descripcion: string;
   Calificacion: object;
+  imgError?:boolean;
 }
 @Component({
   selector: 'app-negocios',
@@ -29,6 +30,7 @@ rutaImagenLogo:string="";
 calTmp=[];
 loading = true
 imagenesCargadas= 0
+rutaNoImage="";
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +44,7 @@ imagenesCargadas= 0
 
   ngOnInit() {
     this.rutaImagenLogo = this.configuracion.rutaImagenesLogos
+    this.rutaNoImage = this.configuracion.rutaNoImage
     this.storage.get('categoria').then(cat=>{
       this.Categoria = cat
     })
@@ -126,6 +129,17 @@ imagenesCargadas= 0
     if(this.imagenesCargadas == this.NegociosR.length){
       this.loading = false
     }
+  }
+
+  errorImage(idNegocio){
+    this.imagenesCargadas +=1
+    if(this.imagenesCargadas == this.NegociosR.length){
+      this.loading = false
+    }
+    this.NegociosR.forEach(n=>{
+      if(n.IdNegocio == idNegocio)
+        n.imgError = true
+    })
   }
 
 }

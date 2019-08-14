@@ -32,7 +32,7 @@ rutaimagenes="";
     private storage: Storage,
     private modalCtrl: ModalController
   ) { 
-    
+    this.rutaimagenes = this.configuracion.rutaImagenes;
     this.getNumProductos()
   }
 
@@ -40,7 +40,7 @@ rutaimagenes="";
    /* this.ApiPrincipal.getCategorias().subscribe(data=>{
       this.Categorias = data
     });*/
-    this.rutaimagenes = this.configuracion.rutaImagenes;
+    
     this.categoriasService.getCategorias().subscribe(res=>{
       this.Categorias = res;
     })
