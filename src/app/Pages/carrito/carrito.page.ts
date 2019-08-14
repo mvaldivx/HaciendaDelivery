@@ -97,7 +97,8 @@ export class CarritoPage implements OnInit {
 
   async IrUbicacion(){
     const modal = await this.modalCtrl.create({
-      component:UbicacionPage
+      component:UbicacionPage,
+      cssClass: 'my-custom-modal-css'
     })
     await modal.present();
 }
