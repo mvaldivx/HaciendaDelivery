@@ -49,7 +49,8 @@ export class ProductosPage implements OnInit {
       componentProps:{
         'IdNegocio':idNegocio,
         'IdProducto':idProducto
-      }
+      },
+      cssClass: 'my-custom-modal-css'
     })
     await modal.present();
     const { data } = await modal.onWillDismiss();

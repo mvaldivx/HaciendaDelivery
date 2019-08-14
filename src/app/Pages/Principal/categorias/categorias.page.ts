@@ -109,7 +109,8 @@ numProductos= 0;
 
   async irCarrito(){
       const modal = await this.modalCtrl.create({
-        component:CarritoPage
+        component:CarritoPage,
+        cssClass: 'my-custom-modal-css'
       })
       await modal.present();
       const { data } = await modal.onWillDismiss();
