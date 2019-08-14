@@ -9,10 +9,10 @@ export class ConfiguracionComponent implements OnInit {
 
   films: Observable<any>;
   ip : string = '172.16.214.54'
-  rutaImagenes: string = '//localhost:80/SAD/Images/Categorias/';
-  rutaImagenesNegocios: string = '//localhost:80/SAD/Images/Negocios/';
-  rutaImagenesLogos: string = '//localhost:5357/WSSAD/resources/Logos/';
-  rutaImagenesProductos: string='//localhost:5357/WSSAD/resources/Productos/'
+  rutaImagenes: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Categorias/';
+  rutaImagenesNegocios: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Negocios/';
+  rutaImagenesLogos: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Logos/';
+  rutaImagenesProductos: string='http://mauvalsa.com/HaciendaDelivery/resources/Images/Productos/'
 
   puerto: string = '5357';
   servidor: string = 'http://'+this.ip;

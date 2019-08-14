@@ -19,6 +19,7 @@ searchbar = false;
 searchbarVal:any='';
 autocomplete:any=[];
 numProductos= 0;
+rutaimagenes="";
 
 @ViewChild('searchb',{static:true}) myInput: IonSearchbar;
 
@@ -39,6 +40,7 @@ numProductos= 0;
    /* this.ApiPrincipal.getCategorias().subscribe(data=>{
       this.Categorias = data
     });*/
+    this.rutaimagenes = this.configuracion.rutaImagenes;
     this.categoriasService.getCategorias().subscribe(res=>{
       this.Categorias = res;
     })

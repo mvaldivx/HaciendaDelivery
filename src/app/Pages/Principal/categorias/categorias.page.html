@@ -31,9 +31,8 @@
     <ion-card *ngFor="let cat of Categorias" class="Card">
       <div class="Titulo" (click)="ShowNegocios(cat.Id, cat.Categoria)">
         <div class="Texto">
-            {{cat.Categoria}}
           <div class="span">{{cat.Categoria}}</div>
-        <!--<ion-img class="image" [src]="cat.img"></ion-img>-->
+          <ion-img class="image" [src]="rutaimagenes + cat.img + '.jpg'"></ion-img>
         </div>
         
       </div>
