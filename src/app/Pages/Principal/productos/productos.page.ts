@@ -4,7 +4,7 @@ import { NavController, ModalController, ToastController  } from '@ionic/angular
 import { Producto, ProductosService } from '../../../Services/Productos/productos.service'
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 import { DescripcionProductoPage } from '../descripcion-producto/descripcion-producto.page'
-
+import { UtilsComponent } from '../../../utils/utils.component';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.page.html',
@@ -23,7 +23,7 @@ export class ProductosPage implements OnInit {
     private productos: ProductosService,
     private configuracion: ConfiguracionComponent,
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController
+    private utils: UtilsComponent
     ) { }
 
   ngOnInit() {
@@ -48,7 +48,8 @@ export class ProductosPage implements OnInit {
       component:DescripcionProductoPage,
       componentProps:{
         'IdNegocio':idNegocio,
-        'IdProducto':idProducto
+        'IdProducto':idProducto,
+        'Aumenta': false
       },
       cssClass: 'my-custom-modal-css'
     })
@@ -60,12 +61,13 @@ export class ProductosPage implements OnInit {
     
   }
 
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
+   presentToast() {
+    this.utils.showToast('Producto agregado correctamente.')
+    /*const toast = await this.toastCtrl.create({
       message: 'Producto agregado correctamente.',
       duration: 2000
     });
-    toast.present();
+    toast.present();*/
   }
 
 }

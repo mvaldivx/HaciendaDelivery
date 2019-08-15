@@ -23,7 +23,7 @@ import { DescripcionProductoPageModule } from './Pages/Principal/descripcion-pro
 import { CarritoPageModule } from './Pages/carrito/carrito.module';
 import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
 import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
-
+import { UtilsComponent } from './utils/utils.component'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -46,6 +46,7 @@ import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ConfiguracionComponent,
     PrincipalComponent,
+    UtilsComponent,
     NativeGeocoder,
   ],
   bootstrap: [AppComponent]

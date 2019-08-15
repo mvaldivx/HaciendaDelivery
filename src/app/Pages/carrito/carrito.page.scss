@@ -41,7 +41,8 @@
     display: flex;
     position: sticky;
     top: 75vh;
-    width:95%;
+    width:99%;
+    background: white;
     margin-left: auto;
     margin-right: auto;
     .card{
@@ -74,6 +75,8 @@
         margin-right: auto;
         position:absolute;
         min-height: 50px;
+        height:75%;
+        overflow-y:auto;
     }
     .NombreProducto{
         font-family: 'Montserrat';
@@ -91,6 +94,10 @@
         font-family: 'Montserrat';
         font-size:12px;
     }
+}
+
+.inner-scroll{
+    overflow:hidden;
 }
 
 .closebtn{
@@ -113,9 +120,9 @@
 .sliding{
     ion-item{
         -webkit-animation-name: animate;
-        -webkit-animation-duration: .6s;
+        -webkit-animation-duration: 1s;
         animation-name: animate;
-        animation-duration: .6s;
+        animation-duration: 1s;
         z-index:5;
     }
     ion-item-options{
@@ -127,13 +134,13 @@
 
 @-webkit-keyframes animate {
     0% {-webkit-transform: translate3d(0px, 0px, 0px); }
-    50% {-webkit-transform: translate3d(-33px, 0px, 0px); }
+    50% {-webkit-transform: translate3d(-66px, 0px, 0px); }
     100% {-webkit-transform: translate3d(0px, 0px, 0px); }
   }
 
   @keyframes animate {
     0% {transform: translate3d(0px, 0px, 0px); }
-    50% {transform: translate3d(-33px, 0px, 0px); }
+    50% {transform: translate3d(-66px, 0px, 0px); }
     100% {transform: translate3d(0px, 0px, 0px); }
   }
 

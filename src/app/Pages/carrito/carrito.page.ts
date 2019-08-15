@@ -4,8 +4,8 @@ import { ProductosService } from '../../Services/Productos/productos.service'
 import { Storage } from '@ionic/storage';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
 import { UbicacionPage } from '../ubicacion/ubicacion.page';
-
-
+import { DescripcionProductoPage } from '../Principal/descripcion-producto/descripcion-producto.page'
+import { UtilsComponent } from '../../utils/utils.component'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -19,9 +19,9 @@ export class CarritoPage implements OnInit {
 
   constructor(
    private modalCtrl: ModalController,
-   private productosService: ProductosService,
    private store: Storage,
-   private configuracion: ConfiguracionComponent
+   private configuracion: ConfiguracionComponent,
+   private utils: UtilsComponent
   ) { }
 
   ngOnInit() {
@@ -47,12 +47,12 @@ export class CarritoPage implements OnInit {
     })
   }
 
-  remove(IdProducto){
+  remove(IdProducto, ComentsAdi){
     this.store.get('carrito').then(carrito=>{
       if(carrito!= null && carrito.Productos != null){
         let aux=[]
         carrito.Productos.forEach(element => {
-          if(element.Producto.IdProducto != IdProducto)
+          if(element.Producto.IdProducto != IdProducto && element.ComentsAdi != ComentsAdi)
             aux.push(element)
         });
         this.Productos = aux
@@ -65,18 +65,18 @@ export class CarritoPage implements OnInit {
     })
   }
 
-  edit(IdProducto,tipo){
+  edit(IdProducto, ComentsAdi,tipo){
     this.store.get('carrito').then(carrito=>{
       if(carrito!= null && carrito.Productos != null){
         carrito.Productos.forEach(element => {
-          if(element.Producto.IdProducto === IdProducto)
+          element.showDel = ''
+          if(element.Producto.IdProducto === IdProducto && element.ComentsAdi == ComentsAdi)
             if(tipo === '+'){
               element.Cantidad+=1
               element.showDel = ''
             }else if(element.Cantidad > 1){
               element.Cantidad-=1
             }else if(element.showDel === '' || element.showDel == null){
-              console.log(element)
               element.showDel = 'sliding'
             }
         });
@@ -101,5 +101,28 @@ export class CarritoPage implements OnInit {
       cssClass: 'my-custom-modal-css'
     })
     await modal.present();
-}
+  }
+
+  async editarPedido(idNegocio,idProducto,ComentsAdi){
+    const modal = await this.modalCtrl.create({
+      component:DescripcionProductoPage,
+      componentProps:{
+        'IdNegocio':idNegocio,
+        'IdProducto':idProducto,
+        'ComentsAdi':ComentsAdi,
+        'Aumenta': true
+      },
+      cssClass: 'my-custom-modal-css'
+    })
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    if(data.status == 2){
+      this.getProductos()
+      this.presentToast()
+    }   
+  }
+
+  presentToast() {
+    this.utils.showToast('Pedido Editado Correctamente')
+  }
 }
