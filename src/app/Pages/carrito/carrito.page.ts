@@ -52,7 +52,7 @@ export class CarritoPage implements OnInit {
       if(carrito!= null && carrito.Productos != null){
         let aux=[]
         carrito.Productos.forEach(element => {
-          if(element.Producto.IdProducto != IdProducto && element.ComentsAdi != ComentsAdi)
+          if(!(element.Producto.IdProducto === IdProducto && element.ComentsAdi === ComentsAdi))
             aux.push(element)
         });
         this.Productos = aux

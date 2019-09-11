@@ -95,7 +95,7 @@ export class DescripcionProductoPage implements OnInit {
         if (diff < 2) {
           let exist = false
             carrito.Productos.forEach(prod => {
-              if (prod.Producto.IdProducto == this.IdProducto && prod.ComentsAdi == this.ComentsAdi) {
+              if (prod.Producto.IdProducto == this.IdProducto && ( (prod.ComentsAdi == this.ComentsAdi && !this.Aumenta) || this.Aumenta)) {
                 prod.Cantidad =(this.Aumenta)?  this.cantidad : prod.Cantidad + this.cantidad
                 prod.ComentsAdi = this.ComentsAdi
                 exist = true

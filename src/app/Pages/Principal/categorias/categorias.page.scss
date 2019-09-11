@@ -38,12 +38,14 @@
     text-align: center;
 }
 .span{
-    display: block;
-    position: absolute;
     width: 100%;
     color: black;
     font-family: 'Montserrat';
     text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: sticky;
+    display: block;
 }
 .blur{
     display: flex;
@@ -51,9 +53,10 @@
     height: 100% !important;
     color: black;
     font-family: 'Montserrat';
-    background-color: #b3a2955e;
+    background-color: #b3a295;
     position: absolute;
     display: flex;
+    opacity: .7;
 }
 
 .Card{

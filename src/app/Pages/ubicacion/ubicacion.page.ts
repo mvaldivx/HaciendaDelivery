@@ -50,6 +50,7 @@ export class UbicacionPage implements OnInit {
       this.marker = leaflet.marker([e.latitude, e.longitude],{draggable:true}).on('click',  ()=>{
         this.mapClicked()
       })
+      this.getReverseGeocode(e.latitude, e.longitude)
       this.marker.on('move',this.dragend, this)
       this.markerGroup.addLayer(this.marker);
       this.map.addLayer(this.markerGroup);

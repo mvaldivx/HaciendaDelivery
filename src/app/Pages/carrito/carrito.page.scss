@@ -38,13 +38,15 @@
     background-color: #505050;
 }
 .blurfooter{
-    display: flex;
-    position: sticky;
-    top: 75vh;
+    //display: flex;
+    //position: sticky;
+    //top: 68vh;
+    height:25%;
     width:99%;
     background: white;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 25%;
     .card{
         background-color: white;
         width: 95%;
@@ -64,7 +66,7 @@
     width:95%;
     margin-left:auto;
     margin-right:auto;
-    height: 97vh;
+    height: 100%;
     border-radius: 25px;
     background-color: white;
     box-shadow: 1px -1px 5px #0c0c0ca6;
@@ -73,7 +75,7 @@
         width: 95%;
         margin-left: auto;
         margin-right: auto;
-        position:absolute;
+        //position:absolute;
         min-height: 50px;
         height:75%;
         overflow-y:auto;
@@ -110,8 +112,7 @@
 }
 
 .panel{
-    min-height: 92.278%;
-    max-height: 92vh;
+    height: 89.5%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -120,9 +121,9 @@
 .sliding{
     ion-item{
         -webkit-animation-name: animate;
-        -webkit-animation-duration: 1s;
+        -webkit-animation-duration: .7s;
         animation-name: animate;
-        animation-duration: 1s;
+        animation-duration: .7s;
         z-index:5;
     }
     ion-item-options{
