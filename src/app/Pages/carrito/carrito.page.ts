@@ -16,6 +16,7 @@ export class CarritoPage implements OnInit {
   loading= true;
   rutaImagenProducto = "";
   Total= 0;
+  ubicacion= {};
 
   constructor(
    private modalCtrl: ModalController,
@@ -27,6 +28,7 @@ export class CarritoPage implements OnInit {
   ngOnInit() {
     this.rutaImagenProducto = this.configuracion.rutaImagenesProductos
     this.getProductos()
+    this.getDireccion()
   }
 
   close(){
@@ -101,6 +103,15 @@ export class CarritoPage implements OnInit {
       cssClass: 'my-custom-modal-css'
     })
     await modal.present();
+    await modal.onWillDismiss();
+    this.getDireccion()
+  }
+
+  getDireccion(){
+    this.store.get('ubicacion').then(u=>{
+      if(u != null)
+        this.ubicacion = u
+    })
   }
 
   async editarPedido(idNegocio,idProducto,ComentsAdi){

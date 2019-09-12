@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient  } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-configuracion'
 })
@@ -14,6 +15,10 @@ export class ConfiguracionComponent implements OnInit {
   rutaImagenesLogos: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Logos/';
   rutaImagenesProductos: string='http://mauvalsa.com/HaciendaDelivery/resources/Images/Productos/'
   rutaNoImage: string = "assets/images/no-image.jpg"
+  UrlBingQuery: string = "http://dev.virtualearth.net/REST/v1/Locations"
+  bingKey: string="Al6mHrQ7P6DoX0ZmlKVbhx81Ra2L4_tWDu2Gydy1NlY3T25ey4rNctMSwA1LOrvK"
+  //Ejemplo Estructura bing Query
+  //http://dev.virtualearth.net/REST/v1/Locations?q=calle%2013,%20Guadalajara&key=Al6mHrQ7P6DoX0ZmlKVbhx81Ra2L4_tWDu2Gydy1NlY3T25ey4rNctMSwA1LOrvK
 
   puerto: string = '5357';
   servidor: string = 'http://'+this.ip;
@@ -35,6 +40,10 @@ export class ConfiguracionComponent implements OnInit {
 
   claim(padre,archivo,params): Observable<any> {
     return this.httpClient.get(this.servidor +':'+ this.puerto +'/WSSAD/Api/'+ padre + '/' + archivo ,{params:params})
+  }
+
+  bingClaim(q):Observable<Result>{
+    return this.httpClient.get<Result>(q)
   }
 
   ngOnInit() {}

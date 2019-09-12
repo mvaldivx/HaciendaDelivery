@@ -20,6 +20,7 @@ searchbarVal:any='';
 autocomplete:any=[];
 numProductos= 0;
 rutaimagenes="";
+ubicacion={};
 
 @ViewChild('searchb',{static:true}) myInput: IonSearchbar;
 
@@ -34,6 +35,7 @@ rutaimagenes="";
   ) { 
     this.rutaimagenes = this.configuracion.rutaImagenes;
     this.getNumProductos()
+    this.getDireccion()
   }
 
   ngOnInit() {
@@ -117,6 +119,13 @@ rutaimagenes="";
       await modal.present();
       const { data } = await modal.onWillDismiss();
       this.getNumProductos()
+  }
+
+  getDireccion(){
+    this.storage.get('ubicacion').then(u =>{
+      if(u != null)
+        this.ubicacion = u
+    })
   }
 
 }

@@ -1,3 +1,8 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
 .map{
     height: 100vh;
     position:relative;
@@ -28,6 +33,13 @@
             width: 50%;
             display: inline-block;
         }
+        ion-button{
+            width:99%;
+            margin-left: .5%;
+            margin-right:auto;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
     }
 }
 
@@ -43,6 +55,34 @@
         width:100%;
         ion-button{
             margin-left: auto;
+        }
+    }
+}
+
+.buscador{
+    position: absolute;
+    z-index: 9999;
+    width:100%;
+    margin-top:30px;
+    ion-input{
+        background-color: white;
+        margin-left:auto;
+        margin-right:7px;
+        width:35%;
+        min-width:200px;
+        font-size:12px;
+        border-radius:5%;
+        font-family:'Montserrat';
+    }
+    .sugerencias{
+        margin-left:auto;
+        margin-right:7px;
+        width:35%;
+        min-width:200px;
+        border-radius:5%;
+        ion-item{
+            font-size:10px;
+            font-family:'Montserrat';
         }
     }
 }

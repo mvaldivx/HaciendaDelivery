@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ConfiguracionComponent } from './Configuracion/configuracion/configuracion.component'
 import { PrincipalComponent } from './Api/Principal/principal/principal.component'
+import { BingComponent } from './Api/Bing/bing/bing.component'
 import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
@@ -46,6 +47,7 @@ import { UtilsComponent } from './utils/utils.component'
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ConfiguracionComponent,
     PrincipalComponent,
+    BingComponent,
     UtilsComponent,
     NativeGeocoder,
   ],

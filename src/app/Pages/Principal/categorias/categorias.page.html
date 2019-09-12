@@ -5,7 +5,16 @@
         <ion-icon name="menu"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-title>Categorias</ion-title>
+    <ion-title>
+      <div>
+        <span>
+          Categorias
+        </span>
+        <div class="direccion">
+          <span>Dirección: {{ubicacion.calle + '   #' + ubicacion.numero}} <ion-icon name="arrow-dropleft"></ion-icon></span>
+        </div>
+      </div>
+      </ion-title>
     <ion-buttons slot="end">
       <!--<ion-button shape="round" *ngIf="!searchbar" (click)="setsearch()">
         <ion-icon name="search"></ion-icon>
