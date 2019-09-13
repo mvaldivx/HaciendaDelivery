@@ -1,0 +1,36 @@
+
+<ion-content>
+
+    <div class="fondo">
+      <div class="closebtn">
+        <ion-buttons>
+          <ion-button slot="icon-only" (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-buttons>
+      </div>
+      <div class="contenido">
+        <div class="titulo">
+          <span>Numero de telefono:</span>
+        </div>
+        <div class="item">
+          <ion-item>
+            <ion-select value="+52" placeholder="Codigo Pais" [(ngModel)]="codigo">
+                <ion-select-option value="+52">MX+52</ion-select-option>
+              </ion-select>
+            <ion-input [(ngModel)]="phoneNumber"></ion-input>
+          </ion-item>
+        </div>
+        
+        
+        <div id="recaptcha-container" class="captcha"></div>
+
+        <div class="btnenviarMSG">
+          <ion-button color="secondary" id="sign-in-button" (click)="signIn(phoneNumber)">
+            Enviar mensaje
+          </ion-button>
+        </div>
+        
+      </div>
+    </div>
+    
+    
+</ion-content>

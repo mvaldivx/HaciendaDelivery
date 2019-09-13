@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth'
 
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
@@ -25,6 +26,7 @@ import { CarritoPageModule } from './Pages/carrito/carrito.module';
 import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
 import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
 import { UtilsComponent } from './utils/utils.component'
+import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -35,10 +37,12 @@ import { UtilsComponent } from './utils/utils.component'
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     DescripcionProductoPageModule,
     CarritoPageModule,
     ReseniasPageModule,
     UbicacionPageModule,
+    DireccionesPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

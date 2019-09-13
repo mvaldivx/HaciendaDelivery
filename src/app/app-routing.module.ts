@@ -10,6 +10,9 @@ const routes: Routes = [
   { path: 'descripcion-producto', loadChildren: './Pages/Principal/descripcion-producto/descripcion-producto.module#DescripcionProductoPageModule' },
   { path: 'resenias', loadChildren: './Pages/Principal/resenias/resenias.module#ReseniasPageModule' },
   { path: 'ubicacion', loadChildren: './Pages/ubicacion/ubicacion.module#UbicacionPageModule' },
+  { path: 'direcciones', loadChildren: './Pages/direcciones/direcciones.module#DireccionesPageModule' },
+  { path: 'login', loadChildren: './Pages/login/login.module#LoginPageModule' },
+  { path: 'registro', loadChildren: './Pages/registro/registro.module#RegistroPageModule' },
 
 ];
 

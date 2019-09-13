@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, IonSearchbar, NavController, ModalController } from '@ionic/angular';
+import { MenuController, IonSearchbar, NavController, ModalController, PopoverController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component';
 import { PrincipalComponent } from '../../../Api/Principal/principal/principal.component';
@@ -7,6 +7,7 @@ import { HttpParams } from '@angular/common/http'
 import { Categoria, CategoriasService } from '../../../Services/Categorias/categorias.service'
 import { Storage } from '@ionic/storage';
 import { CarritoPage } from '../../carrito/carrito.page'
+import { DireccionesPage } from '../../direcciones/direcciones.page'
 
 @Component({
   selector: 'app-categorias',
@@ -31,7 +32,8 @@ ubicacion={};
     private categoriasService: CategoriasService,
     private navCtrl: NavController,
     private storage: Storage,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private popoverDir: PopoverController
   ) { 
     this.rutaimagenes = this.configuracion.rutaImagenes;
     this.getNumProductos()
@@ -126,6 +128,15 @@ ubicacion={};
       if(u != null)
         this.ubicacion = u
     })
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverDir.create({
+      component: DireccionesPage,
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 
 }

@@ -11,7 +11,9 @@
           Categorias
         </span>
         <div class="direccion">
-          <span>Dirección: {{ubicacion.calle + '   #' + ubicacion.numero}} <ion-icon name="arrow-dropleft"></ion-icon></span>
+          <span>Dirección: {{ubicacion.calle + '   #' + ubicacion.numero}} 
+            <span class="cambiardir" (click)="presentPopover($event)">Cambiar dirección</span>
+          </span>
         </div>
       </div>
       </ion-title>
