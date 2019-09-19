@@ -1,9 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content >
 
-<ion-content>
-
+  <div class="fondo">
+    <div class="closebtn">
+      <ion-buttons>
+        <ion-button slot="icon-only" (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+      </ion-buttons>
+    </div>
+    <div class="contenido" @fadein>
+      <H1>Registrarse</H1>
+      <div class="titulo">
+        <ion-label position="floating">Numero de Contacto:</ion-label>
+        <ion-input disabled [(ngModel)]="phoneNumber"></ion-input>
+      </div>
+      <div class="Nombre">
+        <ion-item lines="none">
+          <ion-label position="floating" style="font-family:'Montserrat'">Nombre:</ion-label>
+          <ion-input [(ngModel)]="Nombre"></ion-input>
+        </ion-item>
+      </div> 
+      <div class="FechaNacimiento">
+          <ion-label>Fecha de Nacimiento:</ion-label><br>
+          <ion-select placeholder="Dia" [(ngModel)]="Dia" class="Dia">
+            <ion-select-option *ngFor="let d of Dias" [value]="d">{{d}}</ion-select-option>
+          </ion-select>
+          <ion-select placeholder="Mes" [(ngModel)]="Mes" class="Mes">
+            <ion-select-option *ngFor="let m of Meses; let i = index" [value]="i">{{m}}</ion-select-option>
+          </ion-select>
+          <ion-select placeholder="Año" [(ngModel)]="Anio" class="Anio">
+            <ion-select-option *ngFor="let a of Anios" [value]="a">{{a}}</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="btnListo">
+          <ion-button class="terminar" (click)="RegistrarUsuario()">Listo</ion-button> 
+        </div>
+    </div>
+  </div>
 </ion-content>

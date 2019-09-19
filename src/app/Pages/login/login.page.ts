@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Events } from '@ionic/angular';
 import { AuthenticationService } from '../../Services/Authentication/authentication.service'
 import * as firebase from 'firebase/app';
+import { NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router'
+import { customAlertoutAnimation, customAlertinAnimation } from '../../Transitions/InPage'
+import { UtilsComponent } from '../../utils/utils.component'
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +16,16 @@ import * as firebase from 'firebase/app';
 export class LoginPage implements OnInit {
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   codigo="+52";
+  phoneNumber:Number;
 
   constructor(
     public navCtrl:NavController, 
     public alertCtrl:AlertController,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
+    private utils: UtilsComponent,
+    private events: Events,
+    private storage: Storage
     ) { }
 
   ngOnInit() {
@@ -33,7 +43,7 @@ export class LoginPage implements OnInit {
         this.presentAlert(confirmationResult)
       })
       .catch( error => {
-        this.alertGenerico('Verifique el numero ingresado' + phoneNumberString + ' '  + error )
+        this.utils.alertGenerico('Error','Verifique el numero ingresado' + phoneNumberString + ' '  + error )
       });
    }
   }
@@ -52,7 +62,9 @@ export class LoginPage implements OnInit {
             this.validaCodigo(confirmationResult,data)
           }
         }
-      ]
+      ],
+      enterAnimation: customAlertinAnimation,
+      leaveAnimation: customAlertoutAnimation
     });
     await aler.present();
   }
@@ -64,21 +76,10 @@ export class LoginPage implements OnInit {
       this.GetUserData(result.user.uid)
       // ...
     }).catch( error => {
-      this.alertGenerico('Codigo incorrecto' + ' ' + error)
+      this.utils.alertGenerico('Error','Codigo incorrecto' + ' ' + error)
       // User couldn't sign in (bad verification code?)
       // ...
     });
-  }
-
-  async alertGenerico(message){
-    var alert =  await this.alertCtrl.create({
-      header: message,
-      buttons: [
-        { text: 'Aceptar'
-        }
-      ]
-    })
-    alert.present()
   }
 
   close(){
@@ -87,12 +88,25 @@ export class LoginPage implements OnInit {
 
   GetUserData(uid){
     this.authService.getUsuario(uid).subscribe(r=>{
-      if(r.length > 0)
-        this.RegistrarUsuario()
+      if(r.length > 0){
+        this.storage.set('Usuario',r[0]).then(()=>{
+          this.events.publish('usuario:register')
+          this.navCtrl.navigateRoot('')
+        })
+        
+      }else
+        this.RegistrarUsuario(uid)
     })
   }
   
-  RegistrarUsuario(){
-
+  RegistrarUsuario(uid){
+    let navExtras: NavigationExtras={
+      queryParams:{
+        uid:uid,
+        phoneNumber: this.phoneNumber
+      }
+    }
+    this.router.navigate(['registro'],navExtras)
+    //this.navCtrl.navigateForward(['registro'],navExtras)
   }
 }

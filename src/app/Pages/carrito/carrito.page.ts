@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { ProductosService } from '../../Services/Productos/productos.service'
+import { ModalController, PopoverController } from '@ionic/angular';
+import { DireccionesService } from '../../Services/Direcciones/direcciones.service'
 import { Storage } from '@ionic/storage';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
-import { UbicacionPage } from '../ubicacion/ubicacion.page';
 import { DescripcionProductoPage } from '../Principal/descripcion-producto/descripcion-producto.page'
 import { UtilsComponent } from '../../utils/utils.component'
+import { DireccionesPage } from '../direcciones/direcciones.page'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -22,7 +22,9 @@ export class CarritoPage implements OnInit {
    private modalCtrl: ModalController,
    private store: Storage,
    private configuracion: ConfiguracionComponent,
-   private utils: UtilsComponent
+   private utils: UtilsComponent,
+   private direcServices: DireccionesService,
+   private popoverDir: PopoverController
   ) { }
 
   ngOnInit() {
@@ -97,20 +99,29 @@ export class CarritoPage implements OnInit {
   }
 
 
-  async IrUbicacion(){
-    const modal = await this.modalCtrl.create({
-      component:UbicacionPage,
-      cssClass: 'my-custom-modal-css'
-    })
-    await modal.present();
-    await modal.onWillDismiss();
-    this.getDireccion()
+  async IrUbicacion(ev: any) {
+    const popover = await this.popoverDir.create({
+      component: DireccionesPage,
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 
   getDireccion(){
-    this.store.get('ubicacion').then(u=>{
-      if(u != null)
-        this.ubicacion = u
+    this.store.get('Usuario').then(usr=>{
+      if(usr){
+        this.direcServices.getDireccionActual(usr.IdUsuario).subscribe(d=>{
+          if(d.length > 0)
+            this.ubicacion = d[0]
+        })
+      }else{
+        this.store.get('ubicacion').then(u=>{
+          if(u)
+            this.ubicacion = u
+        })
+      }
+      
     })
   }
 

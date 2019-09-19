@@ -8,6 +8,7 @@ import { Categoria, CategoriasService } from '../../../Services/Categorias/categ
 import { Storage } from '@ionic/storage';
 import { CarritoPage } from '../../carrito/carrito.page'
 import { DireccionesPage } from '../../direcciones/direcciones.page'
+import { DireccionesService , direcciones} from '../../../Services/Direcciones/direcciones.service'
 
 @Component({
   selector: 'app-categorias',
@@ -22,6 +23,7 @@ autocomplete:any=[];
 numProductos= 0;
 rutaimagenes="";
 ubicacion={};
+direccion: direcciones
 
 @ViewChild('searchb',{static:true}) myInput: IonSearchbar;
 
@@ -33,8 +35,10 @@ ubicacion={};
     private navCtrl: NavController,
     private storage: Storage,
     private modalCtrl: ModalController,
-    private popoverDir: PopoverController
+    private popoverDir: PopoverController,
+    private direccionServ: DireccionesService
   ) { 
+    
     this.rutaimagenes = this.configuracion.rutaImagenes;
     this.getNumProductos()
     this.getDireccion()
@@ -124,10 +128,21 @@ ubicacion={};
   }
 
   getDireccion(){
-    this.storage.get('ubicacion').then(u =>{
-      if(u != null)
-        this.ubicacion = u
+    this.storage.get('Usuario').then(usr=>{
+      if(usr){
+        this.direccionServ.getDireccionActual(usr.IdUsuario).subscribe(d=>{
+          if(d.length > 0)
+            this.ubicacion = d[0]
+        })
+      }else{
+        this.storage.get('ubicacion').then(u=>{
+          if(u)
+            this.ubicacion = u
+        })
+      }
+      
     })
+    
   }
 
   async presentPopover(ev: any) {

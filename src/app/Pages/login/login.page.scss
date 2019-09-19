@@ -1,3 +1,8 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
 page-login {
     ion-item {
         margin-bottom: 32px !important;
@@ -31,6 +36,7 @@ page-login {
     height: 89.4%;
 
     .item{
+        font-family:"Montserrat";
         width: 94%;
         margin-left:auto;
         margin-right:auto;
@@ -39,6 +45,12 @@ page-login {
             width:50%;
             min-width:250px;
             margin:0;
+            ion-select{
+                font-family:"Montserrat";
+            }
+            ion-input{
+                font-family:"Montserrat";
+            }
         }
     }
     .titulo{
@@ -46,21 +58,24 @@ page-login {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+        font-family:"Montserrat";
     }
     ion-button{
         margin-top:25px;
+        font-family:"Montserrat";
     }
     .btnenviarMSG{
         width:90%;
         margin-left:auto;
         margin-right:auto;
+        font-family:"Montserrat";
     }
 }
 
 .fondo{
     width: 100%;
     height: 100%;
-    background-color: #354682;
+    background-color: #69a2ff;
 }
 
 .captcha{

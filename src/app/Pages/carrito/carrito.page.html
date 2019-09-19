@@ -56,15 +56,15 @@
                 </div>
                 <div class="precio">MXN ${{Total}}</div>
               </div>
-              <div class="direccion" *ngIf="ubicacion.calle != null">
+              <div class="direccion" *ngIf="ubicacion.Calle != null">
                 <span>Dirección: </span>
-                <span *ngIf="ubicacion.calle != null">{{ubicacion.calle + '  #' + ubicacion.numero }}</span>
+                <span *ngIf="ubicacion.Calle != null">{{ubicacion.Calle + '  #' + ubicacion.Numero }}</span>
                 <br/><span class="btnSeleccionarDireccion" (click)="IrUbicacion()">Cambiar Dirección</span>
               </div>
-              <div class="direccion" *ngIf="ubicacion.calle == null">
+              <div class="direccion" *ngIf="ubicacion.Calle == null">
                 <span class="btnSeleccionarDireccion" (click)="IrUbicacion()">Seleccionar Dirección</span>
               </div>
-              <ion-button  color="success" [disabled]="Productos.length < 1 || ubicacion.calle == null">
+              <ion-button  color="success" [disabled]="Productos.length < 1 || ubicacion.Calle == null">
                 Confirmar pedido
               </ion-button>
             </div>

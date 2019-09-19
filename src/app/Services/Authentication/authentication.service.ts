@@ -10,12 +10,18 @@ export interface Usuario {
   UID: string;
   telefono: string;
   registradoEl: Date;
+  FechaNacimiento: Date;
+}
+
+export interface idUsuario{
+  IdUsuario: number;
 }
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private Usuarios:AngularFirestoreCollection<Usuario>;
+  private IdUsuarios: AngularFirestoreCollection<idUsuario>;
   private UsuariosFB: Observable<Usuario[]>;
 
   constructor(
@@ -42,5 +48,14 @@ export class AuthenticationService {
 
   getUsuarios(){
     return this.Usuarios.valueChanges();
+  }
+
+  getUltimoIdUsuario(){
+    return  this.db.collection<idUsuario>('Usuarios', ref=> ref.orderBy('IdUsuario','desc').limit(1)).valueChanges();
+    
+  }
+
+  registrarUsuario(Usuario: Usuario){
+      return this.Usuarios.add(Usuario);
   }
 }

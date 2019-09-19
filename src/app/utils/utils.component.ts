@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-utils',
@@ -9,7 +9,8 @@ import { ToastController } from '@ionic/angular';
 export class UtilsComponent implements OnInit {
 
   constructor(
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {}
@@ -20,5 +21,18 @@ export class UtilsComponent implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  
+  async alertGenerico(titulo,message){
+    var alert =  await this.alertCtrl.create({
+      header: titulo,
+      message: message,
+      buttons: [
+        { text: 'Aceptar'
+        }
+      ]
+    })
+    alert.present()
   }
 }

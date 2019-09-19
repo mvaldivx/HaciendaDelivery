@@ -1,8 +1,12 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      a vers
+    <ion-item *ngFor="let dir of direcciones" (click)="cambiaDefault(dir)">
+      <ion-icon *ngIf="dir.selected" name="radio-button-on"></ion-icon><ion-icon *ngIf="!dir.selected" name="radio-button-off"></ion-icon>
+      {{dir.Calle}} # {{dir.Numero}} 
     </ion-item>
+    <ion-item (click)="Mapa()"><ion-icon name="map"></ion-icon>Seleccionar en el mapa</ion-item>
   </ion-list>
+  <div class="btnAddDir">
+  </div>
 </ion-content>

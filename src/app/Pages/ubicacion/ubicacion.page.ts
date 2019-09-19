@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams, NavController } from '@ionic/angular';
 import leaflet from 'leaflet';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Storage } from '@ionic/storage';
@@ -31,7 +31,9 @@ export class UbicacionPage implements OnInit {
     private nativeGeocoder: NativeGeocoder,
     private modalCtrl: ModalController,
     private store: Storage,
-    private bing: BingComponent
+    private bing: BingComponent,
+    private navParams: NavParams,
+    private navCtrl: NavController
     ) { 
   }
 
@@ -109,8 +111,8 @@ export class UbicacionPage implements OnInit {
 
   GuardarUbicacion(){
     if(this.lat != null && this.lng != null && this.calle != null && this.numero != null && this.lat != "" && this.lng != "" && this.calle != "" && this.numero != ""){
-      this.store.set('ubicacion', {lat:this.lat, lng: this.lng, calle: this.calle, numero: this.numero})
-      this.modalCtrl.dismiss()
+      this.store.set('ubicacion', {Latitud:this.lat, Longitud: this.lng, Calle: this.calle, Numero: this.numero})
+      this.modalCtrl.dismiss({lat:this.lat, lng: this.lng, Calle: this.calle, Numero: this.numero})
     }
   }
 

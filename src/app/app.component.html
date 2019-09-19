@@ -3,17 +3,17 @@
 <ion-app>
     <ion-menu side="start" type="push" menuId="first">
       <ion-header>
-        <ion-toolbar color="danger">
-          <ion-title>End Menu</ion-title>
+        <ion-toolbar >
+          <ion-avatar class="avatar"><ion-icon name="contact"></ion-icon></ion-avatar>
+          <ion-title class="userName" *ngIf="Usuario">{{Usuario.Nombre}}</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-item (click)="login()">Iniciar Sesion</ion-item>
-          <ion-item>Menu Item</ion-item>
-          <ion-item>Menu Item</ion-item>
-          <ion-item>Menu Item</ion-item>
-          <ion-item (click)="logout()">Cerrar Sesion</ion-item>
+          <ion-item *ngIf="!Usuario" (click)="login()">Iniciar Sesion</ion-item>
+          <ion-item>Mis Pedidos</ion-item>
+          <ion-item>Ayuda</ion-item>
+          <ion-item  *ngIf="Usuario" (click)="logout()">Cerrar Sesion</ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>

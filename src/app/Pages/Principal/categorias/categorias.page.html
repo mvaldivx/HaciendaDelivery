@@ -11,7 +11,7 @@
           Categorias
         </span>
         <div class="direccion">
-          <span>Dirección: {{ubicacion.calle + '   #' + ubicacion.numero}} 
+          <span>Dirección: <span *ngIf="ubicacion.Calle">{{ubicacion.Calle + '   #' + ubicacion.Numero}} </span> 
             <span class="cambiardir" (click)="presentPopover($event)">Cambiar dirección</span>
           </span>
         </div>

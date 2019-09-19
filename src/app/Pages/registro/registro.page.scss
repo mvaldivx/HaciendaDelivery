@@ -1,0 +1,88 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+.fondo{
+    width: 100%;
+    height: 100%;
+    background-color: #69a2ff;
+}
+ion-input{
+    font-family:"Montserrat";
+}
+H1{
+    text-align: center;
+    font-family:"Montserrat";
+}
+ion-button{
+    font-family:"Montserrat";
+}
+.closebtn{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    ion-buttons{
+        width:100%;
+        color:white;
+        margin-top: 10px;
+        ion-button{
+            margin-left: auto;
+            margin-right:20px;
+        }
+    }
+}
+
+.contenido{
+    width: 95%;
+    background-color:white;
+    margin-top: 53px;
+    position: absolute;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    border-radius: 17px;
+    opacity: 1;
+    height: 89.4%;
+    .titulo{
+        margin-top: 25px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Montserrat'
+    }
+}
+
+.FechaNacimiento{
+    margin-top: 25px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Montserrat';
+    ion-label{
+        width:100%;
+    }
+}
+.Dia, .Mes, .Anio{
+    width: 20%;
+    display: inline-block;
+    .select-text{
+        min-width:10px;
+    }
+}
+
+.Nombre{
+    margin-top: 25px;
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Montserrat'
+}
+
+.btnListo{
+    width:  90%;
+    margin-left: auto;
+    margin-right: auto;
+    .Terminar{
+        margin-top:20px;
+    }
+}

@@ -27,6 +27,9 @@ import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
 import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
 import { UtilsComponent } from './utils/utils.component'
 import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -43,7 +46,8 @@ import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
     ReseniasPageModule,
     UbicacionPageModule,
     DireccionesPageModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     StatusBar,
