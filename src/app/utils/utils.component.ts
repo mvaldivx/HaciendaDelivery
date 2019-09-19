@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-utils',
@@ -10,7 +10,8 @@ export class UtilsComponent implements OnInit {
 
   constructor(
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {}
@@ -30,6 +31,21 @@ export class UtilsComponent implements OnInit {
       message: message,
       buttons: [
         { text: 'Aceptar'
+        }
+      ]
+    })
+    alert.present()
+  }
+
+  async alertUsuario(){
+    var alert =  await this.alertCtrl.create({
+      header: 'Importante',
+      message: 'Para Continuar es necesario iniciar sesión',
+      buttons: [
+        { text: 'Aceptar',
+          handler: data => {
+            this.navCtrl.navigateForward(['login'])
+          }
         }
       ]
     })

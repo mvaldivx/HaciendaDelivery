@@ -6,6 +6,7 @@ import { ConfiguracionComponent } from '../../Configuracion/configuracion/config
 import { DescripcionProductoPage } from '../Principal/descripcion-producto/descripcion-producto.page'
 import { UtilsComponent } from '../../utils/utils.component'
 import { DireccionesPage } from '../direcciones/direcciones.page'
+import { PedidosService, Pedido, DetallePedido} from '../../Services/Pedidos/pedidos.service'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -17,6 +18,7 @@ export class CarritoPage implements OnInit {
   rutaImagenProducto = "";
   Total= 0;
   ubicacion= {};
+  realizandoPedido = false
 
   constructor(
    private modalCtrl: ModalController,
@@ -24,7 +26,8 @@ export class CarritoPage implements OnInit {
    private configuracion: ConfiguracionComponent,
    private utils: UtilsComponent,
    private direcServices: DireccionesService,
-   private popoverDir: PopoverController
+   private popoverDir: PopoverController,
+   private pedidoServ: PedidosService
   ) { }
 
   ngOnInit() {
@@ -146,5 +149,69 @@ export class CarritoPage implements OnInit {
 
   presentToast() {
     this.utils.showToast('Pedido Editado Correctamente')
+  }
+
+  confirmarPedido(){
+    this.realizandoPedido = true
+    this.store.get('Usuario').then(usr=>{
+      if(usr){
+        this.ObtieneUltimoIdPedido().then(id=>{
+         
+          //Crea Pedido e inserta en BD
+          var pedido:Pedido={
+            IdPedido: id,
+            IdUsuario: usr.IdUsuario,
+            FechaPedido: new Date(),
+            Estatus: 'Realizado',
+            Calle: this.ubicacion['Calle'],
+            Numero: this.ubicacion['Numero'],
+            Total: this.Total,
+            lat: this.ubicacion['Latitud'],
+            lng: this.ubicacion['Longitud'],
+            FechaConcluido: new Date('1999/01/01')
+          }
+          this.pedidoServ.CreaPedido(pedido).then(ped=>{
+            //Confirmado el Guardado se guarda detalle de pedido
+              this.Productos.forEach(p=>{
+                var dPedido: DetallePedido={
+                  IdPedido: id,
+                  Cantidad: p.Cantidad,
+                  ComentsAdi: (p.ComentsAdi)? p.ComentsAdi:'',
+                  IdProducto: p.Producto.IdProducto,
+                  IdNegocio: p.Producto.IdNegocio,
+                  Precio: p.Producto.Precio
+                }
+                this.pedidoServ.GuardaDetallePedido(dPedido)
+              })
+              this.store.remove('carrito')
+              this.utils.showToast('Pedido Realizado')
+              this.modalCtrl.dismiss()
+          })
+          
+        })
+        
+
+      }else{
+        this.utils.alertUsuario()
+        this.modalCtrl.dismiss()
+      }
+    })
+    //this.pedidoServ.CreaPedido()
+    
+  }
+
+
+  ObtieneUltimoIdPedido(){
+    return new Promise<number>(resolve =>{
+      let response=1
+      this.pedidoServ.getUltimoIdPedido().subscribe(id=>{
+        
+        if(id[0]){
+          response = id[0].IdPedido + 1
+          resolve(response)
+        }else
+          resolve(response)
+      })
+    })
   }
 }

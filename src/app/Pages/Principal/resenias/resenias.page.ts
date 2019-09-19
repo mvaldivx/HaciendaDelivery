@@ -37,12 +37,13 @@ export class ReseniasPage implements OnInit {
         this.getProducto(el.IdProducto).then(r=>{
           var aux={IdNegocio:0,Calificacion:[],Comentario:'',IdProducto:0, IdUsuario:0,Producto:'', Fecha:''}
           var dat = new Date(el.Fecha['seconds'] * 1000);
+          var fecha = dat.toLocaleDateString("en-US").split('/')
           aux.IdNegocio= el.IdNegocio;
           aux.Calificacion = this.getCalificacion(el.Calificacion);
           aux.Comentario = el.Comentario;
           aux.IdProducto = el.IdProducto;
           aux.IdUsuario = el.IdUsuario;
-          aux.Fecha = dat.getDay() + ' ' + this.meses[dat.getUTCMonth() -1] + ' ' + dat.getFullYear() + '  ' + this.getHora(dat.getHours()) + ':' + dat.getMinutes() + ' ' + ((dat.getHours() >= 12)?'PM':'AM');
+          aux.Fecha = fecha[1] + ' ' + this.meses[parseInt(fecha[0])-1] + ' ' + fecha[2] + '  ' + this.getHora(dat.getHours()) + ':' + dat.getMinutes() + ' ' + ((dat.getHours() >= 12)?'PM':'AM');
           aux.Producto = r.toString();
           auxProd.push(aux)  
         })  

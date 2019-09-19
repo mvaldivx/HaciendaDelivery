@@ -54,4 +54,10 @@ export class AppComponent {
       this.Usuario = u
     })
   }
+
+  MisPedidos(){
+    this.mnuctrl.toggle()
+    this.navCtrl.navigateForward(['pedidos'])
+  }
+
 }

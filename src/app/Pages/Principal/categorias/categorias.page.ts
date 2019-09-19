@@ -123,8 +123,10 @@ direccion: direcciones
         cssClass: 'my-custom-modal-css'
       })
       await modal.present();
-      const { data } = await modal.onWillDismiss();
-      this.getNumProductos()
+      await modal.onWillDismiss().then(()=>{
+        this.getNumProductos()
+      });
+      
   }
 
   getDireccion(){

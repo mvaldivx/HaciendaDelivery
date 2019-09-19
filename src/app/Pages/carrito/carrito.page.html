@@ -64,8 +64,8 @@
               <div class="direccion" *ngIf="ubicacion.Calle == null">
                 <span class="btnSeleccionarDireccion" (click)="IrUbicacion()">Seleccionar Dirección</span>
               </div>
-              <ion-button  color="success" [disabled]="Productos.length < 1 || ubicacion.Calle == null">
-                Confirmar pedido
+              <ion-button (click)="confirmarPedido()" color="success" [disabled]="Productos.length < 1 || ubicacion.Calle == null || realizandoPedido === true">
+                <span *ngIf="realizandoPedido === false">Confirmar pedido</span><ion-spinner *ngIf="realizandoPedido === true" name="crescent"></ion-spinner>
               </ion-button>
             </div>
           </div>
