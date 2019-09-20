@@ -5,16 +5,74 @@
         <ion-button slot="icon-only" (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
       </ion-buttons>
     </div>
+    <div class="flip" [ngClass]="{'flipped':(detalle)}">
     <div class="contenido" @fadein>
-      <ion-list *ngFor="let ped of Pedidos">
-        <ion-item>
-          <span>Direccion {{ped.Calle + ' #' + ped.Numero}}</span><br>
-          <span>Estatus {{ped.Estatus}}</span><br>
-          <span>Total ${{ped.Total}}</span>
-          <span>{{ped.FechaPedido}}</span>
+      <ion-list>
+        <ion-item  *ngFor="let ped of Pedidos" (click)="getDetallePedido(ped)">
+          <div class="minimap" id="map{{ped.IdPedido}}"></div>
+          <div class="descripcion">
+            <div class="direccion">Direccion: {{ped.Calle + ' #' + ped.Numero}}</div>
+            <div class="Estatus">Estatus: {{ped.Estatus}}</div>
+            <div class="Total">Total: ${{ped.Total}}</div>
+            <div class="Fecha">{{ped.FechaPedido}}</div>
+          </div>
         </ion-item>
       </ion-list>
     </div>
+
+    <div class="DetallePedido" >
+
+      <div class="pedido">
+        <div class="Productos">
+          <div class="lista">
+            <ion-buttons>
+              <ion-button class="btnBack" (click)="detalle= false"><ion-icon name="arrow-back"></ion-icon></ion-button>
+            </ion-buttons>
+              <ion-list>
+                <ion-item *ngFor="let prod of DetallePedido">
+                  <div class="nProducto">
+                    <div>{{prod.Producto}}</div><div class="nComentsAdi">{{prod.ComentsAdi}}</div>
+                  </div>
+                  <div class="nPrecio">
+                    <span>{{prod.Cantidad}} x $ {{prod.Precio}}</span>
+                  </div>
+                </ion-item>
+              </ion-list>
+          </div>
+            
+        </div>
+        <div class="DetallesDireccion">
+          <div class="nDirPedido" *ngIf="PedidoSelected">
+            <div class="TotalDir">
+              <div class="nDir">
+                Direccion: {{PedidoSelected.Calle}} #{{PedidoSelected.Numero}}
+              </div>
+              <div class="ntotal">
+                Total: $ {{PedidoSelected.Total}}
+              </div>
+            </div>
+            <div class="nFechas">
+              <div class="nFped">
+                Realizado el {{PedidoSelected.FechaPedido}}
+              </div>
+              <div class="nfFin">
+                Entregado el {{PedidoSelected.FechaConcluido}}
+              </div>
+            </div>
+            <div class="nEstatus">
+                Estatus: {{PedidoSelected.Estatus}}
+              </div>
+          </div>
+        </div>
+
+        <div class="mapaReferencia">
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
   </div>
 </ion-content>
 

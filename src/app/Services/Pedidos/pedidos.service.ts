@@ -79,4 +79,8 @@ export class PedidosService {
   getUltimoIdPedido(){
     return  this.db.collection<IdPedido>('Pedidos', ref=> ref.orderBy('IdPedido','desc').limit(1)).valueChanges();
   }
+
+  getDetallePedido(IdPedido){
+    return this.db.collection<DetallePedido>('DetallePedido', ref=> ref.where('IdPedido','==',IdPedido)).valueChanges();
+  }
 }
