@@ -109,26 +109,39 @@ this.GeneraMapas()
   }
 
   getDetallePedido(Pedido){
-    console.log(Pedido);
-    
-    this.PedidoSelected = Pedido
-    this.detalle = true
-    this.PedidosServ.getDetallePedido(Pedido.IdPedido).subscribe(dp=>{
-      this.DetallePedido=[]
-      dp.forEach(d=>{
-        var detalle={Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};
-        detalle.Cantidad = d.Cantidad;
-        detalle.ComentsAdi = d.ComentsAdi;
-        detalle.Precio = d.Precio;
-        this.ProductosServ.getProducto(d.IdProducto).subscribe(prod=>{
-          if(prod.length > 0){
-            detalle.Producto = prod[0].Producto
-            this.DetallePedido.push(detalle)
-          }
+    if(!this.detalle){
+      this.PedidoSelected = Pedido
+      this.detalle = true
+      this.PedidosServ.getDetallePedido(Pedido.IdPedido).subscribe(dp=>{
+        this.DetallePedido=[]
+        dp.forEach(d=>{
+          var detalle={Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};
+          detalle.Cantidad = d.Cantidad;
+          detalle.ComentsAdi = d.ComentsAdi;
+          detalle.Precio = d.Precio;
+          this.ProductosServ.getProducto(d.IdProducto).subscribe(prod=>{
+            if(prod.length > 0){
+              detalle.Producto = prod[0].Producto
+              this.DetallePedido.push(detalle)
+            }
+          })
         })
+        console.log(this.DetallePedido);
+        //Crea Mapa Detalle
+       var map:any 
+        var mapa = document.getElementById('mapaDetalle')
+        map= leaflet.map(mapa,{}).fitWorld();
+        map.boxZoom.disable();
+        map.keyboard.disable();
+        leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+        map.setView([this.PedidoSelected.lat, this.PedidoSelected.lng],16)
+
+        leaflet.DomEvent.stopPropagation
+        var marker = leaflet.marker([this.PedidoSelected.lat,  this.PedidoSelected.lng],{draggable:false})
+        var markerGroup = leaflet.featureGroup();
+        markerGroup.addLayer(marker);
+        map.addLayer(markerGroup);
       })
-      console.log(this.DetallePedido);
-      
-    })
+    }
   }
 }

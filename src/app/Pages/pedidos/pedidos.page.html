@@ -6,7 +6,7 @@
       </ion-buttons>
     </div>
     <div class="flip" [ngClass]="{'flipped':(detalle)}">
-    <div class="contenido" @fadein>
+    <div class="contenido" @fadein >
       <ion-list>
         <ion-item  *ngFor="let ped of Pedidos" (click)="getDetallePedido(ped)">
           <div class="minimap" id="map{{ped.IdPedido}}"></div>
@@ -20,7 +20,7 @@
       </ion-list>
     </div>
 
-    <div class="DetallePedido" >
+    <div class="DetallePedido">
 
       <div class="pedido">
         <div class="Productos">
@@ -66,7 +66,7 @@
         </div>
 
         <div class="mapaReferencia">
-
+          <div class="mapaDetalle" id="mapaDetalle"></div>
         </div>
 
       </div>
@@ -75,23 +75,3 @@
   </div>
   </div>
 </ion-content>
-
-<!--
-<ion-item>
-          <ion-thumbnail slot="start" class="imagen">
-            <img [src]="rutaImagenProducto + prod.Producto.IdNegocio + '/' + prod.Producto.IdProducto + '.jpg'">
-          </ion-thumbnail>
-          <ion-label class="NombreProducto">
-            {{prod.Producto.Producto}}
-            <div class="ComentariosAdicionales">
-              {{prod.ComentsAdi}}
-            </div>
-            <div class="precio">
-              <span>
-                $ {{prod.Producto.Precio}}
-              </span>
-            </div>
-          </ion-label>
-        </ion-item>
-
--->

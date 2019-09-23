@@ -170,7 +170,7 @@ div{
     }
     .DetallesDireccion{
         margin-top:15px;
-        height: 20%;
+        height: 18%;
         min-height: 50px;
         .nDirPedido{
             margin:20px;
@@ -197,6 +197,7 @@ div{
             }
             .ntotal{
                 text-align: end;
+                font-weight: bold;
             }
         }
 
@@ -206,5 +207,13 @@ div{
         margin-top:15px;
         height: 35%;
         min-height: 70px;
+        .mapaDetalle{    
+            height:95%;
+            width: 95%;
+            border-radius: 7px;
+            margin:auto;
+            padding-top:5%;
+        }
     }
+
 }
