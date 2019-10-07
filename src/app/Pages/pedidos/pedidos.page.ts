@@ -41,9 +41,8 @@ PedidoSelected:any;
     this.ObtienePedidos().then(r=>{
       if(r){
         setTimeout(()=>{
-this.GeneraMapas()
+          this.GeneraMapas()
         },500)
-        
       }
     })
   }
@@ -126,7 +125,6 @@ this.GeneraMapas()
             }
           })
         })
-        console.log(this.DetallePedido);
         //Crea Mapa Detalle
        var map:any 
         var mapa = document.getElementById('mapaDetalle')

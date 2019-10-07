@@ -30,6 +30,8 @@ import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -58,6 +60,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BingComponent,
     UtilsComponent,
     NativeGeocoder,
+    OneSignal
   ],
   bootstrap: [AppComponent]
 })

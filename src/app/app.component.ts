@@ -33,6 +33,15 @@ export class AppComponent {
       this.loadUserInfo();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      var notificationOpenedCallback = function(jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+      .startInit("828d30bb-11ce-426c-b6ba-39edcea5fb55", "haciendadelivery-80820")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
     });
   }
 
