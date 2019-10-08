@@ -4,6 +4,10 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Usuario } from './Services/Authentication/authentication.service'
 import { Storage } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { PedidosService } from './Services/Pedidos/pedidos.service';
+import { PedidosPage } from './Pages/pedidos/pedidos.page'
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -20,7 +24,10 @@ export class AppComponent {
     private navCtrl: NavController,
     private events: Events,
     private storage: Storage,
-    private mnuctrl: MenuController
+    private mnuctrl: MenuController,
+    private oneSignal: OneSignal,
+    private PedidosServ: PedidosService,
+    private PedidosModule: PedidosPage
   ) {
     this.initializeApp();
     this.events.subscribe('usuario:register',()=>{
@@ -34,14 +41,47 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      var notificationOpenedCallback = function(jsonData) {
+      /*var notificationOpenedCallback = function(jsonData) {
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
       };
 
       window["plugins"].OneSignal
       .startInit("828d30bb-11ce-426c-b6ba-39edcea5fb55", "haciendadelivery-80820")
       .handleNotificationOpened(notificationOpenedCallback)
-      .endInit();
+      .endInit();*/
+      this.oneSignal.startInit('828d30bb-11ce-426c-b6ba-39edcea5fb55', 'haciendadelivery-80820');
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      
+      this.oneSignal.handleNotificationReceived().subscribe((received) => {
+        // do something when notification is received
+        console.log('received',received);
+        
+       });
+       
+       this.oneSignal.handleNotificationOpened().subscribe((info) => {
+         // do something when a notification is opened
+         if(info.notification.payload.additionalData.TipoNotificacion != null){
+           if(info.notification.payload.additionalData.TipoNotificacion === 'Seguimiento'){
+            this.PedidosServ.getPedido(info.notification.payload.additionalData.IdPedido).subscribe(dp =>{
+              let navExtras: NavigationExtras={
+                queryParams:{
+                  fromNotificacion:true,
+                  DatosPedido: dp[0]
+                }
+              }
+              this.navCtrl.navigateForward(['pedidos'], navExtras)
+              //this.PedidosModule.getDetallePedido(dp[0])
+            })
+           }
+         }
+       });
+
+       
+       this.oneSignal.endInit();
+
+       this.oneSignal.getIds().then((id)=>{
+         console.log(id);
+       })
     });
   }
 

@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { UtilsComponent } from 'src/app/utils/utils.component';
 import leaflet from 'leaflet';
 import { ProductosService } from 'src/app/Services/Productos/productos.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pedidos',
@@ -34,7 +35,8 @@ PedidoSelected:any;
     private PedidosServ: PedidosService,
     private storage: Storage,
     private utils: UtilsComponent,
-    private ProductosServ: ProductosService
+    private ProductosServ: ProductosService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -42,6 +44,13 @@ PedidoSelected:any;
       if(r){
         setTimeout(()=>{
           this.GeneraMapas()
+          this.route.queryParams.subscribe(params=>{
+            if(params['fromNotificacion']){
+              console.log(JSON.stringify(params['DatosPedido']));
+              
+              this.getDetallePedido(params['DatosPedido'])
+            }
+          })
         },500)
       }
     })
@@ -108,9 +117,10 @@ PedidoSelected:any;
   }
 
   getDetallePedido(Pedido){
+    
     if(!this.detalle){
       this.PedidoSelected = Pedido
-      this.detalle = true
+      
       this.PedidosServ.getDetallePedido(Pedido.IdPedido).subscribe(dp=>{
         this.DetallePedido=[]
         dp.forEach(d=>{
@@ -128,6 +138,7 @@ PedidoSelected:any;
         //Crea Mapa Detalle
        var map:any 
         var mapa = document.getElementById('mapaDetalle')
+        
         map= leaflet.map(mapa,{}).fitWorld();
         map.boxZoom.disable();
         map.keyboard.disable();
@@ -140,6 +151,11 @@ PedidoSelected:any;
         markerGroup.addLayer(marker);
         map.addLayer(markerGroup);
       })
+      
+      
+        console.log('detalle')
+        this.detalle = true
+      
     }
   }
 }

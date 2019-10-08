@@ -32,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
+import { PedidosPage } from './Pages/pedidos/pedidos.page'
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -60,7 +62,8 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     BingComponent,
     UtilsComponent,
     NativeGeocoder,
-    OneSignal
+    OneSignal,
+    PedidosPage
   ],
   bootstrap: [AppComponent]
 })

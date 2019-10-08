@@ -80,6 +80,10 @@ export class PedidosService {
     return  this.db.collection<IdPedido>('Pedidos', ref=> ref.orderBy('IdPedido','desc').limit(1)).valueChanges();
   }
 
+  getPedido(IdPedido){
+    return  this.db.collection<IdPedido>('Pedidos', ref=> ref.where('IdPedido','==',IdPedido)).valueChanges();
+  }
+
   getDetallePedido(IdPedido){
     return this.db.collection<DetallePedido>('DetallePedido', ref=> ref.where('IdPedido','==',IdPedido)).valueChanges();
   }
