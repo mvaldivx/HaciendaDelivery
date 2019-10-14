@@ -8,6 +8,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { PedidosService } from './Services/Pedidos/pedidos.service';
 import { PedidosPage } from './Pages/pedidos/pedidos.page'
 import { NavigationExtras } from '@angular/router';
+import { AuthenticationService } from './Services/Authentication/authentication.service'
 
 
 @Component({
@@ -27,7 +28,8 @@ export class AppComponent {
     private mnuctrl: MenuController,
     private oneSignal: OneSignal,
     private PedidosServ: PedidosService,
-    private PedidosModule: PedidosPage
+    private PedidosModule: PedidosPage,
+    private AuthenticationServ: AuthenticationService
   ) {
     this.initializeApp();
     this.events.subscribe('usuario:register',()=>{
@@ -80,7 +82,22 @@ export class AppComponent {
        this.oneSignal.endInit();
 
        this.oneSignal.getIds().then((id)=>{
-         console.log(id);
+         setTimeout(()=>{
+           this.storage.get('Usuario').then(u =>{
+             if(u.IdUsuario)
+              var Auth = this.AuthenticationServ.getPlayerId({IdUsuario:u.IdUsuario,playerId: id.userId}).subscribe(pi=>{
+                  console.log(pi);
+                  
+                if(!pi.includes({IdUsuario:u.IdUsuario,playerId: id.userId})){
+                    Auth.unsubscribe()
+                    return this.AuthenticationServ.InsertPlayerId({IdUsuario:u.IdUsuario,playerId: id.userId})
+                  }else{
+                    return false
+                  }
+              })
+           })
+           
+         },5000)
        })
     });
   }

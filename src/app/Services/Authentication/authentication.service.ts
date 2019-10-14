@@ -13,6 +13,11 @@ export interface Usuario {
   FechaNacimiento: Date;
 }
 
+export interface PlayerId{
+  IdUsuario: number;
+  playerId: string;
+}
+
 export interface idUsuario{
   IdUsuario: number;
 }
@@ -23,6 +28,7 @@ export class AuthenticationService {
   private Usuarios:AngularFirestoreCollection<Usuario>;
   private IdUsuarios: AngularFirestoreCollection<idUsuario>;
   private UsuariosFB: Observable<Usuario[]>;
+  private PlayerId: AngularFirestoreCollection<PlayerId>;
 
   constructor(
     private db: AngularFirestore
@@ -57,5 +63,14 @@ export class AuthenticationService {
 
   registrarUsuario(Usuario: Usuario){
       return this.Usuarios.add(Usuario);
+  }
+
+  getPlayerId(playerId: PlayerId){
+    this.PlayerId = this.db.collection<PlayerId>('PlayerId',ref => ref.where('IdUsuario','==',playerId.IdUsuario));
+    return this.PlayerId.valueChanges()
+  }
+
+  InsertPlayerId(playerId: PlayerId){
+    return this.PlayerId.add(playerId);
   }
 }

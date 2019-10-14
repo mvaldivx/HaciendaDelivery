@@ -25,7 +25,7 @@ rutaimagenes="";
 ubicacion={};
 direccion: direcciones
 
-@ViewChild('searchb',{static:true}) myInput: IonSearchbar;
+@ViewChild('searchb',null) myInput: IonSearchbar;
 
   constructor(
     private menu: MenuController,
@@ -50,6 +50,7 @@ direccion: direcciones
     });*/
     
     this.categoriasService.getCategorias().subscribe(res=>{
+      debugger;
       this.Categorias = res;
     })
   }
@@ -113,6 +114,8 @@ direccion: direcciones
         }else{
           this.numProductos = carrito.Productos.length
         }
+      }else{
+        this.numProductos = 0
       }
     })
   }
