@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { DireccionesService } from '../../Services/Direcciones/direcciones.service'
+import { DireccionesService } from '../../Api/Services/Direcciones/direcciones.service'
 import { Storage } from '@ionic/storage';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
 import { DescripcionProductoPage } from '../Principal/descripcion-producto/descripcion-producto.page'
 import { UtilsComponent } from '../../utils/utils.component'
 import { DireccionesPage } from '../direcciones/direcciones.page'
-import { PedidosService, Pedido, DetallePedido} from '../../Services/Pedidos/pedidos.service'
+import { PedidosService, Pedido, DetallePedido} from '../../Api/Services/Pedidos/pedidos.service'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -154,12 +154,10 @@ export class CarritoPage implements OnInit {
   confirmarPedido(){
     this.realizandoPedido = true
     this.store.get('Usuario').then(usr=>{
-      if(usr){
-        this.ObtieneUltimoIdPedido().then(id=>{
-         
+      if(usr){         
           //Crea Pedido e inserta en BD
           var pedido:Pedido={
-            IdPedido: id,
+            IdPedido: 0,
             IdUsuario: usr.IdUsuario,
             FechaPedido: new Date(),
             Estatus: 'Realizado',
@@ -170,11 +168,14 @@ export class CarritoPage implements OnInit {
             lng: this.ubicacion['Longitud'],
             FechaConcluido: new Date('1999/01/01')
           }
-          this.pedidoServ.CreaPedido(pedido).then(ped=>{
+          this.pedidoServ.CreaPedido({pedido:pedido,detalle:this.Productos}).subscribe(ped=>{
+            this.store.remove('carrito')
+            this.utils.showToast('Pedido Realizado')
+            this.modalCtrl.dismiss()
             //Confirmado el Guardado se guarda detalle de pedido
-              this.Productos.forEach(p=>{
+              /*this.Productos.forEach(p=>{
                 var dPedido: DetallePedido={
-                  IdPedido: id,
+                  IdPedido: ped.insertId,
                   Cantidad: p.Cantidad,
                   ComentsAdi: (p.ComentsAdi)? p.ComentsAdi:'',
                   IdProducto: p.Producto.IdProducto,
@@ -185,10 +186,8 @@ export class CarritoPage implements OnInit {
               })
               this.store.remove('carrito')
               this.utils.showToast('Pedido Realizado')
-              this.modalCtrl.dismiss()
+              this.modalCtrl.dismiss()*/
           })
-          
-        })
         
 
       }else{
@@ -200,18 +199,4 @@ export class CarritoPage implements OnInit {
     
   }
 
-
-  ObtieneUltimoIdPedido(){
-    return new Promise<number>(resolve =>{
-      let response=1
-      this.pedidoServ.getUltimoIdPedido().subscribe(id=>{
-        
-        if(id[0]){
-          response = id[0].IdPedido + 1
-          resolve(response)
-        }else
-          resolve(response)
-      })
-    })
-  }
 }

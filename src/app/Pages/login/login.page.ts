@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, Events } from '@ionic/angular';
-import { AuthenticationService } from '../../Services/Authentication/authentication.service'
+import { AuthenticationService } from '../../Api/Services/Authentication/authentication.service'
 import * as firebase from 'firebase/app';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router'
@@ -87,7 +87,7 @@ export class LoginPage implements OnInit {
   }
 
   GetUserData(uid){
-    this.authService.getUsuario(uid).subscribe(r=>{
+    this.authService.getUsuario({UID:uid}).subscribe(r=>{
       if(r.length > 0){
         this.storage.set('Usuario',r[0]).then(()=>{
           this.events.publish('usuario:register')

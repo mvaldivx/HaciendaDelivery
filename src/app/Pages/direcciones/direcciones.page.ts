@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DireccionesService, direcciones} from '../../Services/Direcciones/direcciones.service'
+import { DireccionesService, direcciones} from '../../Api/Services/Direcciones/direcciones.service'
 import { Storage } from '@ionic/storage'
 import { ModalController } from '@ionic/angular';
 import { UbicacionPage } from '../ubicacion/ubicacion.page'

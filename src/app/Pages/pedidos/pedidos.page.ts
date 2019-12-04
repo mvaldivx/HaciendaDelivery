@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition} from '@angular/animations'
 import { NavController } from '@ionic/angular';
-import { PedidosService} from '../../Services/Pedidos/pedidos.service'
+import { PedidosService} from '../../Api/Services/Pedidos/pedidos.service'
 import { Storage } from '@ionic/storage';
 import { UtilsComponent } from 'src/app/utils/utils.component';
 import leaflet from 'leaflet';
-import { ProductosService } from 'src/app/Services/Productos/productos.service';
+import { PrincipalComponent } from '../../Api/Principal/principal/principal.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,7 +35,7 @@ PedidoSelected:any;
     private PedidosServ: PedidosService,
     private storage: Storage,
     private utils: UtilsComponent,
-    private ProductosServ: ProductosService,
+    private ProductosServ: PrincipalComponent,
     private route: ActivatedRoute
   ) { }
 
@@ -60,7 +60,7 @@ PedidoSelected:any;
     return new Promise<boolean>(resolve =>{
       this.storage.get('Usuario').then(usr=>{
         if(usr){
-          this.PedidosServ.getPedidos(usr.IdUsuario).subscribe(pedidos=>{
+          this.PedidosServ.getPedidos({idUsuario:usr.IdUsuario}).subscribe(pedidos=>{
             this.Pedidos = pedidos
             this.Pedidos.forEach(p=>{
               
@@ -121,7 +121,7 @@ PedidoSelected:any;
     if(!this.detalle){
       this.PedidoSelected = Pedido
       
-      this.PedidosServ.getDetallePedido(Pedido.IdPedido).subscribe(dp=>{
+      this.PedidosServ.getDetallePedido({IdPedido:Pedido.IdPedido}).subscribe(dp=>{
         this.DetallePedido=[]
         dp.forEach(d=>{
           var detalle={Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};

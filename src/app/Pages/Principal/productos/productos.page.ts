@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, ModalController, ToastController  } from '@ionic/angular';
-import { Producto, ProductosService } from '../../../Services/Productos/productos.service'
+import { PrincipalComponent, Producto } from '../../../Api/Principal/principal/principal.component';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 import { DescripcionProductoPage } from '../descripcion-producto/descripcion-producto.page'
 import { UtilsComponent } from '../../../utils/utils.component';
@@ -20,7 +20,7 @@ export class ProductosPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private productos: ProductosService,
+    private ApiPrincipal: PrincipalComponent,
     private configuracion: ConfiguracionComponent,
     private modalCtrl: ModalController,
     private utils: UtilsComponent
@@ -33,7 +33,7 @@ export class ProductosPage implements OnInit {
       this.Negocio = params["Negocio"]
     })
     if(this.IdNegocio != null){
-      this.productos.getProductos(this.IdNegocio).subscribe(res=>{
+      this.ApiPrincipal.getProductos({idNegocio: this.IdNegocio}).subscribe(res=>{
         this.Productos = res
         this.loading = false
       })

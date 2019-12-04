@@ -1,21 +1,8 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  Producto,
-  ProductosService
-} from '../../../Services/Productos/productos.service'
-import {
-  NavParams,
-  ModalController
-} from '@ionic/angular'
-import {
-  ConfiguracionComponent
-} from '../../../Configuracion/configuracion/configuracion.component'
-import {
-  Storage
-} from '@ionic/storage';
+import { Component, OnInit } from '@angular/core';
+import { PrincipalComponent, Producto } from '../../../Api/Principal/principal/principal.component';
+import { NavParams, ModalController } from '@ionic/angular'
+import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-descripcion-producto',
@@ -32,7 +19,7 @@ export class DescripcionProductoPage implements OnInit {
   Aumenta = false;
 
   constructor(
-    private productos: ProductosService,
+    private productos: PrincipalComponent,
     private navParams: NavParams,
     private modalCtrl: ModalController,
     private configuracion: ConfiguracionComponent,
@@ -45,13 +32,12 @@ export class DescripcionProductoPage implements OnInit {
     this.IdProducto = this.navParams.get('IdProducto');
     this.Aumenta = this.navParams.get('Aumenta');
     this.ComentsAdi=this.navParams.get('ComentsAdi');
-    this.productos.getProducto(this.IdProducto).subscribe(res => {
+    this.productos.getProducto({idProducto: this.IdProducto}).subscribe(res => {
       if (res.length > 0){
         this.Producto = res[0]
         if(this.Aumenta)
           this.ObtienePedido()
-      }
-        
+      } 
     })
   }
 

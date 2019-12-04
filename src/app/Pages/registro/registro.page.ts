@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController, Events } from '@ionic/angular';
 import { trigger, state, style, animate, transition} from '@angular/animations'
 import { UtilsComponent } from '../../utils/utils.component'
-import { AuthenticationService, Usuario } from '../../Services/Authentication/authentication.service'
+import { AuthenticationService, Usuario } from '../../Api/Services/Authentication/authentication.service'
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -83,40 +83,26 @@ Usuario: Usuario
   RegistrarUsuario(){
     if(this.Nombre != "" && this.Dia > 0 && this.Mes > 0 && this.Anio > 0){
       var FechaNacimiento = new Date(this.Anio , this.Mes, this.Dia)
-      this.getIdUsuario().then(r=>{
         this.Usuario = {
-          IdUsuario: r,
+          IdUsuario: 0,
           Nombre: this.Nombre,
           UID: this.UID,
           registradoEl: new Date(),
           FechaNacimiento: FechaNacimiento,
           telefono: this.phoneNumber
         }
-        this.AuthService.registrarUsuario(this.Usuario).then(res=>{
+        this.AuthService.registrarUsuario({usuario:this.Usuario}).subscribe(res=>{
           this.storage.set('Usuario',this.Usuario)
           this.utils.showToast('Registrado Correctamente')
           this.navCtrl.navigateRoot('')
           this.events.publish('user:register')
-        }).catch(error=>{
-          this.utils.showToast(error)
-        })
-      }).catch(error=>{
-        console.log(error);
-        
-      })
+         }).unsubscribe
+        //(()=>{
+        //   this.utils.showToast(error)
+        // })
     }else{
       this.utils.alertGenerico('Error','Para continuar es necesario que complete el formulario')
     } 
-  }
-
-  getIdUsuario(){
-    return new Promise<number>(resolve =>{
-      let response=1
-      this.AuthService.getUltimoIdUsuario().subscribe(usu =>{
-        response = usu[0].IdUsuario + 1
-        resolve(response)
-      })
-    })
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NavController, ModalController } from '@ionic/angular';
-import { Negocio, NegociosService } from '../../../Services/Negocios/negocios.service'
+import { PrincipalComponent, Negocio } from '../../../Api/Principal/principal/principal.component';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
-import { CalificacionesService } from '../../../Services/Calificaciones/calificaciones.service'
+import { CalificacionesService } from '../../../Api/Services/Calificaciones/calificaciones.service'
 import { ReseniasPage } from '../resenias/resenias.page'
 import { Storage } from '@ionic/storage';
 
@@ -35,7 +35,7 @@ rutaNoImage="";
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private negociosServ: NegociosService,
+    private principalApi: PrincipalComponent,
     private configuracion: ConfiguracionComponent,
     private calificaciones: CalificacionesService,
     private modalCtrl: ModalController,
@@ -53,7 +53,7 @@ rutaNoImage="";
      // this.Categoria = params["Categoria"]
     })
     if(this.IdCategoria != null){
-      this.negociosServ.getNegocios(this.IdCategoria).subscribe(res=>{
+      this.principalApi.getNegocios({idCategoria:this.IdCategoria}).subscribe(res=>{
         this.Negocios = res
         this.NegociosR = []
         this.Negocios.forEach(n=>{

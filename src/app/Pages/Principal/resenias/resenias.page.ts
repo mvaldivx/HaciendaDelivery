@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
-import { CalificacionProductos, CalificacionesService } from '../../../Services/Calificaciones/calificaciones.service';
-import { Producto, ProductosService } from '../../../Services/Productos/productos.service';
+import { CalificacionProductos, CalificacionesService } from '../../../Api/Services/Calificaciones/calificaciones.service';
+import { PrincipalComponent, Producto } from '../../../Api/Principal/principal/principal.component';
 @Component({
   selector: 'app-resenias',
   templateUrl: './resenias.page.html',
@@ -17,7 +17,7 @@ export class ReseniasPage implements OnInit {
     private modalCtrl: ModalController,
     private navParams: NavParams,
     private CalificacionesServ: CalificacionesService,
-    private productos: ProductosService
+    private productos: PrincipalComponent
   ) { }
 
   ngOnInit() {
@@ -57,7 +57,7 @@ export class ReseniasPage implements OnInit {
   async getProducto(IdProducto){
     return new Promise<Object>(resolve =>{
       let paux:Producto[]
-      this.productos.getProducto(IdProducto).subscribe(p=>{
+      this.productos.getProducto({idProducto:IdProducto}).subscribe(p=>{
           paux = p
           resolve(paux[0].Producto)
       });

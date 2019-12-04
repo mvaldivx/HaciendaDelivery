@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Platform, NavController, Events, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Usuario } from './Services/Authentication/authentication.service'
+import { Usuario } from './Api/Services/Authentication/authentication.service'
 import { Storage } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { PedidosService } from './Services/Pedidos/pedidos.service';
+import { PedidosService } from './Api/Services/Pedidos/pedidos.service';
 import { PedidosPage } from './Pages/pedidos/pedidos.page'
 import { NavigationExtras } from '@angular/router';
-import { AuthenticationService } from './Services/Authentication/authentication.service'
+import { AuthenticationService } from './Api/Services/Authentication/authentication.service'
 
 
 @Component({
@@ -64,7 +64,7 @@ export class AppComponent {
          // do something when a notification is opened
          if(info.notification.payload.additionalData.TipoNotificacion != null){
            if(info.notification.payload.additionalData.TipoNotificacion === 'Seguimiento'){
-            this.PedidosServ.getPedido(info.notification.payload.additionalData.IdPedido).subscribe(dp =>{
+            this.PedidosServ.getPedido({IdPedido:info.notification.payload.additionalData.IdPedido}).subscribe(dp =>{
               let navExtras: NavigationExtras={
                 queryParams:{
                   fromNotificacion:true,

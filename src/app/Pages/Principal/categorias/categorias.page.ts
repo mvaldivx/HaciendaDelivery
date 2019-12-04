@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, IonSearchbar, NavController, ModalController, PopoverController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component';
-import { PrincipalComponent } from '../../../Api/Principal/principal/principal.component';
+import { PrincipalComponent, Categoria } from '../../../Api/Principal/principal/principal.component';
 import { HttpParams } from '@angular/common/http'
-import { Categoria, CategoriasService } from '../../../Services/Categorias/categorias.service'
 import { Storage } from '@ionic/storage';
 import { CarritoPage } from '../../carrito/carrito.page'
 import { DireccionesPage } from '../../direcciones/direcciones.page'
-import { DireccionesService , direcciones} from '../../../Services/Direcciones/direcciones.service'
+import { DireccionesService , direcciones} from '../../../Api/Services/Direcciones/direcciones.service'
 
 @Component({
   selector: 'app-categorias',
@@ -31,7 +30,6 @@ direccion: direcciones
     private menu: MenuController,
     private configuracion: ConfiguracionComponent,
     private ApiPrincipal: PrincipalComponent,
-    private categoriasService: CategoriasService,
     private navCtrl: NavController,
     private storage: Storage,
     private modalCtrl: ModalController,
@@ -45,14 +43,14 @@ direccion: direcciones
   }
 
   ngOnInit() {
-   /* this.ApiPrincipal.getCategorias().subscribe(data=>{
+    this.ApiPrincipal.getCategorias().subscribe(data=>{
       this.Categorias = data
-    });*/
+    });
     
-    this.categoriasService.getCategorias().subscribe(res=>{
-      debugger;
+    /*this.categoriasService.getCategorias().subscribe(res=>{
+      //debugger;
       this.Categorias = res;
-    })
+    })*/
   }
 
   ionViewWillEnter() {
