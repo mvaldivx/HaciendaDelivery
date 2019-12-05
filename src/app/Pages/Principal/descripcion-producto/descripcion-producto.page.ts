@@ -17,6 +17,7 @@ export class DescripcionProductoPage implements OnInit {
   rutaImagenProducto = "";
   ComentsAdi = "";
   Aumenta = false;
+  idPosicion= 0
 
   constructor(
     private productos: PrincipalComponent,
@@ -32,6 +33,7 @@ export class DescripcionProductoPage implements OnInit {
     this.IdProducto = this.navParams.get('IdProducto');
     this.Aumenta = this.navParams.get('Aumenta');
     this.ComentsAdi=this.navParams.get('ComentsAdi');
+    this.idPosicion = this.navParams.get('idPosicion');
     this.productos.getProducto({idProducto: this.IdProducto}).subscribe(res => {
       if (res.length > 0){
         this.Producto = res[0]
@@ -81,15 +83,19 @@ export class DescripcionProductoPage implements OnInit {
         if (diff < 2) {
           let exist = false
             carrito.Productos.forEach(prod => {
-              if (prod.Producto.IdProducto == this.IdProducto && ( (prod.ComentsAdi == this.ComentsAdi && !this.Aumenta) || this.Aumenta)) {
+              if ((prod.idPosicion === this.idPosicion) && this.Aumenta) {
                 prod.Cantidad =(this.Aumenta)?  this.cantidad : prod.Cantidad + this.cantidad
                 prod.ComentsAdi = this.ComentsAdi
+                exist = true
+              }else if(!this.Aumenta && (this.ComentsAdi === prod.ComentsAdi && this.IdProducto === prod.Producto.IdProducto) ){
+                prod.Cantidad = this.cantidad + prod.Cantidad
                 exist = true
               }
             })
           
           if (!exist) {
             carrito.Productos.push({
+              idPosicion: new Date().valueOf(),
               Cantidad: this.cantidad,
               Producto: this.Producto,
               ComentsAdi: this.ComentsAdi
@@ -104,6 +110,7 @@ export class DescripcionProductoPage implements OnInit {
       if (!agregado) {
         let carriton = {
           Productos: [{
+            idPosicion: new Date().valueOf(),
             Cantidad: this.cantidad,
             Producto: this.Producto,
             ComentsAdi: this.ComentsAdi

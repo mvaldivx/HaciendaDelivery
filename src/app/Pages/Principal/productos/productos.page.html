@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start"></ion-back-button>
+    <ion-back-button class="btnback" slot="start"></ion-back-button>
     <ion-title>{{Negocio}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -36,7 +36,7 @@
         </div>
       </ion-label>
       <ion-buttons slot="end">
-          <ion-button slot="end" (click)="DescripcionProducto(prod.IdNegocio,prod.IdProducto)"><ion-icon name="cart"></ion-icon></ion-button>
+          <ion-button class="btnCart" slot="end" (click)="DescripcionProducto(prod.IdNegocio,prod.IdProducto)"><ion-icon name="cart"></ion-icon></ion-button>
       </ion-buttons>
     </ion-item>
   </ion-list>

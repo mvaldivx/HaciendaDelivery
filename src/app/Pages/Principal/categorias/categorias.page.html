@@ -21,7 +21,7 @@
       <!--<ion-button shape="round" *ngIf="!searchbar" (click)="setsearch()">
         <ion-icon name="search"></ion-icon>
       </ion-button>-->
-      <ion-button shape="round" (click)="irCarrito()">
+      <ion-button class="btnCart" shape="round" (click)="irCarrito()">
           <ion-icon name="cart"></ion-icon>
           <ion-badge slot="end" color="danger" mode="ios" *ngIf="numProductos > 0">{{numProductos}}</ion-badge>
       </ion-button>

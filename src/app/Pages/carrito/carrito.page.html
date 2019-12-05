@@ -27,20 +27,20 @@
                   </div>
                 </ion-label>
                 <ion-buttons slot="end">
-                  <ion-button color="success" (click)="edit(prod.Producto.IdProducto,prod.ComentsAdi,'+')">
+                  <ion-button color="success" (click)="edit(prod.idPosicion,'+')">
                     <ion-icon name="add"></ion-icon>
                   </ion-button>
                   <ion-input type="number" text-center disabled class="cantidad">{{prod.Cantidad}}</ion-input>
-                  <ion-button color="danger" (click)="edit(prod.Producto.IdProducto,prod.ComentsAdi,'-')">
+                  <ion-button color="danger" (click)="edit(prod.idPosicion,'-')">
                     <ion-icon name="remove"></ion-icon>
                   </ion-button>
                 </ion-buttons>
               </ion-item>
               <ion-item-options class="slide" side="end">
-                <ion-item-option (click)="editarPedido(prod.Producto.IdNegocio,prod.Producto.IdProducto, prod.ComentsAdi)" style="background-color:#53aded;">
+                <ion-item-option (click)="editarPedido(prod.Producto.IdNegocio,prod.Producto.IdProducto, prod.ComentsAdi, prod.idPosicion)" style="background-color:#53aded;">
                   <ion-icon name="create"></ion-icon>
                 </ion-item-option>
-                <ion-item-option (click)="remove(prod.Producto.IdProducto, prod.ComentsAdi)" color="danger">
+                <ion-item-option (click)="remove(prod.idPosicion)" color="danger">
                   <ion-icon name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>

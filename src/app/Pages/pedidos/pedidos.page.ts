@@ -64,12 +64,12 @@ PedidoSelected:any;
             this.Pedidos = pedidos
             this.Pedidos.forEach(p=>{
               
-              var dat = new Date(p.FechaPedido['seconds'] * 1000)
-              var dc = new Date(p.FechaConcluido['seconds'] * 1000)
+              var dat = new Date(p.FechaPedido)
+              var dc = new Date(p.FechaConcluido)
               var fp = dat.toLocaleDateString("en-US").split('/')
               var fc = dc.toLocaleDateString("en-US").split('/')
               p.FechaPedido = fp[1] + ' ' + this.meses[parseInt(fp[0])-1] + ' ' + fp[2] + '  ' + this.getHora(dat.getHours()) + ':' + dat.getMinutes() + ' ' + ((dat.getHours() >= 12)?'PM':'AM');
-              p.FechaConcluido = fc[1] + ' ' + this.meses[parseInt(fc[0])-1] + ' ' + fc[2] + '  ' + this.getHora(dc.getHours()) + ':' + dc.getMinutes() + ' ' + ((dc.getHours() >= 12)?'PM':'AM');
+              p.FechaConcluido =(fc[2] == '1999')?'' : fc[1] + ' ' + this.meses[parseInt(fc[0])-1] + ' ' + fc[2] + '  ' + this.getHora(dc.getHours()) + ':' + dc.getMinutes() + ' ' + ((dc.getHours() >= 12)?'PM':'AM');
             })
             resolve(true)
           })
@@ -128,7 +128,7 @@ PedidoSelected:any;
           detalle.Cantidad = d.Cantidad;
           detalle.ComentsAdi = d.ComentsAdi;
           detalle.Precio = d.Precio;
-          this.ProductosServ.getProducto(d.IdProducto).subscribe(prod=>{
+          this.ProductosServ.getProducto({idProducto:d.IdProducto}).subscribe(prod=>{
             if(prod.length > 0){
               detalle.Producto = prod[0].Producto
               this.DetallePedido.push(detalle)
@@ -151,9 +151,6 @@ PedidoSelected:any;
         markerGroup.addLayer(marker);
         map.addLayer(markerGroup);
       })
-      
-      
-        console.log('detalle')
         this.detalle = true
       
     }

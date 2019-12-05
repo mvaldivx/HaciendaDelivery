@@ -54,12 +54,12 @@ export class CarritoPage implements OnInit {
     })
   }
 
-  remove(IdProducto, ComentsAdi){
+  remove(idPosicion){
     this.store.get('carrito').then(carrito=>{
       if(carrito!= null && carrito.Productos != null){
         let aux=[]
         carrito.Productos.forEach(element => {
-          if(!(element.Producto.IdProducto === IdProducto && element.ComentsAdi === ComentsAdi))
+          if(element.idPosicion != idPosicion)
             aux.push(element)
         });
         this.Productos = aux
@@ -72,12 +72,12 @@ export class CarritoPage implements OnInit {
     })
   }
 
-  edit(IdProducto, ComentsAdi,tipo){
+  edit(IdPosicion,tipo){
     this.store.get('carrito').then(carrito=>{
       if(carrito!= null && carrito.Productos != null){
         carrito.Productos.forEach(element => {
           element.showDel = ''
-          if(element.Producto.IdProducto === IdProducto && element.ComentsAdi == ComentsAdi)
+          if(element.idPosicion === IdPosicion)
             if(tipo === '+'){
               element.Cantidad+=1
               element.showDel = ''
@@ -128,14 +128,15 @@ export class CarritoPage implements OnInit {
     })
   }
 
-  async editarPedido(idNegocio,idProducto,ComentsAdi){
+  async editarPedido(idNegocio,idProducto,ComentsAdi, idPosicion){
     const modal = await this.modalCtrl.create({
       component:DescripcionProductoPage,
       componentProps:{
         'IdNegocio':idNegocio,
         'IdProducto':idProducto,
         'ComentsAdi':ComentsAdi,
-        'Aumenta': true
+        'Aumenta': true,
+        'idPosicion': idPosicion
       },
       cssClass: 'my-custom-modal-css'
     })
@@ -168,6 +169,7 @@ export class CarritoPage implements OnInit {
             lng: this.ubicacion['Longitud'],
             FechaConcluido: new Date('1999/01/01')
           }
+          console.log(this.Productos)
           this.pedidoServ.CreaPedido({pedido:pedido,detalle:this.Productos}).subscribe(ped=>{
             this.store.remove('carrito')
             this.utils.showToast('Pedido Realizado')

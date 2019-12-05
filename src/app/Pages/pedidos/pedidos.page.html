@@ -56,7 +56,7 @@
                 Realizado el {{PedidoSelected.FechaPedido}}
               </div>
               <div class="nfFin">
-                Entregado el {{PedidoSelected.FechaConcluido}}
+                <div *ngIf="PedidoSelected.FechaConcluido != ''">Entregado el {{PedidoSelected.FechaConcluido}}</div>
               </div>
             </div>
             <div class="nEstatus">
