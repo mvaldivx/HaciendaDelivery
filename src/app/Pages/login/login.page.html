@@ -23,7 +23,7 @@
         <div id="recaptcha-container" class="captcha"></div>
 
         <div class="btnenviarMSG">
-          <ion-button color="primary" id="sign-in-button" (click)="signIn(phoneNumber)">
+          <ion-button id="sign-in-button" (click)="signIn(phoneNumber)" [disabled]="!btnSignInAvailable">
             Enviar mensaje
           </ion-button>
         </div>

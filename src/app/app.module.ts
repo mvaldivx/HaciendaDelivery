@@ -12,6 +12,7 @@ import { ConfiguracionComponent } from './Configuracion/configuracion/configurac
 import { PrincipalComponent } from './Api/Principal/principal/principal.component'
 import { BingComponent } from './Api/Bing/bing/bing.component'
 import { HttpClientModule } from '@angular/common/http';
+import { StoreDireccionesService } from './Api/Services/Direcciones/Store/store.service'
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -63,7 +64,8 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     UtilsComponent,
     NativeGeocoder,
     OneSignal,
-    PedidosPage
+    PedidosPage,
+    StoreDireccionesService
   ],
   bootstrap: [AppComponent]
 })

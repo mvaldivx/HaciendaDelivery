@@ -9,7 +9,7 @@ import { HttpClient  } from '@angular/common/http';
 export class ConfiguracionComponent implements OnInit {
 
   films: Observable<any>;
-  ip : string = 'localhost'
+  ip : string = '172.16.214.54'
   rutaImagenes: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Categorias/';
   rutaImagenesNegocios: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Negocios/';
   rutaImagenesLogos: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Logos/';

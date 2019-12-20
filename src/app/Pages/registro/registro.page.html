@@ -23,10 +23,10 @@
           <ion-select placeholder="Dia" [(ngModel)]="Dia" class="Dia">
             <ion-select-option *ngFor="let d of Dias" [value]="d">{{d}}</ion-select-option>
           </ion-select>
-          <ion-select placeholder="Mes" [(ngModel)]="Mes" class="Mes">
-            <ion-select-option *ngFor="let m of Meses; let i = index" [value]="i">{{m}}</ion-select-option>
+          <ion-select placeholder="Mes" [(ngModel)]="Mes" class="Mes" (ionChange)="ChangeMonth()">
+            <ion-select-option  *ngFor="let m of Meses; let i = index" [value]="i">{{m}}</ion-select-option>
           </ion-select>
-          <ion-select placeholder="Año" [(ngModel)]="Anio" class="Anio">
+          <ion-select placeholder="Año" [(ngModel)]="Anio" class="Anio" (ionChange)="ChangeYear()">
             <ion-select-option *ngFor="let a of Anios" [value]="a">{{a}}</ion-select-option>
           </ion-select>
         </div>

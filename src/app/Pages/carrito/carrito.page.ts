@@ -7,6 +7,7 @@ import { DescripcionProductoPage } from '../Principal/descripcion-producto/descr
 import { UtilsComponent } from '../../utils/utils.component'
 import { DireccionesPage } from '../direcciones/direcciones.page'
 import { PedidosService, Pedido, DetallePedido} from '../../Api/Services/Pedidos/pedidos.service'
+import { StoreDireccionesService } from '../../Api/Services/Direcciones/Store/store.service'
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -17,7 +18,6 @@ export class CarritoPage implements OnInit {
   loading= true;
   rutaImagenProducto = "";
   Total= 0;
-  ubicacion= {};
   realizandoPedido = false
 
   constructor(
@@ -27,7 +27,8 @@ export class CarritoPage implements OnInit {
    private utils: UtilsComponent,
    private direcServices: DireccionesService,
    private popoverDir: PopoverController,
-   private pedidoServ: PedidosService
+   private pedidoServ: PedidosService,
+   private StoreDirecciones: StoreDireccionesService
   ) { }
 
   ngOnInit() {
@@ -112,20 +113,7 @@ export class CarritoPage implements OnInit {
   }
 
   getDireccion(){
-    this.store.get('Usuario').then(usr=>{
-      if(usr){
-        this.direcServices.getDireccionActual(usr.IdUsuario).subscribe(d=>{
-          if(d.length > 0)
-            this.ubicacion = d[0]
-        })
-      }else{
-        this.store.get('ubicacion').then(u=>{
-          if(u)
-            this.ubicacion = u
-        })
-      }
-      
-    })
+
   }
 
   async editarPedido(idNegocio,idProducto,ComentsAdi, idPosicion){
@@ -162,14 +150,13 @@ export class CarritoPage implements OnInit {
             IdUsuario: usr.IdUsuario,
             FechaPedido: new Date(),
             Estatus: 'Realizado',
-            Calle: this.ubicacion['Calle'],
-            Numero: this.ubicacion['Numero'],
+            Calle: this.StoreDirecciones.selectedDir.Calle,
+            Numero: this.StoreDirecciones.selectedDir.Numero,
             Total: this.Total,
-            lat: this.ubicacion['Latitud'],
-            lng: this.ubicacion['Longitud'],
+            lat: this.StoreDirecciones.selectedDir.Latitud,
+            lng: this.StoreDirecciones.selectedDir.Longitud,
             FechaConcluido: new Date('1999/01/01')
           }
-          console.log(this.Productos)
           this.pedidoServ.CreaPedido({pedido:pedido,detalle:this.Productos}).subscribe(ped=>{
             this.store.remove('carrito')
             this.utils.showToast('Pedido Realizado')

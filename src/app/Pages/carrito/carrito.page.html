@@ -56,15 +56,15 @@
                 </div>
                 <div class="precio">MXN ${{Total}}</div>
               </div>
-              <div class="direccion" *ngIf="ubicacion.Calle != null">
+              <div class="direccion" *ngIf="StoreDirecciones.selectedDir.Calle != null">
                 <span>Dirección: </span>
-                <span *ngIf="ubicacion.Calle != null">{{ubicacion.Calle + '  #' + ubicacion.Numero }}</span>
+                <span *ngIf="StoreDirecciones.selectedDir.Calle != null">{{StoreDirecciones.selectedDir.Calle + '  #' + StoreDirecciones.selectedDir.Numero }}</span>
                 <br/><span class="btnSeleccionarDireccion" (click)="IrUbicacion()">Cambiar Dirección</span>
               </div>
-              <div class="direccion" *ngIf="ubicacion.Calle == null">
+              <div class="direccion" *ngIf="StoreDirecciones.selectedDir.Calle == null">
                 <span class="btnSeleccionarDireccion" (click)="IrUbicacion()">Seleccionar Dirección</span>
               </div>
-              <ion-button (click)="confirmarPedido()" color="success" [disabled]="Productos.length < 1 || ubicacion.Calle == null || realizandoPedido === true">
+              <ion-button (click)="confirmarPedido()" color="success" [disabled]="Productos.length < 1 || StoreDirecciones.selectedDir.Calle == null || realizandoPedido === true">
                 <span *ngIf="realizandoPedido === false">Confirmar pedido</span><ion-spinner *ngIf="realizandoPedido === true" name="crescent"></ion-spinner>
               </ion-button>
             </div>

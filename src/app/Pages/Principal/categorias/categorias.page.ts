@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { CarritoPage } from '../../carrito/carrito.page'
 import { DireccionesPage } from '../../direcciones/direcciones.page'
 import { DireccionesService , direcciones} from '../../../Api/Services/Direcciones/direcciones.service'
+import { StoreDireccionesService } from '../../../Api/Services/Direcciones/Store/store.service' 
 
 @Component({
   selector: 'app-categorias',
@@ -34,7 +35,8 @@ direccion: direcciones
     private storage: Storage,
     private modalCtrl: ModalController,
     private popoverDir: PopoverController,
-    private direccionServ: DireccionesService
+    private direccionServ: DireccionesService,
+    private storeDirecciones: StoreDireccionesService
   ) { 
     
     this.rutaimagenes = this.configuracion.rutaImagenes;
@@ -43,6 +45,7 @@ direccion: direcciones
   }
 
   ngOnInit() {
+    
     this.ApiPrincipal.getCategorias().subscribe(data=>{
       this.Categorias = data
     });
@@ -133,9 +136,8 @@ direccion: direcciones
   getDireccion(){
     this.storage.get('Usuario').then(usr=>{
       if(usr){
-        this.direccionServ.getDireccionActual(usr.IdUsuario).subscribe(d=>{
-          if(d.length > 0)
-            this.ubicacion = d[0]
+        this.direccionServ.getDirecciones(usr.IdUsuario).subscribe(d=>{
+          this.storeDirecciones.direcciones = d
         })
       }else{
         this.storage.get('ubicacion').then(u=>{

@@ -52,7 +52,7 @@ export class AppComponent {
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();*/
       this.oneSignal.startInit('828d30bb-11ce-426c-b6ba-39edcea5fb55', 'haciendadelivery-80820');
-      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      //this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
       
       this.oneSignal.handleNotificationReceived().subscribe((received) => {
         // do something when notification is received
@@ -84,13 +84,14 @@ export class AppComponent {
        this.oneSignal.getIds().then((id)=>{
          setTimeout(()=>{
            this.storage.get('Usuario').then(u =>{
-             if(u.IdUsuario)
+             if(u)
               var Auth = this.AuthenticationServ.getPlayerId({IdUsuario:u.IdUsuario,playerId: id.userId}).subscribe(pi=>{
-                  console.log(pi);
-                  
-                if(!pi.includes({IdUsuario:u.IdUsuario,playerId: id.userId})){
+                  var exist = pi.filter(p =>{
+                    return p.IdUsuario === u.IdUsuario && p.playerId === id.userId
+                  })
+                if(exist.length === 0){
                     Auth.unsubscribe()
-                    return this.AuthenticationServ.InsertPlayerId({IdUsuario:u.IdUsuario,playerId: id.userId})
+                    return this.AuthenticationServ.InsertPlayerId({IdUsuario:u.IdUsuario,playerId: id.userId}).subscribe()
                   }else{
                     return false
                   }

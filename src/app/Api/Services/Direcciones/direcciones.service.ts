@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ConfiguracionComponent } from 'src/app/Configuracion/configuracion/configuracion.component';
 
 
 export interface direcciones {
-  Id: string;
   IdDireccion: number;
   IdUsuario: number;
   Calle: string;
   Numero: string;
   Latitud: number;
   Longitud: number;
-  selected: boolean;
+  selected: number;
 }
 
 export interface idDireccion{
@@ -27,7 +27,8 @@ export class DireccionesService {
   private DireccionesFB: Observable<direcciones[]>;
 
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private configuracion: ConfiguracionComponent
   ) { 
     this.Direcciones = this.db.collection<direcciones>('Direcciones', ref=> ref.orderBy('IdDireccion'));
 
@@ -42,8 +43,9 @@ export class DireccionesService {
     )
   }
 
-  getDirecciones(idUsuario){
-    this.Direcciones = this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario)));
+  getDirecciones(idUsuario): Observable<any>{
+    return this.configuracion.claim('Direcciones','getDirecciones',{IdUsuario: idUsuario})
+    /*this.Direcciones = this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario)));
     this.DireccionesFB = this.Direcciones.snapshotChanges().pipe(
       map(actions=>{
         return actions.map(a=>{
@@ -53,22 +55,20 @@ export class DireccionesService {
         })
       })
     )
-    return this.DireccionesFB
+    return this.DireccionesFB*/
   }
 
-  buscaDireccionReplicada(IdUsuario,calle, numero){
-    this.Direcciones = this.db.collection<direcciones>('Direcciones', ref => ref.where('IdUsuario','==',parseInt(IdUsuario))
+  buscaDireccionReplicada(IdUsuario,calle, numero): Observable<any>{
+    return this.configuracion.claim('Direcciones','buscaDireccionReplicada',{IdUsuario: IdUsuario,Calle: calle, Numero: numero})
+    /*this.Direcciones = this.db.collection<direcciones>('Direcciones', ref => ref.where('IdUsuario','==',parseInt(IdUsuario))
                         .where('Calle','==',calle).where('Numero','==',numero))
 
-    return this.Direcciones.valueChanges()
+    return this.Direcciones.valueChanges()*/
   }
 
-  getUltimoIdDireccion(){
-    return  this.db.collection<idDireccion>('Direcciones', ref=> ref.orderBy('IdDireccion','desc').limit(1)).valueChanges();
-  }
-
-  getDireccionActual(idUsuario){
-    this.Direcciones = this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario)).where('selected','==',true));
+  getDireccionActual(idUsuario): Observable<any>{
+    return this.configuracion.claim('Direcciones','getDireccionActual',{IdUsuario: idUsuario})
+    /*this.Direcciones = this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario)).where('selected','==',true));
     this.DireccionesFB = this.Direcciones.snapshotChanges().pipe(
       map(actions=>{
         return actions.map(a=>{
@@ -78,17 +78,19 @@ export class DireccionesService {
         })
       })
     )
-    return this.DireccionesFB
+    return this.DireccionesFB*/
   }
 
-  AgregaDireccion(dir){
-    return this.Direcciones.add(dir);
+  AgregaDireccion(dir): Observable<any>{
+    return this.configuracion.claimPost('Direcciones','AgregaDireccion',dir)
+    //return this.Direcciones.add(dir);
   }
 
 
-  CabiarEstatusDefault(idUsuario, IdDireccion: string, select){
-    return this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario))
-                        ).doc(IdDireccion).update({selected:select})
+  CabiarEstatusDefault(idUsuario, IdDireccion, select): Observable<any>{
+    return this.configuracion.claimPost('Direcciones','CambiarEstatusDefault',{selected: select,IdUsuario: idUsuario, IdDireccion: IdDireccion})
+    /*return this.db.collection<direcciones>('Direcciones', ref=> ref.where('IdUsuario','==',parseInt(idUsuario))
+                        ).doc(IdDireccion).update({selected:select})*/
     
   }
 

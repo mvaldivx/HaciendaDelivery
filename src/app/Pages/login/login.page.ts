@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { NavController, AlertController, Events } from '@ionic/angular';
 import { AuthenticationService } from '../../Api/Services/Authentication/authentication.service'
 import * as firebase from 'firebase/app';
@@ -17,6 +18,7 @@ export class LoginPage implements OnInit {
   public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   codigo="+52";
   phoneNumber:Number;
+  btnSignInAvailable=true;
 
   constructor(
     public navCtrl:NavController, 
@@ -25,7 +27,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private utils: UtilsComponent,
     private events: Events,
-    private storage: Storage
+    private storage: Storage,
+    private location: Location
     ) { }
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class LoginPage implements OnInit {
 
  signIn(phoneNumber: number){
    if(!isNaN(phoneNumber) && this.codigo != ""){
+    this.btnSignInAvailable = false
     const appVerifier = this.recaptchaVerifier;
     const phoneNumberString = this.codigo + phoneNumber;
     firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
@@ -43,8 +47,11 @@ export class LoginPage implements OnInit {
         this.presentAlert(confirmationResult)
       })
       .catch( error => {
+        this.btnSignInAvailable = true;
         this.utils.alertGenerico('Error','Verifique el numero ingresado' + phoneNumberString + ' '  + error )
       });
+   }else{
+    this.btnSignInAvailable = true;
    }
   }
 
@@ -53,9 +60,10 @@ export class LoginPage implements OnInit {
     let aler =  await this.alertCtrl.create({
       header: 'Ingrese el codigo de confirmacion',
       inputs: [{ name: 'confirmationCode', placeholder: 'Codigo' }],
+      backdropDismiss : false,
       buttons: [
         { text: 'Cancelar',
-          handler: data => { console.log('Cancel clicked'); }
+          handler: data => { this.btnSignInAvailable = true}
         },
         { text: 'Aceptar',
           handler: data => {
@@ -74,8 +82,13 @@ export class LoginPage implements OnInit {
     .then( result => {
       // User signed in successfully.
       this.GetUserData(result.user.uid)
+      setTimeout(()=>{
+        this.btnSignInAvailable = true;
+      },3000);
+      
       // ...
     }).catch( error => {
+      this.btnSignInAvailable = true;
       this.utils.alertGenerico('Error','Codigo incorrecto' + ' ' + error)
       // User couldn't sign in (bad verification code?)
       // ...
@@ -83,11 +96,12 @@ export class LoginPage implements OnInit {
   }
 
   close(){
-    this.navCtrl.back()
+    this.location.back();
   }
 
   GetUserData(uid){
     this.authService.getUsuario({UID:uid}).subscribe(r=>{
+      this.RegistrarUsuario(uid)
       if(r.length > 0){
         this.storage.set('Usuario',r[0]).then(()=>{
           this.events.publish('usuario:register')

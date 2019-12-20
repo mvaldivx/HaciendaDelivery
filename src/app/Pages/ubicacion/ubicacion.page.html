@@ -22,7 +22,7 @@
     </div>
     <div class="direccion">
       <div class="inputs">
-          <ion-input placeholder="Calle" [(ngModel)]="calle" disabled></ion-input>
+          <ion-input placeholder="Calle" [(ngModel)]="calle"></ion-input>
           <ion-input placeholder="Numero" [(ngModel)]="numero"></ion-input>
           <ion-button (click)="GuardarUbicacion()" color="success" [disabled]="calle.length < 1 || numero.length < 1">
             Confirmar Dirección 

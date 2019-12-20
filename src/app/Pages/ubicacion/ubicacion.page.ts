@@ -65,7 +65,7 @@ export class UbicacionPage implements OnInit {
       this.markerGroup.addLayer(this.marker);
       this.map.addLayer(this.markerGroup);
       }).on('locationerror', (err) => {
-        alert(err.message);
+        console.log(err);
       }).on('click',this.onMapClick,this)
       
       
