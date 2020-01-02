@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition} from '@angular/animations'
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { PedidosService} from '../../Api/Services/Pedidos/pedidos.service'
 import { Storage } from '@ionic/storage';
 import { UtilsComponent } from 'src/app/utils/utils.component';
 import leaflet from 'leaflet';
 import { PrincipalComponent } from '../../Api/Principal/principal/principal.component';
 import { ActivatedRoute } from '@angular/router';
+import { CalificarPage } from '../calificar/calificar.page'
+import { myEnterAnimation, myLeaveAnimation } from '../../Transitions/ModalEnterAnimation'
 
 @Component({
   selector: 'app-pedidos',
@@ -15,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   animations:[
     trigger('fadein',[
       state('void',style({opacity:0, left:'-1000px'})),
-      transition('void =>*', [
+      transition('void => *', [
         style({opacity:1}),
         animate('600ms ease-out', style({left:0}))
       ])
@@ -29,6 +31,7 @@ meses=['Ene','Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov
 detalle= false;
 DetallePedido: any[];
 PedidoSelected:any;
+cargando = true;
 
   constructor(
     private navCtrl: NavController,
@@ -36,7 +39,9 @@ PedidoSelected:any;
     private storage: Storage,
     private utils: UtilsComponent,
     private ProductosServ: PrincipalComponent,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalCtrl: ModalController,
+    private AnimationC: Animation
   ) { }
 
   ngOnInit() {
@@ -46,8 +51,6 @@ PedidoSelected:any;
           this.GeneraMapas()
           this.route.queryParams.subscribe(params=>{
             if(params['fromNotificacion']){
-              console.log(JSON.stringify(params['DatosPedido']));
-              
               this.getDetallePedido(params['DatosPedido'])
             }
           })
@@ -61,7 +64,7 @@ PedidoSelected:any;
       this.storage.get('Usuario').then(usr=>{
         if(usr){
           this.PedidosServ.getPedidos({idUsuario:usr.IdUsuario}).subscribe(pedidos=>{
-            this.Pedidos = pedidos
+            this.Pedidos = pedidos? pedidos :[]
             this.Pedidos.forEach(p=>{
               
               var dat = new Date(p.FechaPedido)
@@ -71,10 +74,12 @@ PedidoSelected:any;
               p.FechaPedido = fp[1] + ' ' + this.meses[parseInt(fp[0])-1] + ' ' + fp[2] + '  ' + this.getHora(dat.getHours()) + ':' + dat.getMinutes() + ' ' + ((dat.getHours() >= 12)?'PM':'AM');
               p.FechaConcluido =(fc[2] == '1999')?'' : fc[1] + ' ' + this.meses[parseInt(fc[0])-1] + ' ' + fc[2] + '  ' + this.getHora(dc.getHours()) + ':' + dc.getMinutes() + ' ' + ((dc.getHours() >= 12)?'PM':'AM');
             })
+            this.cargando = false;
             resolve(true)
           })
         }else{
           this.utils.alertUsuario()
+          this.cargando = false;
           resolve(false)
         }
       })
@@ -124,10 +129,12 @@ PedidoSelected:any;
       this.PedidosServ.getDetallePedido({IdPedido:Pedido.IdPedido}).subscribe(dp=>{
         this.DetallePedido=[]
         dp.forEach(d=>{
-          var detalle={Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};
+          var detalle={IdNegocio: 0, IdProducto: 0,Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};
           detalle.Cantidad = d.Cantidad;
           detalle.ComentsAdi = d.ComentsAdi;
           detalle.Precio = d.Precio;
+          detalle.IdNegocio = d.IdNegocio;
+          detalle.IdProducto = d.IdProducto
           this.ProductosServ.getProducto({idProducto:d.IdProducto}).subscribe(prod=>{
             if(prod.length > 0){
               detalle.Producto = prod[0].Producto
@@ -152,7 +159,23 @@ PedidoSelected:any;
         map.addLayer(markerGroup);
       })
         this.detalle = true
-      
+        this.cargando = false
+    }else{
+      this.cargando = false
     }
   }
+
+
+
+  async calificar(){
+    const modal = await this.modalCtrl.create({
+      component: CalificarPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {detallePedido: this.DetallePedido, pedido: this.PedidoSelected}
+    })
+    return await modal.present();
+  }
+
+
 }

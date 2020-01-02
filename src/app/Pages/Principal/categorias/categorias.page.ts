@@ -22,7 +22,6 @@ searchbarVal:any='';
 autocomplete:any=[];
 numProductos= 0;
 rutaimagenes="";
-ubicacion={};
 direccion: direcciones
 
 @ViewChild('searchb',null) myInput: IonSearchbar;
@@ -142,7 +141,7 @@ direccion: direcciones
       }else{
         this.storage.get('ubicacion').then(u=>{
           if(u)
-            this.ubicacion = u
+            this.storeDirecciones.selectedDir = u
         })
       }
       

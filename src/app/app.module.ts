@@ -28,6 +28,9 @@ import { ReseniasPageModule } from './Pages/Principal/resenias/resenias.module';
 import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
 import { UtilsComponent } from './utils/utils.component'
 import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
+import { CalificarPageModule } from './Pages/calificar/calificar.module'
+
+import { Animation } from '@ionic/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -52,7 +55,9 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     UbicacionPageModule,
     DireccionesPageModule,
     IonicStorageModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CalificarPageModule,
+    
   ],
   providers: [
     StatusBar,
@@ -65,7 +70,8 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     NativeGeocoder,
     OneSignal,
     PedidosPage,
-    StoreDireccionesService
+    StoreDireccionesService,
+    Animation
   ],
   bootstrap: [AppComponent]
 })

@@ -16,8 +16,8 @@
       <ion-content>
         <ion-list>
           <ion-item style="font-family: 'Montserrat';" *ngIf="!Usuario" (click)="login()">Iniciar Sesion</ion-item>
-          <ion-item style="font-family: 'Montserrat';" (click)="MisPedidos()">Mis Pedidos</ion-item>
-          <ion-item style="font-family: 'Montserrat';" (click)="MisPedidos()">Mis Anuncios</ion-item>
+          <ion-item style="font-family: 'Montserrat';" *ngIf="Usuario" (click)="MisPedidos()">Mis Pedidos</ion-item>
+          <ion-item style="font-family: 'Montserrat';" *ngIf="Usuario" (click)="MisAnuncios()">Mis Anuncios</ion-item>
           <ion-item style="font-family: 'Montserrat';">Ayuda</ion-item>
           <ion-item style="font-family: 'Montserrat';"  *ngIf="Usuario" (click)="logout()">Cerrar Sesion</ion-item>
         </ion-list>

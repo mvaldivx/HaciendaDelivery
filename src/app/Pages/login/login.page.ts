@@ -8,6 +8,8 @@ import { Router } from '@angular/router'
 import { customAlertoutAnimation, customAlertinAnimation } from '../../Transitions/InPage'
 import { UtilsComponent } from '../../utils/utils.component'
 import { Storage } from '@ionic/storage';
+import { StoreDireccionesService } from '../../Api/Services/Direcciones/Store/store.service'
+import { DireccionesService } from '../../Api/Services/Direcciones/direcciones.service'
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,9 @@ export class LoginPage implements OnInit {
     private utils: UtilsComponent,
     private events: Events,
     private storage: Storage,
-    private location: Location
+    private location: Location,
+    private StoreDirecciones: StoreDireccionesService,
+    private direccionesService: DireccionesService
     ) { }
 
   ngOnInit() {
@@ -104,6 +108,7 @@ export class LoginPage implements OnInit {
       this.RegistrarUsuario(uid)
       if(r.length > 0){
         this.storage.set('Usuario',r[0]).then(()=>{
+          this.guardaDireccionSiExiste(r[0]['IdUsuario'])
           this.events.publish('usuario:register')
           this.navCtrl.navigateRoot('')
         })
@@ -111,6 +116,38 @@ export class LoginPage implements OnInit {
       }else
         this.RegistrarUsuario(uid)
     })
+  }
+
+  guardaDireccionSiExiste(idusuario){
+    if(this.StoreDirecciones.selectedDir.Calle != ''){
+      this.direccionesService.getDirecciones(idusuario).subscribe(res=>{
+        var idExist = 0
+        var idDirSel = 0
+        res.forEach(dir =>{
+          if(dir.Calle === this.StoreDirecciones.selectedDir.Calle && dir.Numero === this.StoreDirecciones.selectedDir.Numero){
+            idExist = dir.IdDireccion
+          }
+          if(dir.selected === 1){
+            idDirSel = dir.IdDireccion
+          }
+        })
+        if(idDirSel != 0)
+            this.direccionesService.CabiarEstatusDefault(idusuario,idDirSel,0).subscribe()
+        if(idExist != 0){
+          var aux ={
+            Calle: this.StoreDirecciones.selectedDir.Calle,
+            IdUsuario: idusuario,
+            Latitud: this.StoreDirecciones.selectedDir.Latitud,
+            Longitud: this.StoreDirecciones.selectedDir.Longitud,
+            Numero: this.StoreDirecciones.selectedDir.Numero,
+            selected:1
+          }
+          this.direccionesService.AgregaDireccion(aux).subscribe()
+        }else{
+          this.direccionesService.CabiarEstatusDefault(idusuario,idExist,1).subscribe()
+        }
+      })
+    }
   }
   
   RegistrarUsuario(uid){

@@ -1,0 +1,19 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+.closebtn{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    ion-buttons{
+        width:100%;
+        margin-top: 10px;
+        ion-button{
+            margin-left: auto;
+            margin-right:20px;
+            color:white;
+        }
+    }
+}

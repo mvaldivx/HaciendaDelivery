@@ -144,7 +144,8 @@ export class CarritoPage implements OnInit {
     this.realizandoPedido = true
     this.store.get('Usuario').then(usr=>{
       if(usr){         
-          //Crea Pedido e inserta en BD
+        if(this.StoreDirecciones.selectedDir.IdDireccion != 0){
+           //Crea Pedido e inserta en BD
           var pedido:Pedido={
             IdPedido: 0,
             IdUsuario: usr.IdUsuario,
@@ -162,7 +163,7 @@ export class CarritoPage implements OnInit {
             this.utils.showToast('Pedido Realizado')
             this.modalCtrl.dismiss()
             //Confirmado el Guardado se guarda detalle de pedido
-              /*this.Productos.forEach(p=>{
+              this.Productos.forEach(p=>{
                 var dPedido: DetallePedido={
                   IdPedido: ped.insertId,
                   Cantidad: p.Cantidad,
@@ -175,10 +176,9 @@ export class CarritoPage implements OnInit {
               })
               this.store.remove('carrito')
               this.utils.showToast('Pedido Realizado')
-              this.modalCtrl.dismiss()*/
+              this.modalCtrl.dismiss()
           })
-        
-
+        }
       }else{
         this.utils.alertUsuario()
         this.modalCtrl.dismiss()

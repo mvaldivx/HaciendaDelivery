@@ -1,0 +1,19 @@
+<div *ngFor="let n of [1,2,3,4,5]" class="skeleton">
+  <ion-card  class="Card">
+    <ion-card-title class="titleCard">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      <div class="fabsGroup">
+          <div class="fabs" >
+              <ion-skeleton-text animated></ion-skeleton-text>
+          </div>
+      </div>
+      <div class="descripcionskeleton"><ion-skeleton-text animated></ion-skeleton-text></div>
+    </ion-card-title>
+    <ion-card-content class="contentCard">
+      <div class="logo"><ion-skeleton-text animated></ion-skeleton-text></div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="footerskeleton">
+      <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
+  </ion-card>
+</div>

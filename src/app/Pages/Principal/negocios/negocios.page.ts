@@ -16,6 +16,7 @@ export interface NegocioR {
   Calificacion: object;
   imgError?:boolean;
 }
+
 @Component({
   selector: 'app-negocios',
   templateUrl: './negocios.page.html',
@@ -55,21 +56,8 @@ rutaNoImage="";
     if(this.IdCategoria != null){
       this.principalApi.getNegocios({idCategoria:this.IdCategoria}).subscribe(res=>{
         this.Negocios = res
-        this.NegociosR = []
-        this.Negocios.forEach(n=>{
-          this.getCalificacion(n.IdNegocio).finally(()=>{
-            this.NegociosR.push({
-              IdCategoria: n.IdCategoria,
-              IdNegocio: n.IdNegocio,
-              Negocio: n.Negocio,
-              Estatus: n.Estatus,
-              Descripcion: n.Descripcion,
-              Calificacion: this.calTmp
-            })
-          })
-          
-        })
-        if(this.Negocios.length== 0){
+        this.NegociosR = res
+        if(this.Negocios.length != 0){
           this.loading= false
         }
       })
@@ -78,27 +66,16 @@ rutaNoImage="";
     }
   }
 
-   getCalificacion(idNegocio){
-    return new Promise<Object>(resolve =>{
-      let response=[]
-    this.calificaciones.getResenias(idNegocio).subscribe(res=>{
-      let cont = 0
-      let sum = 0
-      res.forEach(e=>{
-        cont+=1
-        sum+= e.Calificacion
-      })
-      let prom = sum / cont
-      if(!isNaN(prom))
-        response = [{n:1,t:(prom == 0)?3:(prom < 1)?2:1},
+   getCalificacion(Calificacion){
+     var res = []
+      let prom = Calificacion
+      if(!isNaN(prom) && Calificacion > 0)
+        res = [{n:1,t:(prom == 0)?3:(prom < 1)?2:1},
          {n:2,t:(prom <= 1)?3:(prom < 2)?2:1},
          {n:3,t:(prom <= 2)?3:(prom < 3)?2:1},
          {n:4,t:(prom <= 3)?3:(prom < 4)?2:1},
          {n:5,t:(prom <= 4)?3:(prom < 5)?2:1}]
-      this.calTmp = response
-      resolve(response)
-    })
-    })
+      return res
  
   }
 

@@ -94,4 +94,8 @@ export class DireccionesService {
     
   }
 
+  EliminarDireccion(idUsuario,IdDireccion): Observable<any>{
+    return this.configuracion.claimPost('Direcciones','EliminarDireccion',{IdUsuario:idUsuario,IdDireccion: IdDireccion})
+  }
+
 }

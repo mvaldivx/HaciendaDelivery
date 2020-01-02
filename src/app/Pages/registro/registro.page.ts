@@ -6,6 +6,8 @@ import { trigger, state, style, animate, transition} from '@angular/animations'
 import { UtilsComponent } from '../../utils/utils.component'
 import { AuthenticationService, Usuario } from '../../Api/Services/Authentication/authentication.service'
 import { Storage } from '@ionic/storage';
+import { StoreDireccionesService } from '../../Api/Services/Direcciones/Store/store.service'
+import { DireccionesService } from '../../Api/Services/Direcciones/direcciones.service'
 
 @Component({
   selector: 'app-registro',
@@ -42,7 +44,9 @@ Usuario: Usuario
     private storage: Storage,
     private events: Events,
     private location: Location,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private StoreDirecciones: StoreDireccionesService,
+    private direccionesService: DireccionesService
   ) { }
 
   ngOnInit() {
@@ -87,6 +91,10 @@ Usuario: Usuario
           telefono: this.phoneNumber
         }
          this.AuthService.registrarUsuario({usuario:this.Usuario}).subscribe(res=>{
+          this.guardaDireccionSiExiste(res.insertId)
+          this.Usuario.IdUsuario = res.insertId
+          console.log(this.Usuario);
+          
           this.storage.set('Usuario',this.Usuario)
           this.utils.showToast('Registrado Correctamente')
           this.navCtrl.navigateRoot('')
@@ -98,6 +106,20 @@ Usuario: Usuario
     }else{
       this.utils.alertGenerico('Error','Para continuar es necesario que complete el formulario')
     } 
+  }
+
+  guardaDireccionSiExiste(idusuario){
+    if(this.StoreDirecciones.selectedDir.Calle != ''){
+      var aux ={
+        Calle: this.StoreDirecciones.selectedDir.Calle,
+        IdUsuario: idusuario,
+        Latitud: this.StoreDirecciones.selectedDir.Latitud,
+        Longitud: this.StoreDirecciones.selectedDir.Longitud,
+        Numero: this.StoreDirecciones.selectedDir.Numero,
+        selected:1
+      }
+      this.direccionesService.AgregaDireccion(aux).subscribe()
+    }
   }
 
   ChangeYear(){
@@ -126,7 +148,6 @@ Usuario: Usuario
 
   validaAnioBisiesto(){
     if(((this.Anio % 4 == 0 && this.Anio % 100 != 0) || (this.Anio % 100 == 0 && this.Anio % 400 == 0))){
-
       this.validaDias(29);
     }else{
       this.validaDias(28);

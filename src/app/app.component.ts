@@ -127,4 +127,9 @@ export class AppComponent {
     this.navCtrl.navigateForward(['pedidos'])
   }
 
+  MisAnuncios(){
+    this.mnuctrl.toggle()
+    this.navCtrl.navigateForward(['anuncios'])
+  }
+
 }

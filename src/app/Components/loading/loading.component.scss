@@ -1,0 +1,46 @@
+
+.skeleton{
+    width:85%;
+    max-width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    .Card{
+        margin-bottom:0;
+        padding-bottom:0; 
+        border-radius:3px;
+        max-height:120px;
+    }
+}
+.footerskeleton{
+    margin-top:0;
+    padding-top:0;
+    width:85%;
+    max-width:490px;
+    margin-left:auto;
+    margin-right:auto;
+    height:30px;
+    border-radius:3px;
+}
+
+.fabs{
+    display: inline;
+    span{
+        font-size:10px;
+    }
+}
+.fabsGroup{
+    width:50%;
+}
+
+.contentCard{
+    padding-top: 0;
+    margin-top:0;
+    top:-25px;
+}
+
+.descripcionskeleton{
+    font-family: 'Montserrat';
+    font-size: 10px;
+    color:#6b6b6ba6;
+    width: 50%;
+}

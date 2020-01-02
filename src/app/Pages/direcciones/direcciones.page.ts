@@ -36,8 +36,8 @@ IdUsuario = 0
       }else{
         this.storage.get('ubicacion').then(u=>{
           if(u){
-            u.selected = true
-            this.StoreDirecciones.direcciones.push(u)
+            u.selected = 1
+            this.StoreDirecciones.selectedDir = u
           }
         })
       }
@@ -72,7 +72,7 @@ IdUsuario = 0
               Latitud: r.data.lat,
               Longitud: r.data.lng,
               Numero: r.data.Numero,
-              selected:true
+              selected:1
             }
             this.direccionesService.AgregaDireccion(aux).subscribe((res)=>{
               this.direccionesService.CabiarEstatusDefault(this.IdUsuario,IdDirDefault,0).subscribe(()=>{
@@ -92,8 +92,21 @@ IdUsuario = 0
       }else{
         this.storage.get('ubicacion').then(u=>{
           if(u){
-            u.selected= true
-            this.StoreDirecciones.direcciones.push(u)
+            u.selected= 1
+            this.StoreDirecciones.selectedDir = u
+          }
+          else{
+            var direccionSt = {
+              IdDireccion: -1,
+              Calle: r.data.Calle,
+              IdUsuario: this.IdUsuario,
+              Latitud: r.data.lat,
+              Longitud: r.data.lng,
+              Numero: r.data.Numero,
+              selected:1
+            }
+            this.storage.set('ubicacion',direccionSt)
+            this.StoreDirecciones.selectedDir = direccionSt
           }
         })
       } 
@@ -118,6 +131,23 @@ IdUsuario = 0
       }
       
       
+    }
+  }
+
+  remove(direccion){
+    if(this.IdUsuario > 0){
+      if(direccion.selected === 1)
+        this.StoreDirecciones.selectedDir = { 
+          IdDireccion: 0,
+          IdUsuario:0 ,
+          Calle: '',
+          Numero: '',
+          Latitud: 0,
+          Longitud: 0,
+          selected: 0
+        }
+      this.direccionesService.EliminarDireccion(this.IdUsuario,direccion.IdDireccion).subscribe()
+      this.StoreDirecciones.direcciones.splice(this.StoreDirecciones.direcciones.indexOf(direccion),1)
     }
   }
 

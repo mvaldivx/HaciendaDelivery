@@ -6,7 +6,11 @@
       </ion-buttons>
     </div>
     <div class="flip" [ngClass]="{'flipped':(detalle)}">
-    <div class="contenido" @fadein >
+    <div class="contenido" [@fadein]="'in'" id="DivPrincipal" >
+      <div *ngIf= "!cargando && Pedidos && Pedidos.length <= 0" class="carritoVacio">
+        <img src="assets/images/OpenBox.png"><br/>
+        <span>Aún no se han registrado pedidos</span>
+      </div>
       <ion-list>
         <ion-item  *ngFor="let ped of Pedidos" (click)="getDetallePedido(ped)">
           <div class="minimap" id="map{{ped.IdPedido}}"></div>
@@ -70,6 +74,11 @@
         </div>
 
       </div>
+      <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="btnCalificar">
+        <ion-fab-button (click)="calificar()">
+          <span>Calificar</span>
+        </ion-fab-button>
+      </ion-fab>
     </div>
 
   </div>

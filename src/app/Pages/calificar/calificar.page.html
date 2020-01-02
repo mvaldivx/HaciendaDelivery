@@ -1,0 +1,32 @@
+
+<ion-content>
+  <div class="sliders">
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let ped of detallePedido">
+        <div class="avatar">
+          <ion-avatar>
+            <img [src]="rutaImagenProducto + ped.IdNegocio + '/' + ped.IdProducto + '.jpg'">
+          </ion-avatar>
+        </div>
+        <div class="calificacion">
+          <div class="fabsGroup">
+            <div class="fabs">
+              <ion-icon name="star-outline" *ngFor="let res of [1,2,3,4,5]"></ion-icon>
+            </div>
+            <!-- <div class="fabs" *ngIf="neg.Calificacion < 0"><span>Sin reseñas</span></div> -->
+          </div>
+        </div>
+        
+      </ion-slide>
+
+      <ion-slide>
+        <h1>Slide 2</h1>
+      </ion-slide>
+
+      <ion-slide>
+        <h1>Slide 3</h1>
+      </ion-slide>
+    </ion-slides> 
+  </div>
+  
+</ion-content>

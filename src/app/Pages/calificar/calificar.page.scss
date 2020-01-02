@@ -1,0 +1,34 @@
+.sliders{
+    height:100%;
+    width:100%;
+    display:flex;
+    ion-slides{
+        height: 94%;
+        width:100% !important;
+        ion-slide{
+            width:100% !important;
+        }
+    }
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    position:absolute;
+    ion-avatar{
+        width: 100%;
+        height: 100%;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.calificacion{
+    width:100%;
+    margin-top:170px;
+    ion-icon{
+        font-size: xx-large;
+    }
+}
