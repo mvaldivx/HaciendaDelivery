@@ -93,7 +93,6 @@ Usuario: Usuario
          this.AuthService.registrarUsuario({usuario:this.Usuario}).subscribe(res=>{
           this.guardaDireccionSiExiste(res.insertId)
           this.Usuario.IdUsuario = res.insertId
-          console.log(this.Usuario);
           
           this.storage.set('Usuario',this.Usuario)
           this.utils.showToast('Registrado Correctamente')

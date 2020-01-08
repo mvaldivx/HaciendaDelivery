@@ -32,7 +32,7 @@ detalle= false;
 DetallePedido: any[];
 PedidoSelected:any;
 cargando = true;
-
+calificado = false;
   constructor(
     private navCtrl: NavController,
     private PedidosServ: PedidosService,
@@ -129,12 +129,13 @@ cargando = true;
       this.PedidosServ.getDetallePedido({IdPedido:Pedido.IdPedido}).subscribe(dp=>{
         this.DetallePedido=[]
         dp.forEach(d=>{
-          var detalle={IdNegocio: 0, IdProducto: 0,Cantidad:0,ComentsAdi:"",Precio:0,Producto:""};
+          this.calificado = (d.calificado > 0)? false: true;
+          var detalle={IdNegocio: 0, IdProducto: 0,Cantidad:0,ComentsAdi:"",Precio:0,Producto:"", calificado:0};
           detalle.Cantidad = d.Cantidad;
           detalle.ComentsAdi = d.ComentsAdi;
           detalle.Precio = d.Precio;
           detalle.IdNegocio = d.IdNegocio;
-          detalle.IdProducto = d.IdProducto
+          detalle.IdProducto = d.IdProducto;
           this.ProductosServ.getProducto({idProducto:d.IdProducto}).subscribe(prod=>{
             if(prod.length > 0){
               detalle.Producto = prod[0].Producto
@@ -174,8 +175,13 @@ cargando = true;
       leaveAnimation: myLeaveAnimation,
       componentProps: {detallePedido: this.DetallePedido, pedido: this.PedidoSelected}
     })
+    modal.onDidDismiss().then(res=>{
+      if(res.data['exitoso']){
+        this.calificado = false
+      }
+      this.utils.showToast(res.data['res'])
+    })
     return await modal.present();
   }
-
 
 }

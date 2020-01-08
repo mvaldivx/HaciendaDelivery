@@ -1,9 +1,17 @@
+@font-face{
+    font-family: 'Montserrat';
+    src: url('../../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+ion-title{
+    font-family: 'Montserrat';
+}
 .btnClose{
     color: #656262;
 }
 .avatar{
     width:100%;
-    margin-top:10px;
+    margin-top:5px;
     margin-bottom:10px;
     .imgAvatar{
         display: inline-block;
@@ -54,4 +62,7 @@
 
 .descripcion{
     margin-left:20px;
+}
+ion-item-divider{
+    border-bottom-style: ridge;
 }

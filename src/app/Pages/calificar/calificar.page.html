@@ -1,31 +1,39 @@
 
 <ion-content>
+  <ion-buttons>
+    <ion-button class="btnBack" (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+  </ion-buttons>
   <div class="sliders">
-    <ion-slides pager="true">
-      <ion-slide *ngFor="let ped of detallePedido">
+    <ion-slides pager="true" #slides>
+      <ion-slide *ngFor="let ped of negocios; let i = index">
+        <div class="descProd">
+          <span>Cuentanos Tu Experiencia </span> 
+        </div>
         <div class="avatar">
           <ion-avatar>
-            <img [src]="rutaImagenProducto + ped.IdNegocio + '/' + ped.IdProducto + '.jpg'">
+            <img [src]="rutaImagenesLogos + ped.IdNegocio + '.jpg'">
           </ion-avatar>
         </div>
         <div class="calificacion">
           <div class="fabsGroup">
             <div class="fabs">
-              <ion-icon name="star-outline" *ngFor="let res of [1,2,3,4,5]"></ion-icon>
+              <span *ngFor="let cal of calificaciones[i].calificacion">
+                <ion-icon *ngIf="cal.cal === 0" name="star-outline"  (click)="califica(cal, i)"></ion-icon>
+                <ion-icon *ngIf="cal.cal === 1" name="star"  (click)="califica(cal, i)"></ion-icon>
+              </span>
             </div>
             <!-- <div class="fabs" *ngIf="neg.Calificacion < 0"><span>Sin reseñas</span></div> -->
           </div>
         </div>
+        <div class="comentarios">
+          <ion-textarea placeholder="comentarios" maxlength="500" [(ngModel)]="calificaciones[i].comentario"></ion-textarea>
+        </div>
+        <div class="btnContinuar">
+          <ion-button color="success" (click)="continuar()">Continuar</ion-button>
+        </div>
         
       </ion-slide>
 
-      <ion-slide>
-        <h1>Slide 2</h1>
-      </ion-slide>
-
-      <ion-slide>
-        <h1>Slide 3</h1>
-      </ion-slide>
     </ion-slides> 
   </div>
   

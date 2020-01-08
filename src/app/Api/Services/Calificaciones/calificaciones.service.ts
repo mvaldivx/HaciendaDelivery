@@ -32,4 +32,8 @@ export class CalificacionesService {
    getResenias(idNegocio): Observable<any>{
     return this.configuracion.claim('Calificaciones','getResenias',{IdNegocio: idNegocio})
   }
+
+  insertResenia(resenia): Observable<any>{
+    return this.configuracion.claimPost('Calificaciones','insertaResenia',resenia)
+  }
 }

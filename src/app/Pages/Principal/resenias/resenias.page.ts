@@ -34,19 +34,16 @@ export class ReseniasPage implements OnInit {
       var auxProd=[]
       res.sort(function(a, b){return b.Fecha['seconds']-a.Fecha['seconds']})
       res.forEach(el=>{
-        this.getProducto(el.IdProducto).then(r=>{
-          var aux={IdNegocio:0,Calificacion:[],Comentario:'',IdProducto:0, IdUsuario:0,Producto:'', Fecha:''}
-          var dat = new Date(el.Fecha['seconds'] * 1000);
+          var aux={IdNegocio:0,Calificacion:[],Comentario:'',IdUsuario:0, Fecha:'', Nombre:''}
+          var dat = new Date(el.Fecha);
           var fecha = dat.toLocaleDateString("en-US").split('/')
           aux.IdNegocio= el.IdNegocio;
           aux.Calificacion = this.getCalificacion(el.Calificacion);
           aux.Comentario = el.Comentario;
-          aux.IdProducto = el.IdProducto;
           aux.IdUsuario = el.IdUsuario;
+          aux.Nombre = el.Nombre;
           aux.Fecha = fecha[1] + ' ' + this.meses[parseInt(fecha[0])-1] + ' ' + fecha[2] + '  ' + this.getHora(dat.getHours()) + ':' + dat.getMinutes() + ' ' + ((dat.getHours() >= 12)?'PM':'AM');
-          aux.Producto = r.toString();
           auxProd.push(aux)  
-        })  
            
       })
       this.Resenias = auxProd
@@ -54,15 +51,6 @@ export class ReseniasPage implements OnInit {
     })
   }
 
-  async getProducto(IdProducto){
-    return new Promise<Object>(resolve =>{
-      let paux:Producto[]
-      this.productos.getProducto({idProducto:IdProducto}).subscribe(p=>{
-          paux = p
-          resolve(paux[0].Producto)
-      });
-    })
-  }
 
   getCalificacion(calificacion){
     var aux=[]

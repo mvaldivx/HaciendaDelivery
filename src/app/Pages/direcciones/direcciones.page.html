@@ -4,7 +4,7 @@
     <ion-item-sliding *ngFor="let dir of direcciones" >
       <ion-item (click)="cambiaDefault(dir)">
         <ion-icon *ngIf="dir.selected === 1" name="radio-button-on"></ion-icon><ion-icon *ngIf="dir.selected === 0" name="radio-button-off"></ion-icon>
-        {{dir.Calle}} # {{dir.Numero}} 
+        {{dir.Calle}} # {{dir.Numero}}
       </ion-item>
       <ion-item-options class="slide" side="end">
         <ion-item-option (click)="remove(dir)" color="danger">

@@ -29,7 +29,7 @@ IdUsuario = 0
     this.storage.get('Usuario').then(usr=>{
       if(usr){
         this.IdUsuario = usr.IdUsuario
-        this.direccionesService.getDirecciones(usr.IdUsuario).subscribe(d=>{
+        this.direccionesService.getDirecciones(usr.IdUsuario).subscribe(d=>{ 
           this.StoreDirecciones.direcciones = d
           this.direcciones = d
         })

@@ -3,6 +3,10 @@
     src: url('../../../../assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
 }
 
+ion-title{
+    font-family: 'Montserrat';
+}
+
 .btnback, .btnCart{
     color: #656262 !important;
 }

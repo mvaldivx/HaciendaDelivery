@@ -99,6 +99,7 @@ div{
     height:7rem;
     width:15rem;
     border-radius: 7px;
+    margin-top: 4px;
 }
 
 .descripcion{
@@ -240,7 +241,11 @@ div{
 
 .btnCalificar{
     ion-fab-button{
-        --background: #747ea2;
-        --background-hover:#515871;
+        --background: #10dc60;
+        --background-hover:#28e070;
     }
+}
+
+.cargando{
+    display:none;
 }

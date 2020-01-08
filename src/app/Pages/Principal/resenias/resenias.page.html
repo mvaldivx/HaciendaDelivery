@@ -24,7 +24,7 @@
           </div>
 
           <div class="info">
-            <span>Miguel plascencia</span><br>
+            <span>{{res.Nombre}}</span><br>
             <span>{{res.Fecha}}</span>
           </div>
           <div class="Calificacion" slot="end">
@@ -44,7 +44,6 @@
 
     <div *ngIf="loading">
         <ion-item-divider *ngFor="let res of [1,2,3,4,5]">
-
             <div class="resenia">
               <div class="descripcion">
                 {{res.Comentario}}
