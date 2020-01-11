@@ -5,6 +5,34 @@
         <ion-button slot="icon-only" (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
       </ion-buttons>
     </div>
+    <div class="contenido" [@fadein]="'in'" id="DivPrincipal" >
+      <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="btnNewAd" >
+        <ion-fab-button >
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <div *ngIf= "!cargando && misNegocios && misNegocios.length <= 0" class="carritoVacio">
+        <div class="imagen"><img src="assets/images/OpenBox.png"></div><br/>
+        <span>Aún no se han registrado anuncios</span>
+      </div>
+      <ion-list [ngClass]="{'cargando':(cargando)}">
+        <ion-item  *ngFor="let neg of misNegocios" (click)="getProductos()">
+          <div class="imagenLogo" ><img [src]="rutaImagenesNegocios + neg.IdNegocio + '.jpg'"></div>
+          <div class="descripcion">
+            <div class="direccion"><span>{{neg.Negocio}}</span></div>
+            <div class="Estatus"><span>Estatus: </span></div>
+            <ion-toggle [(ngModel)]="neg.Estatus" (ionChange)="changeStatusNegocio(neg.IdNegocio,neg.Estatus, $event)"></ion-toggle>
+          </div>
+          <div class="btnEdit">
+            <ion-buttons class="" >
+              <ion-button slot="icon-only" size="large" >
+                <ion-icon name="build"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class=""></div>
   </div>
-  
 </ion-content>

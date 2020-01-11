@@ -57,9 +57,7 @@ rutaNoImage="";
       this.principalApi.getNegocios({idCategoria:this.IdCategoria}).subscribe(res=>{
         this.Negocios = res
         this.NegociosR = res
-        if(this.Negocios.length != 0){
           this.loading= false
-        }
       })
     }else{
       this.navCtrl.navigateRoot('categorias')

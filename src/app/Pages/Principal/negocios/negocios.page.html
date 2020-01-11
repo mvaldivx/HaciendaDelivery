@@ -29,7 +29,8 @@
       <ion-card-content class="contentCard">
         <div class="logo">
           <ion-skeleton-text animated *ngIf="loading" style="height: 50px;"></ion-skeleton-text>
-          <ion-img *ngIf="!neg.imgError" (ionImgDidLoad)="imagenCargada(neg.IdNegocio)" (ionError)="errorImage(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img>
+          <ion-img *ngIf="!neg.imgError" (ionImgDidLoad)="imagenCargada(neg.IdNegocio)"
+           (ionError)="errorImage(neg.IdNegocio)" [src]="rutaImagenLogo + neg.IdNegocio + '.jpg'"></ion-img>
           <ion-img *ngIf="neg.imgError && !loading" [src]="rutaNoImage"></ion-img>
         </div>
         </ion-card-content>

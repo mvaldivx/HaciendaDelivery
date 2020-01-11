@@ -40,8 +40,7 @@ calificado = false;
     private utils: UtilsComponent,
     private ProductosServ: PrincipalComponent,
     private route: ActivatedRoute,
-    private modalCtrl: ModalController,
-    private AnimationC: Animation
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {

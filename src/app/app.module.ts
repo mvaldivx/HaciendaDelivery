@@ -30,8 +30,6 @@ import { UtilsComponent } from './utils/utils.component'
 import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
 import { CalificarPageModule } from './Pages/calificar/calificar.module'
 
-import { Animation } from '@ionic/core';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { OneSignal } from '@ionic-native/onesignal/ngx';
@@ -70,8 +68,7 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     NativeGeocoder,
     OneSignal,
     PedidosPage,
-    StoreDireccionesService,
-    Animation
+    StoreDireccionesService
   ],
   bootstrap: [AppComponent]
 })
