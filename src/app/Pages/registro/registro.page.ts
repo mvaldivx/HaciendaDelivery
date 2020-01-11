@@ -73,7 +73,7 @@ Usuario: Usuario
 
   GeneraAnios(){
       var years=[]
-      for(var i = 2019; i >= 1900; i --){
+      for(var i = (new Date().getFullYear() - 10); i >= 1900; i --){
         years.push(i)
       }
       this.Anios = years
