@@ -23,14 +23,13 @@
     height: 100%;
     background-color: #505050;
 }
-.btnNewAd{
-    ion-fab-button{
-        font-size: XX-large;
-        --background: #10dc60;
-        --background-hover:#28e070;
-    }
+ .btnNewAd ion-fab-button{
+    font-size: XX-large !important;
+    --background: #10dc60;
+    --background-hover:#28e070;
+    
 }
-.contenido{
+.contenido, .NuevoAnuncio, .DetalleNegocios{
     width: 95%;
     height: 94%;
     background-color: white;
@@ -40,6 +39,35 @@
     margin-top: 5vh;
     margin-left: 2.5vw;
 }
+.contenido, .NuevoAnuncio, .DetalleNegocios{
+    position: absolute;
+    backface-visibility: hidden;
+    }
+
+.NuevoAnuncio, .DetalleNegocios{
+    transform: translateX(110%);
+    ion-buttons{
+        margin-top:5px;
+        margin-left:3px;
+    }
+}
+
+
+
+.flip{
+    position: relative;
+    transition: all .5s ease;
+    transform: perspective(600px);
+    transform-origin: 100% 50%;
+    transform-style: preserve-3d;
+    width:100%;
+    height:100%;
+}
+
+.flipped{
+    transform: perspective(600px) translateX(-4%) translateX(-100%);
+}
+
 ion-list{
     margin:5px;
     span{
@@ -73,3 +101,14 @@ ion-list{
         max-height: 200px;
     }
 }
+
+.swiper{
+    width: 100%;
+}
+
+.NuevoAnuncio{
+    ion-button{
+        color:black;
+    }
+}
+

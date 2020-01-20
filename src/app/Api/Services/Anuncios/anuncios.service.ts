@@ -19,4 +19,12 @@ export class AnunciosService {
   ChangeNegocioEstatus(data): Observable<any>{
     return this.configuracion.claimPost('Anuncios','ChangeNegocioEstatus',data);
   }
+
+  getCategorias(): Observable<any>{
+    return this.configuracion.claim('Anuncios','getCategorias','')
+  }
+
+  NuevoAnuncio(anuncio):Observable<any>{
+    return this.configuracion.claimPost('Anuncios','NuevoAnuncio',anuncio)
+  }
 }

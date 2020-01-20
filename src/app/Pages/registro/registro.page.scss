@@ -24,11 +24,12 @@ ion-button{
     width: 100%;
     ion-buttons{
         width:100%;
-        color:white;
+        color:white !important;
         margin-top: 10px;
         ion-button{
             margin-left: auto;
             margin-right:20px;
+            color: white !important;
         }
     }
 }

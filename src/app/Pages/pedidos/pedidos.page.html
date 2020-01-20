@@ -11,7 +11,7 @@
         <img src="assets/images/OpenBox.png"><br/>
         <span>Aún no se han registrado pedidos</span>
       </div>
-      <ion-list [ngClass]="{'cargando':(cargando)}">
+      <ion-list *ngIf= "!cargando && Pedidos && Pedidos.length > 0" [ngClass]="{'cargando':(cargando)}">
         <ion-item  *ngFor="let ped of Pedidos" (click)="getDetallePedido(ped)">
           <div class="minimap" id="map{{ped.IdPedido}}"></div>
           <div class="descripcion">

@@ -1,0 +1,83 @@
+<div class="NuevoAnuncio">
+  <div class="content">
+    <div class="categoria">
+      <ion-item>
+        <ion-label> Categoria </ion-label>
+        <ion-select [(ngModel)]="CategoriaSelect">
+          <ion-select-option *ngFor="let cat of Categorias" [value]="cat.Id">{{cat.Categoria}}</ion-select-option>
+          <ion-select-option value="Otra">Otra</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="CategoriaSelect === 'Otra'">
+        <ion-label position="floating">Nombre de la categoria</ion-label>
+        <ion-input [(ngModel)]="CategoriaInput"  maxlength="100"></ion-input>
+      </ion-item>
+    </div>
+    <div class="Negocios">
+      <ion-item>
+        <ion-label> Negocio </ion-label>
+        <ion-select [(ngModel)]="NegocioSelect">
+          <ion-select-option *ngFor="let neg of misNegocios" [value]="neg.IdNegocio">{{neg.Negocio}}</ion-select-option>
+          <ion-select-option value="Otro">Otro</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="NegocioSelect === 'Otro'">
+        <ion-label position="floating">Nombre del negocio</ion-label>
+        <ion-input [(ngModel)]="NegocioInput"  maxlength="100"></ion-input>
+      </ion-item>
+    </div>
+    <div class="NombreProducto">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="ProductoInput"  maxlength="150"></ion-input>
+      </ion-item>
+    </div>
+    <div class="DescripcionProducto">
+      <ion-item>
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-textarea [(ngModel)]="DescripcionInput"  maxlength="1000"></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="PrecioProducto">
+      <ion-item [disabled]="PrecioVariable">
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input [(ngModel)]="precioInput" type="number"  maxlength="7"></ion-input>
+      </ion-item>
+    </div>
+    <div class="PrecioVariable">
+      <ion-item>
+        <ion-label >Precio variable</ion-label>
+        <ion-toggle [(ngModel)]="PrecioVariable" ></ion-toggle>
+      </ion-item>
+      <ion-item [disabled]="!PrecioVariable" class="rangos" >
+        <div>
+          <div>Rango $ - $$$</div><br>
+          <div class="rangoPrecio">
+            <ion-input [(ngModel)]="rangoinferior" type="number"  maxlength="7"></ion-input>
+            <span> - </span> 
+            <ion-input [(ngModel)]="rangoSuperior" type="number"  maxlength="7"></ion-input>
+          </div>
+        </div>
+      </ion-item>
+
+    </div>
+    <div class="previewImage">
+      <img *ngIf="imgloaded" [src]="imgloaded">
+      <img *ngIf="!imgloaded" src="assets/images/NO_IMG.png">
+    </div>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="image"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="end">
+        <ion-fab-button (click)="pickImage(camera.PictureSourceType.PHOTOLIBRARY)"><ion-icon name="images"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="pickImage(camera.PictureSourceType.CAMERA)"><ion-icon name="camera"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+    <ion-fab class="savebtn" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="guardaAnuncio()">
+        <ion-icon name="save"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</div>

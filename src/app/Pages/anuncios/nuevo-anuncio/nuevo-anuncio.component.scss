@@ -1,0 +1,43 @@
+.content{
+    margin-top:15px;
+    width:90%;
+    margin:auto;
+    height:100%;
+}
+.NuevoAnuncio{
+    width:100%;
+    max-height: 86vh;
+    overflow-y: auto;
+}
+
+ion-item{
+    --border-width: 0;
+    margin-top:15px;
+}
+
+.savebtn ion-fab-button{
+    font-size: XX-large !important;
+    --background: #10dc60;
+    --background-hover:#28e070;
+}
+
+.PrecioVariable ion-item{
+    margin-top:0;
+    width:50%;
+    display:inline-block;
+    ion-toggle{
+        margin-top: 40%;
+        margin-left: -100%;
+    }
+    
+}
+.rangos{
+    width:50%;
+    display:inline-block;
+    text-align: center;
+    .rangoPrecio ion-input{
+        max-width: 40%;
+        display: inline-block;
+        text-align: center;
+    }
+}

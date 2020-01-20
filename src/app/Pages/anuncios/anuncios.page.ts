@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition} from '@angular/animations';
-import { NavController } from '@ionic/angular';
+import { NavController, Events } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AnunciosService } from '../../Api/Services/Anuncios/anuncios.service';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
+import 'hammerjs'
 
 @Component({
   selector: 'app-anuncios',
@@ -25,13 +26,22 @@ cargando = true;
 rutaImagenesNegocios = '';
 usuario:{};
 changingStatus= false;
+nuevoAnuncio= false;
+visibleNuevoAnuncio = false;
+detalleNegocio= false;
+visibledetalleNegocio = false;
+
   constructor(
     private navCtrl: NavController,
     private storage: Storage,
     private AnunciosServ: AnunciosService,
-    private configuracion: ConfiguracionComponent
+    private configuracion: ConfiguracionComponent,
+    private events: Events
     ) { 
       this.rutaImagenesNegocios = this.configuracion.rutaImagenesLogos
+      events.subscribe('anuncios:insertado',()=>{
+        this.setNuevoAnuncioState(false)
+      })
     }
 
   ngOnInit() {
@@ -68,8 +78,40 @@ changingStatus= false;
 
   getProductos(){
     if(!this.changingStatus){
-      console.log('getProductos')
+      this.setdetalleNegocioState(true)
     }
   }
+
+  newAd(){
+    this.setNuevoAnuncioState(true)
+    //this.navCtrl.navigateForward(['nuevo-anuncio'])
+  }
+
+  NuevoAnuncioSwipe(e){
+    if(e.direction === 4){
+      this.setNuevoAnuncioState(false)
+    }
+  }
+
+  setNuevoAnuncioState(state){
+    this.nuevoAnuncio = state
+    if(state)
+      this.visibleNuevoAnuncio = state
+    else
+      setTimeout(() => {
+        this.visibleNuevoAnuncio = state
+      }, 500);
+  }
+
+  setdetalleNegocioState(state){
+    this.detalleNegocio = state
+    if(state)
+      this.visibledetalleNegocio = state
+    else
+      setTimeout(() => {
+        this.visibledetalleNegocio = state
+      }, 500);
+  }
+
 
 }

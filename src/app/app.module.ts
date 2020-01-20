@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -34,11 +34,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
-import { PedidosPage } from './Pages/pedidos/pedidos.page'
+import { PedidosPage } from './Pages/pedidos/pedidos.page';
 
+import { Camera } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent
+  ],
+  entryComponents: [
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -55,7 +61,7 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     IonicStorageModule.forRoot(),
     BrowserAnimationsModule,
     CalificarPageModule,
-    
+   
   ],
   providers: [
     StatusBar,
@@ -68,7 +74,10 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page'
     NativeGeocoder,
     OneSignal,
     PedidosPage,
-    StoreDireccionesService
+    StoreDireccionesService,
+    Camera,
+    File,
+    Crop
   ],
   bootstrap: [AppComponent]
 })
