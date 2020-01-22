@@ -17,7 +17,7 @@
           <span>Aún no se han registrado anuncios</span>
         </div>
         <ion-list [ngClass]="{'cargando':(cargando)}">
-          <ion-item  *ngFor="let neg of misNegocios" (click)="getProductos()">
+          <ion-item  *ngFor="let neg of misNegocios" (click)="getProductos(neg.IdNegocio)">
             <div class="imagenLogo" ><img [src]="rutaImagenesNegocios + neg.IdNegocio + '.jpg'"></div>
             <div class="descripcion">
               <div class="direccion"><span>{{neg.Negocio}}</span></div>
@@ -56,7 +56,7 @@
           </ion-button>
         </ion-buttons>
         <div class="swiper" (swipe)="NuevoAnuncioSwipe($event)">
-          <app-detalle-negocio ></app-detalle-negocio>
+          <app-detalle-negocio [IdNegocio]="selectedIdNegocio"></app-detalle-negocio>
         </div>
         
       </div>

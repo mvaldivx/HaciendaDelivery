@@ -175,10 +175,13 @@ calificado = false;
       componentProps: {detallePedido: this.DetallePedido, pedido: this.PedidoSelected}
     })
     modal.onDidDismiss().then(res=>{
-      if(res.data['exitoso']){
-        this.calificado = false
+      if(res.data){
+        if(res.data['exitoso']){
+          this.calificado = false
+        }
+        this.utils.showToast(res.data['res'])
       }
-      this.utils.showToast(res.data['res'])
+      
     })
     return await modal.present();
   }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AnunciosService } from '../../../Api/Services/Anuncios/anuncios.service'
+import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -6,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detalle-negocio.component.scss'],
 })
 export class DetalleNegocioComponent implements OnInit {
+  @Input() IdNegocio:string;
+  anuncios=[]
+  direccionimagenes= ''
+  constructor(
+    private AnunciosServ: AnunciosService,
+    private configuracion: ConfiguracionComponent
+  ) { 
+    this.direccionimagenes = configuracion.rutaImagenesProductos
+  }
 
-  constructor() { }
+  ngOnInit() {
+    this.ObtenerAnuncios()
+  }
 
-  ngOnInit() {}
+  ObtenerAnuncios(){
+    this.AnunciosServ.getAnunciosNegocio({Negocio:this.IdNegocio}).subscribe(res=>{
+      this.anuncios = res
+      console.log(res)
+    })
+  }
 
 }

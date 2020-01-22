@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import CryptoJs from 'crypto-js'
 
 
 @Component({
@@ -22,9 +23,10 @@ export class ConfiguracionComponent implements OnInit {
 
   puerto: string = '3030';
   servidor: string = 'http://'+this.ip;
+  private SECERET_KEY: string = '_*Mauvalsa@95?36839421';
 
   constructor(
-    public httpClient: HttpClient
+    public httpClient: HttpClient,
   ) { 
   }
 
@@ -39,15 +41,27 @@ export class ConfiguracionComponent implements OnInit {
 
 
   claim(padre,archivo,params): Observable<any> {
-    return this.httpClient.get(this.servidor +':'+ this.puerto +'/'+ padre + '/' + archivo ,{params:params})
+    return this.httpClient.get(this.servidor +':'+ this.puerto +'/'+ padre + '/' + archivo ,{params:params, headers:this.headersAuth()})
   }
 
   claimPost(padre,archivo,params): Observable<any>{
-    return this.httpClient.post(this.servidor + ':' + this.puerto + '/' + padre + '/' + archivo,{params:params})
+    return this.httpClient.post(this.servidor + ':' + this.puerto + '/' + padre + '/' + archivo,{params:params, headers:this.headersAuth()})
   }
 
   bingClaim(q):Observable<Result>{
     return this.httpClient.get<Result>(q)
+  }
+
+  headersAuth(){
+    let headers = new HttpHeaders({Authorization:this.generateApiKey()});
+    headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
+    return headers
+  }
+
+  generateApiKey(){
+    var val = new Date().valueOf()
+    var key = CryptoJs.HmacSHA256(val.toString(),this.SECERET_KEY).toString()
+    return val + '%$&'+ key.toString()
   }
 
   ngOnInit() {}

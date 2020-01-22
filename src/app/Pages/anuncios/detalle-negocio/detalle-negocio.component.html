@@ -1,3 +1,18 @@
-<p>
-  detalle-negocio works!
-</p>
+<div class="contenido">
+  <ion-list>
+    <ion-item *ngFor="let a of anuncios">
+      <div class="imagenLogo" ><img [src]="direccionimagenes + IdNegocio + '/' + a.IdProducto + '.jpg'"></div>
+        <div class="descripcion">
+          <div class="direccion"><span>{{a.Producto}}</span></div>
+          <div class="Estatus"><span>Estatus: {{a.Estatus}} </span></div>
+        </div>
+        <div class="btnEdit">
+          <ion-buttons class="" >
+            <ion-button slot="icon-only" size="large" >
+              <ion-icon name="build"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+    </ion-item>
+  </ion-list>
+</div>

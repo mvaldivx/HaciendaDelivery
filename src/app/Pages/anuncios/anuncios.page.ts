@@ -30,6 +30,7 @@ nuevoAnuncio= false;
 visibleNuevoAnuncio = false;
 detalleNegocio= false;
 visibledetalleNegocio = false;
+selectedIdNegocio= 0;
 
   constructor(
     private navCtrl: NavController,
@@ -76,8 +77,9 @@ visibledetalleNegocio = false;
     })
   }
 
-  getProductos(){
+  getProductos(IdNegocio){
     if(!this.changingStatus){
+      this.selectedIdNegocio = IdNegocio
       this.setdetalleNegocioState(true)
     }
   }

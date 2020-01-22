@@ -38,7 +38,7 @@ export class PrincipalComponent implements OnInit {
   ngOnInit() {}
 
   getCategorias(): Observable<any>{
-    return this.config.claim('Principal','getCategorias','')
+    return this.config.claim('Principal','getCategorias',{})
   }
 
   getNegocios(params): Observable<any>{
