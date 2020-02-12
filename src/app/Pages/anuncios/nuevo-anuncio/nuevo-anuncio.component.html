@@ -1,6 +1,19 @@
 <div class="NuevoAnuncio">
   <div class="content">
-    <div class="categoria">
+    <div class="Negocios">
+      <ion-item>
+        <ion-label> Negocio </ion-label>
+        <ion-select [(ngModel)]="NegocioSelect" (ionChange)="NegocioSelected()">
+          <ion-select-option *ngFor="let neg of misNegocios" [value]="neg.IdNegocio">{{neg.Negocio}}</ion-select-option>
+          <ion-select-option value="Otro">Otro</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="NegocioSelect === 'Otro'">
+        <ion-label position="floating">Nombre del negocio</ion-label>
+        <ion-input [(ngModel)]="NegocioInput"  maxlength="100"></ion-input>
+      </ion-item>
+    </div>
+    <div class="categoria" *ngIf="NegocioSelect === 'Otro'" >
       <ion-item>
         <ion-label> Categoria </ion-label>
         <ion-select [(ngModel)]="CategoriaSelect">
@@ -11,19 +24,6 @@
       <ion-item *ngIf="CategoriaSelect === 'Otra'">
         <ion-label position="floating">Nombre de la categoria</ion-label>
         <ion-input [(ngModel)]="CategoriaInput"  maxlength="100"></ion-input>
-      </ion-item>
-    </div>
-    <div class="Negocios">
-      <ion-item>
-        <ion-label> Negocio </ion-label>
-        <ion-select [(ngModel)]="NegocioSelect">
-          <ion-select-option *ngFor="let neg of misNegocios" [value]="neg.IdNegocio">{{neg.Negocio}}</ion-select-option>
-          <ion-select-option value="Otro">Otro</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="NegocioSelect === 'Otro'">
-        <ion-label position="floating">Nombre del negocio</ion-label>
-        <ion-input [(ngModel)]="NegocioInput"  maxlength="100"></ion-input>
       </ion-item>
     </div>
     <div class="NombreProducto">
@@ -62,8 +62,9 @@
 
     </div>
     <div class="previewImage">
-      <img *ngIf="imgloaded" [src]="imgloaded">
-      <img *ngIf="!imgloaded" src="assets/images/NO_IMG.png">
+      <ion-img *ngIf="imagePath" [src]="imagePath" (ionImgDidLoad)="imgLoadedf()"></ion-img>
+      <ion-spinner *ngIf="imagePath && !imgloaded" name="crescent"></ion-spinner>
+      <img *ngIf="!imagePath" src="assets/images/NO_IMG.png">
     </div>
     <ion-fab vertical="bottom" horizontal="start" slot="fixed">
       <ion-fab-button>
@@ -74,10 +75,13 @@
         <ion-fab-button (click)="pickImage(camera.PictureSourceType.CAMERA)"><ion-icon name="camera"></ion-icon></ion-fab-button>
       </ion-fab-list>
     </ion-fab>
-    <ion-fab class="savebtn" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab  class="savebtn" vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="guardaAnuncio()">
-        <ion-icon name="save"></ion-icon>
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <ion-icon *ngIf="!isLoading" name="save"  ></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </div>
 </div>
+
+

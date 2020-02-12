@@ -1,0 +1,60 @@
+.content{
+    height:100%;
+    width:100%;
+    display:flex;
+}
+
+div{
+    font-family: 'Montserrat';
+}
+
+.info{
+    width: 100%;
+    padding:10px;
+}
+
+.avatar{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    width: 50%;
+    ion-avatar{
+        width: 70%;
+        height: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        ion-img{
+            width: 100%;
+            height: 100%;
+        }
+        ion-icon{
+            font-size: xx-large;
+            color:#656565;
+        }
+    }
+}
+
+.Descripcion, .Nombre{
+    margin-top:25px;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:600px;
+    width:90%;
+} 
+
+.Nombre ion-input, .Descripcion ion-textarea{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #9a9a9a;
+    border-width: thin;
+}
+
+.btnSave {
+    margin-bottom: 5vh;
+    ion-fab-button{
+        --background: #10dc60;
+        --background-hover:#28e070;
+        --background-activated:#28e070;
+    }
+    
+}

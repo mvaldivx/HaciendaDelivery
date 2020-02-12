@@ -1,15 +1,19 @@
 <div class="contenido">
   <ion-list>
     <ion-item *ngFor="let a of anuncios">
-      <div class="imagenLogo" ><img [src]="direccionimagenes + IdNegocio + '/' + a.IdProducto + '.jpg'"></div>
+      <div class="imagenLogo" >
+        <ion-img *ngIf="!a.imgError" (ionImgDidLoad)="a.imgError = false"
+            (ionError)="a.imgError = true" [src]="direccionimagenes + IdNegocio + '/' + a.IdProducto + '.jpg'"></ion-img>
+        <ion-img *ngIf="a.imgError" [src]="rutaNoImage"></ion-img>
+      </div>
         <div class="descripcion">
           <div class="direccion"><span>{{a.Producto}}</span></div>
           <div class="Estatus"><span>Estatus: {{a.Estatus}} </span></div>
         </div>
         <div class="btnEdit">
           <ion-buttons class="" >
-            <ion-button slot="icon-only" size="large" >
-              <ion-icon name="build"></ion-icon>
+            <ion-button (click)="ModificaAnuncio(a.IdProducto)" slot="icon-only" size="large" >
+              <ion-icon name="build" ></ion-icon>
             </ion-button>
           </ion-buttons>
         </div>

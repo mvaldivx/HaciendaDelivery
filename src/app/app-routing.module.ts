@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './Pages/registro/registro.module#RegistroPageModule' },
   { path: 'pedidos', loadChildren: './Pages/pedidos/pedidos.module#PedidosPageModule' },
   { path: 'anuncios', loadChildren: './Pages/anuncios/anuncios.module#AnunciosPageModule' },
-  { path: 'calificar', loadChildren: './Pages/calificar/calificar.module#CalificarPageModule' }
+  { path: 'calificar', loadChildren: './Pages/calificar/calificar.module#CalificarPageModule' },  { path: 'modificar-negocio', loadChildren: './Pages/modificar-negocio/modificar-negocio.module#ModificarNegocioPageModule' }
+
 ];
 
 @NgModule({

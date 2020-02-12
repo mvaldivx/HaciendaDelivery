@@ -29,6 +29,7 @@ import { UbicacionPageModule } from './Pages/ubicacion/ubicacion.module'
 import { UtilsComponent } from './utils/utils.component'
 import { DireccionesPageModule } from './Pages/direcciones/direcciones.module'
 import { CalificarPageModule } from './Pages/calificar/calificar.module'
+import { ModificarNegocioPageModule } from './Pages/modificar-negocio/modificar-negocio.module'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -38,7 +39,7 @@ import { PedidosPage } from './Pages/pedidos/pedidos.page';
 
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { Crop } from '@ionic-native/crop/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 @NgModule({
   declarations: [
     AppComponent
@@ -61,7 +62,7 @@ import { Crop } from '@ionic-native/crop/ngx';
     IonicStorageModule.forRoot(),
     BrowserAnimationsModule,
     CalificarPageModule,
-   
+    ModificarNegocioPageModule
   ],
   providers: [
     StatusBar,
@@ -77,7 +78,7 @@ import { Crop } from '@ionic-native/crop/ngx';
     StoreDireccionesService,
     Camera,
     File,
-    Crop
+    FileTransfer
   ],
   bootstrap: [AppComponent]
 })

@@ -104,10 +104,17 @@
     <plugin name="onesignal-cordova-plugin" spec="^2.6.0" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="~5.0.4" />
-    <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+    <config-file mode="merge" parent="NSCameraUsageDescription" target="*-Info.plist">
         <string>You can take photos</string>
     </config-file>
-    <config-file parent="NSCameraUsageDescription" platform="android" target="*-Info.plist">
-        <string>You can take photos</string>
+    <config-file mode="merge" parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+        <string>You can take photos from library</string>
     </config-file>
+    <config-file mode="merge" parent="NSLocationWhenInUseUsageDescription" target="*-Info.plist">
+        <string>You can take photos from library</string>
+    </config-file>
+    <config-file mode="merge" parent="NSPhotoLibraryAddUsageDescription" target="*-Info.plist">
+        <string>You can take photos from library</string>
+    </config-file>
+    <allow-navigation href="http://localhost:8100" sessionid="e68dc80a" />
 </widget>

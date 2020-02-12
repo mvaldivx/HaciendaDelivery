@@ -10,7 +10,7 @@ import CryptoJs from 'crypto-js'
 export class ConfiguracionComponent implements OnInit {
 
   films: Observable<any>;
-  ip : string = 'localhost'//'3.15.223.31'
+  ip : string = '172.16.214.70'//'3.15.223.31'
   rutaImagenes: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Categorias/';
   rutaImagenesNegocios: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Negocios/';
   rutaImagenesLogos: string = 'http://mauvalsa.com/HaciendaDelivery/resources/Images/Logos/';
@@ -18,6 +18,7 @@ export class ConfiguracionComponent implements OnInit {
   rutaNoImage: string = "assets/images/no-image.jpg"
   UrlBingQuery: string = "http://dev.virtualearth.net/REST/v1/Locations"
   bingKey: string="Al6mHrQ7P6DoX0ZmlKVbhx81Ra2L4_tWDu2Gydy1NlY3T25ey4rNctMSwA1LOrvK"
+  ipServidorImagenes: string = "http://mauvalsa.com/HaciendaDelivery/"
   //Ejemplo Estructura bing Query
   //http://dev.virtualearth.net/REST/v1/Locations?q=calle%2013,%20Guadalajara&key=Al6mHrQ7P6DoX0ZmlKVbhx81Ra2L4_tWDu2Gydy1NlY3T25ey4rNctMSwA1LOrvK
 
@@ -38,8 +39,6 @@ export class ConfiguracionComponent implements OnInit {
     return this.rutaImagenesNegocios
   }
 
-
-
   claim(padre,archivo,params): Observable<any> {
     return this.httpClient.get(this.servidor +':'+ this.puerto +'/'+ padre + '/' + archivo ,{params:params, headers:this.headersAuth()})
   }
@@ -50,6 +49,10 @@ export class ConfiguracionComponent implements OnInit {
 
   bingClaim(q):Observable<Result>{
     return this.httpClient.get<Result>(q)
+  }
+
+  claimImage(params,metodo):Observable<any>{
+    return this.httpClient.post(this.ipServidorImagenes + metodo,{params:params})
   }
 
   headersAuth(){

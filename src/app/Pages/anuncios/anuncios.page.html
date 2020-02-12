@@ -16,17 +16,21 @@
           <div class="imagen"><img src="assets/images/anuncios.png"></div><br/>
           <span>Aún no se han registrado anuncios</span>
         </div>
-        <ion-list [ngClass]="{'cargando':(cargando)}">
-          <ion-item  *ngFor="let neg of misNegocios" (click)="getProductos(neg.IdNegocio)">
-            <div class="imagenLogo" ><img [src]="rutaImagenesNegocios + neg.IdNegocio + '.jpg'"></div>
+        <ion-list mode="md" [ngClass]="{'cargando':(cargando)}">
+          <ion-item mode="md"  *ngFor="let neg of misNegocios" (click)="getProductos(neg.IdNegocio)">
+            <div class="imagenLogo" >
+              <ion-img *ngIf="!neg.imgError" (ionImgDidLoad)="neg.imgError = false"
+            (ionError)="neg.imgError = true" [src]="rutaImagenesNegocios + neg.IdNegocio + '.jpg'"></ion-img>
+            <ion-img *ngIf="neg.imgError" [src]="rutaNoImage"></ion-img>
+            </div>
             <div class="descripcion">
               <div class="direccion"><span>{{neg.Negocio}}</span></div>
               <div class="Estatus"><span>Estatus: </span></div>
-              <ion-toggle [(ngModel)]="neg.Estatus" (ionChange)="changeStatusNegocio(neg.IdNegocio,neg.Estatus, $event)"></ion-toggle>
+              <ion-toggle [(ngModel)]="neg.Abierto" (ionChange)="changeStatusNegocio(neg.IdNegocio,neg.Abierto, $event)"></ion-toggle>
             </div>
             <div class="btnEdit">
-              <ion-buttons class="" >
-                <ion-button slot="icon-only" size="large" >
+              <ion-buttons mode="md" >
+                <ion-button mode="md" (click)="ModificaNegocio(neg.IdNegocio)" slot="icon-only" size="large" >
                   <ion-icon name="build"></ion-icon>
                 </ion-button>
               </ion-buttons>
@@ -43,7 +47,7 @@
           </ion-button>
         </ion-buttons>
         <div class="swiper" (swipe)="NuevoAnuncioSwipe($event)">
-          <app-nuevo-anuncio [misNegocios]="misNegocios" [Usuario]="usuario"></app-nuevo-anuncio>
+          <app-nuevo-anuncio [EditAdSelected]="EditAdSelected" [misNegocios]="misNegocios" [Usuario]="usuario"></app-nuevo-anuncio>
         </div>
         
       </div>

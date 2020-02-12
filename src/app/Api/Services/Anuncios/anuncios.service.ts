@@ -31,4 +31,8 @@ export class AnunciosService {
   getAnunciosNegocio(Negocio):Observable<any>{
     return this.configuracion.claim('Anuncios','GetAnunciosNegocio',Negocio)
   }
+
+  getinfoAnuncio(info):Observable<any>{
+    return this.configuracion.claim('Anuncios','getInfoAnuncio',info);
+  }
 }

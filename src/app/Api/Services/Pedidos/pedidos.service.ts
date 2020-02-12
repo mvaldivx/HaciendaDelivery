@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ConfiguracionComponent } from '../../../Configuracion/configuracion/configuracion.component'
 
 export interface Pedido {

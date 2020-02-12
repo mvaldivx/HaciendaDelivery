@@ -1,0 +1,31 @@
+
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="avatar">
+        <ion-avatar>
+          <ion-img *ngIf="!imgError && !loadedImage" (ionImgDidLoad)="imgError = false"
+            (ionError)="imgError = true" [src]="rutaImagenesNegocios + IdNegocio + '.jpg'"></ion-img>
+          <ion-img *ngIf="imgError && !loadedImage" [src]="rutaNoImage"></ion-img>
+          <ion-img *ngIf="loadedImage" [src]="loadedImage"></ion-img>
+          <ion-icon mode="md" name="cloud-upload" (click)="selectImage()"></ion-icon>
+        </ion-avatar>
+      </div>
+      <div class="Nombre">
+        <h4>Nombre</h4> 
+        <ion-input mode="md" [(ngModel)]="negocio.Negocio"></ion-input>
+      </div>
+      <div class="Descripcion">
+        <h4>Descripción</h4> 
+        <ion-textarea rows="3" mode="md" [(ngModel)]="negocio.Descripcion"></ion-textarea>
+      </div>
+    </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="btnSave" >
+      <ion-fab-button (click)="update()" >
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <ion-icon *ngIf="!isLoading" name="save"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+</ion-content>

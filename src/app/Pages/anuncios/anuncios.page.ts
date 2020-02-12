@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition} from '@angular/animations';
-import { NavController, Events } from '@ionic/angular';
+import { NavController, Events, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AnunciosService } from '../../Api/Services/Anuncios/anuncios.service';
 import { ConfiguracionComponent } from '../../Configuracion/configuracion/configuracion.component'
+import { ModificarNegocioPage } from '../modificar-negocio/modificar-negocio.page'
+import { myEnterAnimation, myLeaveAnimation } from '../../Transitions/ModalEnterAnimation'
 import 'hammerjs'
 
 @Component({
@@ -31,17 +33,27 @@ visibleNuevoAnuncio = false;
 detalleNegocio= false;
 visibledetalleNegocio = false;
 selectedIdNegocio= 0;
-
+rutaNoImage:string = '';
+EditAdSelected= {IdProducto: 0, IdNegocio: 0, edit: false}
   constructor(
     private navCtrl: NavController,
     private storage: Storage,
     private AnunciosServ: AnunciosService,
     private configuracion: ConfiguracionComponent,
-    private events: Events
+    private events: Events,
+    private modalCtrl: ModalController
     ) { 
+      this.rutaNoImage = this.configuracion.rutaNoImage
       this.rutaImagenesNegocios = this.configuracion.rutaImagenesLogos
       events.subscribe('anuncios:insertado',()=>{
         this.setNuevoAnuncioState(false)
+      })
+      events.subscribe('modifica:anuncio',(info)=>{
+        this.setdetalleNegocioState(false)
+        this.EditAdSelected = info
+        setTimeout(()=>{
+          this.newAd()
+        },500)
       })
     }
 
@@ -113,6 +125,26 @@ selectedIdNegocio= 0;
       setTimeout(() => {
         this.visibledetalleNegocio = state
       }, 500);
+  }
+
+
+  async ModificaNegocio(idNegocio){
+    this.changingStatus = true
+    const modal = await this.modalCtrl.create({
+      component: ModificarNegocioPage,
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
+      componentProps: {IdNegocio: idNegocio}
+    })
+    modal.onDidDismiss().then(res=>{
+      this.changingStatus = false
+      if(res.data){
+      }
+      
+    })
+    
+    return await modal.present();
+    
   }
 
 
