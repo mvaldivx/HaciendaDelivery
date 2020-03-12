@@ -44,7 +44,7 @@
         <ion-input [(ngModel)]="precioInput" type="number"  maxlength="7"></ion-input>
       </ion-item>
     </div>
-    <div class="PrecioVariable">
+    <!-- <div class="PrecioVariable">
       <ion-item>
         <ion-label >Precio variable</ion-label>
         <ion-toggle [(ngModel)]="PrecioVariable" ></ion-toggle>
@@ -59,8 +59,7 @@
           </div>
         </div>
       </ion-item>
-
-    </div>
+    </div> -->
     <div class="previewImage">
       <ion-img *ngIf="imagePath" [src]="imagePath" (ionImgDidLoad)="imgLoadedf()"></ion-img>
       <ion-spinner *ngIf="imagePath && !imgloaded" name="crescent"></ion-spinner>

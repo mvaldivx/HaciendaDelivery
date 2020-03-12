@@ -152,8 +152,18 @@ imagePath
         Estatus: 0,
         Comentarios: ''
       }
-      this.AnunciosServ.NuevoAnuncio(info).subscribe(res=>{
-        if(res.success){
+      if(!this.EditAdSelected.edit){
+        this.NuevoAnuncio(info)
+      }
+    }else{
+      this.utils.showToast(validaCampos.comment)
+    }
+  }
+
+  NuevoAnuncio(info){
+    this.AnunciosServ.NuevoAnuncio(info).subscribe(res=>{
+      if(res.success){
+        if(this.imagePath){
           //guarda imagen
           let options: FileUploadOptions = {
             fileKey: 'photo',
@@ -170,20 +180,34 @@ imagePath
             this.events.publish('anuncios:insertado')
           })
         }else{
-          this.isLoading = false
-          this.utils.showToast(res.message)
+          this.events.publish('anuncios:insertado')
         }
-          
-        
-      },err=>{
-        console.log(err)
+        //guarda imagen
+        let options: FileUploadOptions = {
+          fileKey: 'photo',
+          fileName: res.IdProducto,
+          chunkedMode: false,
+          httpMethod: 'post',
+          mimeType: 'image/jpeg',
+          params:{ruta: './resources/Images/Productos/',
+            IdNegocio:(this.NegocioSelect != 'Otro') ? this.NegocioSelect : res.IdNegocio,
+            nombre:res.IdProducto},
+          headers:{}
+        }
+        this.imagenServ.uploadProductImage(this.imagePath,options).then(res=>{
+          this.events.publish('anuncios:insertado')
+        })
+      }else{
         this.isLoading = false
-        this.utils.showToast('Ocurrio un error al guardar')
-      })
-    }else{
+        this.utils.showToast(res.message)
+      }
+        
       
-      this.utils.showToast(validaCampos.comment)
-    }
+    },err=>{
+      console.log(err)
+      this.isLoading = false
+      this.utils.showToast('Ocurrio un error al guardar')
+    })
   }
 
   validaCampos(){
